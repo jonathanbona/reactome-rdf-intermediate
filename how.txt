@@ -1,0 +1,79 @@
+Adapted from 
+http://neurocommons.org/page/Building_Reactome
+
+Assumes that you have mysql installed, a local installation of D2RQ
+
+Download the SQL for reactome from http://reactome.org/download/current/sql.gz
+
+The top of the reactome sql says the version number e.g.
+-- MySQL dump 10.9
+--
+-- Host: localhost    Database: test_reactome_43
+-- ------------------------------------------------------
+
+Let's say that the version number is 43 (as it is now). In mysql create database reactome_43;
+
+In the shell now, renamed the sql.gz file to something with the version in it, say sql_reactome_43
+
+Now load it into mysql:
+cat sql_reactome_43 | mysql -u root reactome_43
+
+Move in to the d2rq installation directory then execute the following to generate the default mapping to rdf
+
+./generate-mapping -u root -d com.mysql.jdbc.Driver -o reactome_43_auto.n3 jdbc:mysql://127.0.0.1/reactome_43
+
+Create a new version of reactomemapping43.pl by copying the previous version of the mapping perl program and replace the mapping with the current contents of the  __DATA__ section
+
+Edit the jdbc line:
+
+d2rq:jdbcDSN "jdbc:mysql://127.0.0.1/reactome_43";
+
+to
+
+d2rq:jdbcDSN "jdbc:mysql://127.0.0.1/reactome_43?zeroDateTimeBehavior=convertToNull";
+
+Some classes/tables may have changed from a previous version. I used
+diff on the generated d2rq maps to figure out what did. For example
+from 24 to 25 we lost map:LiteratureReference__1stAuthorSurname (a
+slot), and gained map:Person_project (another slot)
+
+The frames version of the ontology is in the Ontology table in the ontology column. It is a blob. select ontology from Ontology will give you it, crud and all. You are interested in just the defclass lisp forms. A modified version of those defclass statements will become reactome-43-frames.lisp.
+
+ Using reactome-frames.lisp as a model, edit reactome-25-frames into shape. This involves replacing %3A with ":", removing the ";+", and copying a couple of definitions from the top of reactome-frames.lisp into the new file.
+
+Having determined that there are not major changes in kind we should be able to run reactomemapping43.pl to generate the *real* d2rq mappping then run d2rq to generate the rdf. First we adjust the namespaces
+
+@prefix map: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmap/> .
+@prefix db: <> .
+@prefix vocab: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmodel/> .
+@prefix record: <http://purl.org/commons/record/reactome/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+Then Run reactomemapping43.pl:
+
+perl reactomemapping43.pl > reactomemapping43.n3
+
+There is one more manual fix having to do with the go URIs. The database uses accessions as a string. The properties are: GO_CellularComponent.accession, GO_MolecularFunction.accession, GO_BiologicalProcess.accession. We define a new property that has as its value the go URI. Here's one of them - the others by analogy (or by copying from a previous version). These are added to reactomemapping43.n3
+
+map:GO_BiologicalProcess_property_uri a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:uri;
+	d2rq:uriPattern "http://purl.org/obo/owl/GO#GO_@@GO_BiologicalProcess.accession@@";
+.
+
+Now we can dump the rdf. (assuming $D2RQ is where d2rq is installed)
+
+sh $D2RQ/dump-rdf  -o reactome43.nt -f N-TRIPLE -b http://purl.obolibrary.org/obo/reactome/records/ reactomemapping43.n3
+
+Now generate the owl file for the schema. In lisp load reactome-frames-43.lisp. Then load frames-to-owl2.lisp, then serialize with (write-rdfxml (generate-reactome-records-ontology *reactome-frames-43*) "reactome-records-43.owl")
+
+The two files reactome43.nt and reactome-records-43.owl constitute the
+RDF. Load them into a triple store.
+
+
+
+

@@ -1,0 +1,3770 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE rdf:RDF [
+  <!ENTITY owl "http://www.w3.org/2002/07/owl#">
+  <!ENTITY rdf "http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <!ENTITY rdfs "http://www.w3.org/2000/01/rdf-schema#">
+  <!ENTITY reactome "http://purl.org/science/ontology/reactome/">
+  <!ENTITY xsd "http://www.w3.org/2001/XMLSchema#">
+]>
+<rdf:RDF xml:base="&reactome;"
+         xmlns:owl="&owl;"
+         xmlns:rdf="&rdf;"
+         xmlns:rdfs="&rdfs;">
+
+<!-- Ontology Information -->
+  <owl:Ontology rdf:about=""/>
+
+<!-- Classes -->
+  <owl:Class rdf:about="Affiliation">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="BlackBoxEvent">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="ReactionlikeEvent"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="ReactionlikeEvent"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Depolymerisation"/>
+    <owl:disjointWith rdf:resource="Polymerisation"/>
+    <owl:disjointWith rdf:resource="Reaction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="CandidateSet">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="EntitySet"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="EntitySet"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Domain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="DefinedSet"/>
+    <owl:disjointWith rdf:resource="OpenSet"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="CatalystActivity">
+    <rdfs:comment rdf:datatype="&xsd;string">Allows to denote one activity (out of many possible) of a part of molecule, molecule and complex. Should be read either as 'Entity has ACTIVITY activity' or 'ACTIVITY activity of entity'. The latter is the case if used in a dependency statement.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Compartment">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="GO_CellularComponent"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="GO_CellularComponent"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="componentOf"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="Complex">
+    <rdfs:comment rdf:datatype="&xsd;string">Entities consisting of multiple independant subunits.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="hasComponent"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Domain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Complex"/>
+                <owl:onProperty rdf:resource="hasInstance"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">2</owl:minCardinality>
+                <owl:onProperty rdf:resource="hasComponent"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="EntitySet"/>
+    <owl:disjointWith rdf:resource="GenomeEncodedEntity"/>
+    <owl:disjointWith rdf:resource="OtherEntity"/>
+    <owl:disjointWith rdf:resource="Polymer"/>
+    <owl:disjointWith rdf:resource="SimpleEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ComplexDomain">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Domain"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Domain"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="Domain"/>
+                      <rdf:Description rdf:about="PhysicalEntity"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="hasComponent"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="hasComponent"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="GenericDomain"/>
+    <owl:disjointWith rdf:resource="SequenceDomain"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ConcurrentEventSet">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ControlledVocabulary">
+    <rdfs:comment rdf:datatype="&xsd;string">Superclass for controlled vocabularies</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="DatabaseIdentifier">
+    <rdfs:comment rdf:datatype="&xsd;string">Placeholder for database identifiers. Name is something human readable, e.g. a GO term itself while identifier is the numeric id. In the instances created I've added the 'GO:' prefix just for convenience really. When finally sticking the things in db these should be removed.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="identifier"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="referenceDatabase"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="identifier"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="referenceDatabase"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="DatabaseObject"/>
+  <owl:Class rdf:about="DefinedSet">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="EntitySet"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="EntitySet"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Domain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="CandidateSet"/>
+    <owl:disjointWith rdf:resource="OpenSet"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="DeletedControlledVocabulary">
+    <rdfs:comment rdf:datatype="&xsd;string">List of terms explaining reasons for deleting instances</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="ControlledVocabulary"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Depolymerisation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="ReactionlikeEvent"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="ReactionlikeEvent"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="BlackBoxEvent"/>
+    <owl:disjointWith rdf:resource="Polymerisation"/>
+    <owl:disjointWith rdf:resource="Reaction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Domain">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="EntityCompartment">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Compartment"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Compartment"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="componentOf"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="EntitySet">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Domain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Complex"/>
+    <owl:disjointWith rdf:resource="GenomeEncodedEntity"/>
+    <owl:disjointWith rdf:resource="OtherEntity"/>
+    <owl:disjointWith rdf:resource="Polymer"/>
+    <owl:disjointWith rdf:resource="SimpleEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="EntityWithAccessionedSequence">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="GenomeEncodedEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="GenomeEncodedEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="SequenceDomain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="startCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReferenceSequence"/>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="startCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="endCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="endCoordinate"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="Event">
+    <rdfs:comment rdf:datatype="&xsd;string">Presents some sort of event, be it chemical reaction or some complex multistep process.nThe identity of direct instances of this class is defined by the values of name and txon attributes.nUse this class to create a placeholder for a Reaction or Pathway to be fully defined later.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="EvidenceType">
+    <rdfs:comment rdf:datatype="&xsd;string">Instances of this class represent different evidence types</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EvidenceType"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Figure">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="url"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="url"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="FrontPage">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="GO_BiologicalProcess">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_BiologicalProcess"/>
+                <owl:onProperty rdf:resource="componentOf"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_BiologicalProcess"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="GO_CellularComponent">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="componentOf"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_CellularComponent"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="GO_MolecularFunction">
+    <rdfs:comment rdf:datatype="&xsd;string">Basically GO functions</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_MolecularFunction"/>
+                <owl:onProperty rdf:resource="componentOf"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="GO_MolecularFunction"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="GenericDomain">
+    <rdfs:comment rdf:datatype="&xsd;string">For generalising multiple domains in different entities so that GenericEntities can also have domains.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Domain"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Domain"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="ComplexDomain"/>
+                      <rdf:Description rdf:about="SequenceDomain"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="hasInstance"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="ComplexDomain"/>
+    <owl:disjointWith rdf:resource="SequenceDomain"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="GenomeEncodedEntity">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Complex"/>
+    <owl:disjointWith rdf:resource="EntitySet"/>
+    <owl:disjointWith rdf:resource="OtherEntity"/>
+    <owl:disjointWith rdf:resource="Polymer"/>
+    <owl:disjointWith rdf:resource="SimpleEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="InstanceEdit">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="author"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="LiteratureReference">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="pubMedIdentifier"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="pubMedIdentifier"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ModifiedResidue">
+    <rdfs:comment rdf:datatype="&xsd;string">Placeholder for modified residues. Referenced by PhysicalEntity. Coordinate is the position of the modified residue in the VirtualMolecule. Virtual molecule is referenced in order to prevent situations where, say, residue 5 is phosphorylated in 2 diferent molecules. It woudl be logically wrong for these 2 real molecules to reference the same modified residue. Maybe an overkill (?).</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="NegativeRegulation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Regulation"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Regulation"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="CatalystActivity"/>
+                      <rdf:Description rdf:about="Event"/>
+                      <rdf:Description rdf:about="PhysicalEntity"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="PositiveRegulation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="OpenSet">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="EntitySet"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="EntitySet"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Domain"/>
+                <owl:onProperty rdf:resource="hasDomain"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReferenceMoleculeClass"/>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="CandidateSet"/>
+    <owl:disjointWith rdf:resource="DefinedSet"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="OtherEntity">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Complex"/>
+    <owl:disjointWith rdf:resource="EntitySet"/>
+    <owl:disjointWith rdf:resource="GenomeEncodedEntity"/>
+    <owl:disjointWith rdf:resource="Polymer"/>
+    <owl:disjointWith rdf:resource="SimpleEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Pathway">
+    <rdfs:comment rdf:datatype="&xsd;string">Multi-step Event. Pathway is recursive, i.e. can contain other Pathways and hence should be handled with care to prevent cycles.nUse sub-classes for creating appropriate instances.n(The identity of a Pathway is defined by the component Events.)</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Event"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Event"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="ReactionlikeEvent"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="PathwayCoordinates">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Person">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="PhysicalEntity">
+    <rdfs:comment rdf:datatype="&xsd;string">Thing which participates in Events as input, output or catalyst. Can be recursive,i.e. contain other PhysicalEntities. This allows easier creation of cascading complexes.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Polymer">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="repeatedUnit"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="PhysicalEntity"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Complex"/>
+    <owl:disjointWith rdf:resource="EntitySet"/>
+    <owl:disjointWith rdf:resource="GenomeEncodedEntity"/>
+    <owl:disjointWith rdf:resource="OtherEntity"/>
+    <owl:disjointWith rdf:resource="SimpleEntity"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Polymerisation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="ReactionlikeEvent"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="ReactionlikeEvent"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="BlackBoxEvent"/>
+    <owl:disjointWith rdf:resource="Depolymerisation"/>
+    <owl:disjointWith rdf:resource="Reaction"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="PositiveRegulation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Regulation"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Regulation"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="CatalystActivity"/>
+                      <rdf:Description rdf:about="Event"/>
+                      <rdf:Description rdf:about="PhysicalEntity"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="NegativeRegulation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Reaction">
+    <rdfs:comment rdf:datatype="&xsd;string">Single-step Event.nUse sub-classes for creating appropriate instances.n(Identity of a Reaction is defined by its input, output and catalystActivity.)</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="ReactionlikeEvent"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="ReactionlikeEvent"/>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="Event"/>
+                <owl:onProperty rdf:resource="inferredFrom"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReactionlikeEvent"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">0</owl:minCardinality>
+                <owl:onProperty rdf:resource="catalystActivity"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="BlackBoxEvent"/>
+    <owl:disjointWith rdf:resource="Depolymerisation"/>
+    <owl:disjointWith rdf:resource="Polymerisation"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReactionCoordinates">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReactionlikeEvent">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Event"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Event"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReactionlikeEvent"/>
+                <owl:onProperty rdf:resource="hasMember"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Pathway"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceDNASequence">
+    <rdfs:subClassOf rdf:resource="ReferenceSequence"/>
+    <owl:disjointWith rdf:resource="ReferencePeptideSequence"/>
+    <owl:disjointWith rdf:resource="ReferenceRNASequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceDatabase">
+    <rdfs:comment rdf:datatype="&xsd;string">Place to keep info about databases used so that the general stuff shouldn't be writen out again and again with each database identifier.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceEntity">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceGroup">
+    <rdfs:subClassOf rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceMolecule"/>
+    <owl:disjointWith rdf:resource="ReferenceMoleculeClass"/>
+    <owl:disjointWith rdf:resource="ReferenceSequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceGroupCount">
+    <rdfs:comment rdf:datatype="&xsd;string">Allows to indicate the range of a given group count. I.e. when put into ReferenceEntity's referenceGroupCount slot it indicats that the RefEnt in question contains this group in the specified number of copies. Set minCount and maxCount to 0 to indicate that this group should not be present in a given RefEnt. Leave maxCount empty to indicate that the group can occur at least in minCount copies.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceMolecule">
+    <rdfs:subClassOf rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroup"/>
+    <owl:disjointWith rdf:resource="ReferenceMoleculeClass"/>
+    <owl:disjointWith rdf:resource="ReferenceSequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceMoleculeClass">
+    <rdfs:subClassOf rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroup"/>
+    <owl:disjointWith rdf:resource="ReferenceMolecule"/>
+    <owl:disjointWith rdf:resource="ReferenceSequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferencePeptideSequence">
+    <rdfs:subClassOf rdf:resource="ReferenceSequence"/>
+    <owl:disjointWith rdf:resource="ReferenceDNASequence"/>
+    <owl:disjointWith rdf:resource="ReferenceRNASequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceRNASequence">
+    <rdfs:subClassOf rdf:resource="ReferenceSequence"/>
+    <owl:disjointWith rdf:resource="ReferenceDNASequence"/>
+    <owl:disjointWith rdf:resource="ReferencePeptideSequence"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReferenceSequence">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="ReferenceEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="ReferenceEntity"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="species"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="ReferenceGroup"/>
+    <owl:disjointWith rdf:resource="ReferenceMolecule"/>
+    <owl:disjointWith rdf:resource="ReferenceMoleculeClass"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Regulation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="CatalystActivity"/>
+                      <rdf:Description rdf:about="Event"/>
+                      <rdf:Description rdf:about="PhysicalEntity"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="RegulationType">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="RegulationType"/>
+                <owl:onProperty rdf:resource="instanceOf"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="ReplacedResidue">
+    <rdfs:subClassOf rdf:resource="ModifiedResidue"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Requirement">
+    <rdfs:comment rdf:datatype="&xsd;string">Extreme positive regulation, i.e. regulated entity absolutely requires regulator.</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PositiveRegulation"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PositiveRegulation"/>
+              <owl:Restriction>
+                <owl:allValuesFrom>
+                  <owl:Class>
+                    <owl:unionOf rdf:parseType="Collection">
+                      <rdf:Description rdf:about="CatalystActivity"/>
+                      <rdf:Description rdf:about="Event"/>
+                      <rdf:Description rdf:about="PhysicalEntity"/>
+                    </owl:unionOf>
+                  </owl:Class>
+                </owl:allValuesFrom>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulatedEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="regulator"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+  </owl:Class>
+
+  <owl:Class rdf:about="SequenceDomain">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="Domain"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="Domain"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="startCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReferenceSequence"/>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="startCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="endCoordinate"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="endCoordinate"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="ComplexDomain"/>
+    <owl:disjointWith rdf:resource="GenericDomain"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="SimpleEntity">
+    <rdfs:comment rdf:datatype="&xsd;string">Indivisible entities, i.e. entities which do not have sub-units. Opposite to Complex</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="PhysicalEntity"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="PhysicalEntity"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="ReferenceMolecule"/>
+                <owl:onProperty rdf:resource="referenceEntity"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="EntityCompartment"/>
+                <owl:onProperty rdf:resource="compartment"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Complex"/>
+    <owl:disjointWith rdf:resource="EntitySet"/>
+    <owl:disjointWith rdf:resource="GenomeEncodedEntity"/>
+    <owl:disjointWith rdf:resource="OtherEntity"/>
+    <owl:disjointWith rdf:resource="Polymer"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Species">
+    <rdfs:subClassOf rdf:resource="Taxon"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="StableIdentifier">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Summation">
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:minCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="text"/>
+              </owl:Restriction>
+              <owl:Restriction>
+                <owl:maxCardinality rdf:datatype="&xsd;nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="text"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="Taxon">
+    <rdfs:comment rdf:datatype="&xsd;string">Placeholder for organisms. All names go to aliases (easier to retrieve if we just need to 'scan' one column rather than both 'name' and 'alias'). DatabaseIdentifier allows to stick on, say, NCBI taxonomy ID.</rdfs:comment>
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="_AttributeValueBeforeChange">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="_Deleted">
+    <rdfs:comment rdf:datatype="&xsd;string">Stores information about a single deleted instance</rdfs:comment>
+    <rdfs:subClassOf>
+      <owl:Class>
+        <owl:intersectionOf rdf:parseType="Collection">
+          <rdf:Description rdf:about="DatabaseObject"/>
+          <owl:Class>
+            <owl:intersectionOf rdf:parseType="Collection">
+              <rdf:Description rdf:about="DatabaseObject"/>
+              <owl:Restriction>
+                <owl:allValuesFrom rdf:resource="DeletedControlledVocabulary"/>
+                <owl:onProperty rdf:resource="reason"/>
+              </owl:Restriction>
+            </owl:intersectionOf>
+          </owl:Class>
+        </owl:intersectionOf>
+      </owl:Class>
+    </rdfs:subClassOf>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_InstanceBeforeChange"/>
+  </owl:Class>
+
+  <owl:Class rdf:about="_InstanceBeforeChange">
+    <rdfs:subClassOf rdf:resource="DatabaseObject"/>
+    <owl:disjointWith rdf:resource="Affiliation"/>
+    <owl:disjointWith rdf:resource="CatalystActivity"/>
+    <owl:disjointWith rdf:resource="ConcurrentEventSet"/>
+    <owl:disjointWith rdf:resource="ControlledVocabulary"/>
+    <owl:disjointWith rdf:resource="DatabaseIdentifier"/>
+    <owl:disjointWith rdf:resource="Domain"/>
+    <owl:disjointWith rdf:resource="Event"/>
+    <owl:disjointWith rdf:resource="EvidenceType"/>
+    <owl:disjointWith rdf:resource="Figure"/>
+    <owl:disjointWith rdf:resource="FrontPage"/>
+    <owl:disjointWith rdf:resource="GO_BiologicalProcess"/>
+    <owl:disjointWith rdf:resource="GO_CellularComponent"/>
+    <owl:disjointWith rdf:resource="GO_MolecularFunction"/>
+    <owl:disjointWith rdf:resource="InstanceEdit"/>
+    <owl:disjointWith rdf:resource="LiteratureReference"/>
+    <owl:disjointWith rdf:resource="ModifiedResidue"/>
+    <owl:disjointWith rdf:resource="PathwayCoordinates"/>
+    <owl:disjointWith rdf:resource="Person"/>
+    <owl:disjointWith rdf:resource="PhysicalEntity"/>
+    <owl:disjointWith rdf:resource="ReactionCoordinates"/>
+    <owl:disjointWith rdf:resource="ReferenceDatabase"/>
+    <owl:disjointWith rdf:resource="ReferenceEntity"/>
+    <owl:disjointWith rdf:resource="ReferenceGroupCount"/>
+    <owl:disjointWith rdf:resource="Regulation"/>
+    <owl:disjointWith rdf:resource="RegulationType"/>
+    <owl:disjointWith rdf:resource="StableIdentifier"/>
+    <owl:disjointWith rdf:resource="Summation"/>
+    <owl:disjointWith rdf:resource="Taxon"/>
+    <owl:disjointWith rdf:resource="_AttributeValueBeforeChange"/>
+    <owl:disjointWith rdf:resource="_Deleted"/>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6757">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="SequenceDomain"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6723">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="ControlledVocabulary"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="EvidenceType"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6759">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="DatabaseIdentifier"/>
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+      <rdf:Description rdf:about="StableIdentifier"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6733">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6758">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6711">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6747">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="SequenceDomain"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6761">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6739">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6746">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Figure"/>
+      <rdf:Description rdf:about="ReferenceDatabase"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6756">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6727">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6716">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6709">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DatabaseIdentifier"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+      <rdf:Description rdf:about="Species"/>
+      <rdf:Description rdf:about="Taxon"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6577">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Domain"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6741">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6743">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="PathwayCoordinates"/>
+      <rdf:Description rdf:about="ReactionCoordinates"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6729">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntitySet"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6713">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6750">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6732">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6748">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6722">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6719">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6710">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6576">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Domain"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6578">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="CatalystActivity"/>
+      <rdf:Description rdf:about="Event"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6762">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6715">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6763">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Person"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+      <rdf:Description rdf:about="Species"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6718">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6754">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6717">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6724">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="SequenceDomain"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6752">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="EntitySet"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6728">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6744">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="CatalystActivity"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+      <rdf:Description rdf:about="Summation"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6579">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Regulation"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6755">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6712">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Affiliation"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="CatalystActivity"/>
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="ComplexDomain"/>
+      <rdf:Description rdf:about="ConcurrentEventSet"/>
+      <rdf:Description rdf:about="ControlledVocabulary"/>
+      <rdf:Description rdf:about="DatabaseIdentifier"/>
+      <rdf:Description rdf:about="DatabaseObject"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="EvidenceType"/>
+      <rdf:Description rdf:about="Figure"/>
+      <rdf:Description rdf:about="FrontPage"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+      <rdf:Description rdf:about="GenericDomain"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="LiteratureReference"/>
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Person"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionCoordinates"/>
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceDatabase"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceGroupCount"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="RegulationType"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SequenceDomain"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+      <rdf:Description rdf:about="Species"/>
+      <rdf:Description rdf:about="Summation"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6714">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6736">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="EvidenceType"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+      <rdf:Description rdf:about="RegulationType"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6721">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6751">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="GenericDomain"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6749">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="Regulation"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6726">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Species"/>
+      <rdf:Description rdf:about="Taxon"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6737">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="PhysicalEntity"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6734">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6735">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="EntitySet"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6742">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6725">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="InstanceEdit"/>
+      <rdf:Description rdf:about="LiteratureReference"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6753">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6740">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="ComplexDomain"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6738">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6760">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Pathway"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6745">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="DatabaseIdentifier"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceEntity"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+      <rdf:Description rdf:about="StableIdentifier"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6731">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="Affiliation"/>
+      <rdf:Description rdf:about="CandidateSet"/>
+      <rdf:Description rdf:about="CatalystActivity"/>
+      <rdf:Description rdf:about="Compartment"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="ComplexDomain"/>
+      <rdf:Description rdf:about="ConcurrentEventSet"/>
+      <rdf:Description rdf:about="ControlledVocabulary"/>
+      <rdf:Description rdf:about="DatabaseIdentifier"/>
+      <rdf:Description rdf:about="DatabaseObject"/>
+      <rdf:Description rdf:about="DefinedSet"/>
+      <rdf:Description rdf:about="EntityCompartment"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="EvidenceType"/>
+      <rdf:Description rdf:about="Figure"/>
+      <rdf:Description rdf:about="FrontPage"/>
+      <rdf:Description rdf:about="GO_BiologicalProcess"/>
+      <rdf:Description rdf:about="GO_CellularComponent"/>
+      <rdf:Description rdf:about="GO_MolecularFunction"/>
+      <rdf:Description rdf:about="GenericDomain"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="LiteratureReference"/>
+      <rdf:Description rdf:about="ModifiedResidue"/>
+      <rdf:Description rdf:about="NegativeRegulation"/>
+      <rdf:Description rdf:about="OpenSet"/>
+      <rdf:Description rdf:about="OtherEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Person"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="PositiveRegulation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionCoordinates"/>
+      <rdf:Description rdf:about="ReferenceDNASequence"/>
+      <rdf:Description rdf:about="ReferenceDatabase"/>
+      <rdf:Description rdf:about="ReferenceGroup"/>
+      <rdf:Description rdf:about="ReferenceGroupCount"/>
+      <rdf:Description rdf:about="ReferenceMolecule"/>
+      <rdf:Description rdf:about="ReferenceMoleculeClass"/>
+      <rdf:Description rdf:about="ReferencePeptideSequence"/>
+      <rdf:Description rdf:about="ReferenceRNASequence"/>
+      <rdf:Description rdf:about="RegulationType"/>
+      <rdf:Description rdf:about="ReplacedResidue"/>
+      <rdf:Description rdf:about="Requirement"/>
+      <rdf:Description rdf:about="SequenceDomain"/>
+      <rdf:Description rdf:about="SimpleEntity"/>
+      <rdf:Description rdf:about="Species"/>
+      <rdf:Description rdf:about="Summation"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6720">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReactionlikeEvent"/>
+    </owl:unionOf>
+  </owl:Class>
+
+  <owl:Class rdf:nodeID="b6730">
+    <owl:unionOf rdf:parseType="Collection">
+      <rdf:Description rdf:about="BlackBoxEvent"/>
+      <rdf:Description rdf:about="Complex"/>
+      <rdf:Description rdf:about="Depolymerisation"/>
+      <rdf:Description rdf:about="EntitySet"/>
+      <rdf:Description rdf:about="EntityWithAccessionedSequence"/>
+      <rdf:Description rdf:about="Event"/>
+      <rdf:Description rdf:about="GenomeEncodedEntity"/>
+      <rdf:Description rdf:about="Pathway"/>
+      <rdf:Description rdf:about="Polymer"/>
+      <rdf:Description rdf:about="Polymerisation"/>
+      <rdf:Description rdf:about="Reaction"/>
+      <rdf:Description rdf:about="ReferenceSequence"/>
+    </owl:unionOf>
+  </owl:Class>
+
+<!-- Datatypes -->
+  <rdfs:Datatype rdf:about="&xsd;int"/>
+
+<!-- Annotation Properties -->
+  <owl:AnnotationProperty rdf:about="uri">
+    <rdfs:comment rdf:datatype="&xsd;string">to connect GO Records to the actual GO term URI</rdfs:comment>
+  </owl:AnnotationProperty>
+
+  <owl:AnnotationProperty rdf:about="&rdfs;comment"/>
+
+<!-- Datatype Properties -->
+  <owl:DatatypeProperty rdf:about="__is_ghost">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="DatabaseObject"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="_applyToAllEditedInstances">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Set this attribute vaue to TRUE (by checking it) if you want to attch this InstenceEdit to all edited instances in your project.</rdfs:comment>
+    <rdfs:domain rdf:resource="InstanceEdit"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="_doRelease">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Event"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="accessUrl">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Url for retrieving a record</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceDatabase"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="accession">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6739"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="address">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Affiliation"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="atomicConnectivity">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Contents of the mol file.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6761"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="changedAttribute">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="_AttributeValueBeforeChange"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="changedInstanceDB_ID">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="_InstanceBeforeChange"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="comment">
+    <rdfs:comment rdf:datatype="&xsd;string">CC lines from sequence record.</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="coordinate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6711"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="curatorComment">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">A free-text comment that the curator may optionally provide to add extra explanation</rdfs:comment>
+    <rdfs:domain rdf:resource="_Deleted"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="dateTime">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="InstanceEdit"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="definition">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This is for holding GO definition field.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6723"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="deletedInstanceDB_ID">
+    <rdfs:comment rdf:datatype="&xsd;string">Contains the DB_IDs of the instances that have been deleted</rdfs:comment>
+    <rdfs:domain rdf:resource="_Deleted"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="description">
+    <rdfs:comment rdf:datatype="&xsd;string">DE lines from sequence record</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="eMailAddress">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Person"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="ecNumber">
+    <rdfs:domain rdf:resource="GO_MolecularFunction"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="endCoordinate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6747"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="fingerPrintString">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6758"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="firstname">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Person"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="formula">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6727"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="geneName">
+    <rdfs:comment rdf:datatype="&xsd;string">GN lines from sequence record.</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="identifier">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6759"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="identifierVersion">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Version number for stable identifier</rdfs:comment>
+    <rdfs:domain rdf:resource="StableIdentifier"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="initial">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Person"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="journal">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="keyword">
+    <rdfs:comment rdf:datatype="&xsd;string">KW lines from SPTREMBL records</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="maxCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReferenceGroupCount"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="maxUnitCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Polymer"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="maxX">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="PathwayCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="maxY">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="PathwayCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="minCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReferenceGroupCount"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="minUnitCount">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Polymer"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="minX">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="PathwayCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="minY">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="PathwayCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="note">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="InstanceEdit"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="otherIdentifier">
+    <rdfs:domain rdf:nodeID="b6756"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="pages">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="previousValue">
+    <rdfs:domain rdf:resource="_AttributeValueBeforeChange"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="project">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Person"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="pubMedIdentifier">
+    <rdfs:comment rdf:datatype="&xsd;string">PubMed ID</rdfs:comment>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="releaseDate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6733"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="secondaryIdentifier">
+    <rdfs:comment rdf:datatype="&xsd;string">This is for secondary/other identifiers WITHIN THE SAME DATABASE, e.g. secondary SPTREMBL accessions and SwissProt id. Use crossReference if the the identifier is from another db, e.g. for adding a RefSeq identifier to SPTREMBL SequenceDatabaseIdentifier.</rdfs:comment>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="sequenceLength">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReferenceSequence"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="sourceX">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReactionCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="sourceY">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReactionCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="startCoordinate">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6757"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="surname">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Person"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="targetX">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReactionCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="targetY">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReactionCoordinates"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="text">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="Summation"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="title">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="url">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:nodeID="b6746"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="variantIdentifier">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="ReferencePeptideSequence"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="volume">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+  <owl:DatatypeProperty rdf:about="year">
+    <rdf:type rdf:resource="&owl;FunctionalProperty"/>
+    <rdfs:domain rdf:resource="LiteratureReference"/>
+    <rdfs:range rdf:resource="&xsd;int"/>
+  </owl:DatatypeProperty>
+
+<!-- Object Properties -->
+  <owl:ObjectProperty rdf:about="activeUnit">
+    <rdfs:domain rdf:resource="CatalystActivity"/>
+    <rdfs:range rdf:nodeID="b6576"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="activity">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="CatalystActivity"/>
+    <rdfs:range rdf:resource="GO_MolecularFunction"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="affiliation">
+    <rdfs:domain rdf:resource="Person"/>
+    <rdfs:range rdf:resource="Affiliation"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="attributeValuesBeforeChange">
+    <rdfs:domain rdf:resource="_InstanceBeforeChange"/>
+    <rdfs:range rdf:resource="_AttributeValueBeforeChange"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="author">
+    <rdfs:domain rdf:nodeID="b6725"/>
+    <rdfs:range rdf:resource="Person"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="authored">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6718"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="catalystActivity">
+    <rdfs:comment rdf:datatype="&xsd;string">roughly the same as EcoCyc's EnzymaticReaction</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6722"/>
+    <rdfs:range rdf:resource="CatalystActivity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="compartment">
+    <rdfs:domain rdf:nodeID="b6710"/>
+    <rdfs:range rdf:resource="Compartment"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="componentOf">
+    <rdfs:domain rdf:nodeID="b6742"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="concurrentEvents">
+    <rdfs:domain rdf:resource="ConcurrentEventSet"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="created">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6731"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="crossReference">
+    <rdfs:comment rdf:datatype="&xsd;string">This slot is for holding references to the EQUIVALENT things in other databases. If the instance this slot is attached to represents an event the DatabaseIdentifier put into this slot must also point to some sort of event/processs/reaction/happening in some other db.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6709"/>
+    <rdfs:range rdf:resource="DatabaseIdentifier"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="edited">
+    <rdfs:domain rdf:nodeID="b6717"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="entityOnOtherCell">
+    <rdfs:domain rdf:nodeID="b6753"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="evidenceType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6732"/>
+    <rdfs:range rdf:resource="EvidenceType"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="figure">
+    <rdfs:domain rdf:nodeID="b6763"/>
+    <rdfs:range rdf:resource="Figure"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="focusEntity">
+    <rdfs:domain rdf:resource="ConcurrentEventSet"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="frontPageItem">
+    <rdfs:domain rdf:resource="FrontPage"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="goBiologicalProcess">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Fill it with GO biological process which is roughly equal to this GK Event. I.e. For 'Human S-phase' it should be 'S-phase' and not, say, 'Mitotic cell cycle'.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6715"/>
+    <rdfs:range rdf:resource="GO_BiologicalProcess"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="goCellularComponent">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6737"/>
+    <rdfs:range rdf:resource="GO_CellularComponent"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="hasCandidate">
+    <rdfs:domain rdf:resource="CandidateSet"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasComponent">
+    <rdfs:domain rdf:nodeID="b6740"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasDomain">
+    <rdfs:domain rdf:nodeID="b6752"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasEvent">
+    <rdfs:domain rdf:nodeID="b6760"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasInstance">
+    <rdfs:domain rdf:nodeID="b6751"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasMember">
+    <rdfs:domain rdf:nodeID="b6735"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="hasModifiedResidue">
+    <rdfs:domain rdf:resource="EntityWithAccessionedSequence"/>
+    <rdfs:range rdf:resource="ModifiedResidue"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="inferredFrom">
+    <rdfs:domain rdf:nodeID="b6729"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="input">
+    <rdfs:domain rdf:nodeID="b6720"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="instanceEdit">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="_InstanceBeforeChange"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="instanceOf">
+    <rdfs:domain rdf:nodeID="b6736"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="literatureReference">
+    <rdfs:domain rdf:nodeID="b6744"/>
+    <rdfs:range rdf:resource="LiteratureReference"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="locatedEvent">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6743"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="locationContext">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="ReactionCoordinates"/>
+    <rdfs:range rdf:resource="Pathway"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="modification">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6713"/>
+    <rdfs:range rdf:resource="ReferenceGroup"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="modified">
+    <rdfs:domain rdf:nodeID="b6712"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="orthologousEvent">
+    <rdfs:comment rdf:datatype="&xsd;string">Holds 'equivalent' Events in other organisms.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6728"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="output">
+    <rdfs:domain rdf:nodeID="b6714"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="physicalEntity">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="CatalystActivity"/>
+    <rdfs:range rdf:resource="PhysicalEntity"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="precedingEvent">
+    <rdfs:domain rdf:nodeID="b6754"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="reason">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Reason for an action, drawn from a limited controlled vocabulary of terms</rdfs:comment>
+    <rdfs:domain rdf:resource="_Deleted"/>
+    <rdfs:range rdf:resource="ControlledVocabulary"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="referenceDatabase">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6745"/>
+    <rdfs:range rdf:resource="ReferenceDatabase"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="referenceEntity">
+    <rdfs:domain rdf:nodeID="b6724"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="referenceGene">
+    <rdfs:domain rdf:nodeID="b6750"/>
+    <rdfs:range rdf:resource="ReferenceDNASequence"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="referenceGroup">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="ReferenceGroupCount"/>
+    <rdfs:range rdf:resource="ReferenceGroup"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="referenceGroupCount">
+    <rdfs:domain rdf:nodeID="b6755"/>
+    <rdfs:range rdf:resource="ReferenceGroupCount"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="referenceSequence">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6734"/>
+    <rdfs:range rdf:resource="ReferenceSequence"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="referenceTranscript">
+    <rdfs:domain rdf:resource="ReferencePeptideSequence"/>
+    <rdfs:range rdf:resource="ReferenceRNASequence"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="regulatedEntity">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6762"/>
+    <rdfs:range rdf:nodeID="b6578"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="regulationType">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6716"/>
+    <rdfs:range rdf:resource="RegulationType"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="regulator">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6748"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="repeatedUnit">
+    <rdfs:domain rdf:resource="Polymer"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="replacementInstances">
+    <rdfs:comment rdf:datatype="&xsd;string">The instance(s) (if any) that replace the deleted instance.  The allowed instance classes have been restricted to those for which stable IDs get generated.  If the classes for which stable IDs are generated is expanded, these need to be changed correspondingly.</rdfs:comment>
+    <rdfs:domain rdf:resource="_Deleted"/>
+    <rdfs:range rdf:nodeID="b6579"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="requiredInputComponent">
+    <rdfs:domain rdf:nodeID="b6741"/>
+    <rdfs:range rdf:nodeID="b6577"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="residue">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">This is to hold the residue (like serine or tyrosine) which is modified. The value is instance of class CocnreteSimpleEntityk, i.e. an instance representig serine. I know, this not exactly correct since free amino acid (nucleotide) is different from the one in the chain but it's still pretty good I think.</rdfs:comment>
+    <rdfs:domain rdf:nodeID="b6738"/>
+    <rdfs:range rdf:resource="ReferenceMolecule"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="reverseReaction">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="Reaction"/>
+    <rdfs:range rdf:resource="Reaction"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="reviewed">
+    <rdfs:domain rdf:nodeID="b6719"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="revised">
+    <rdfs:domain rdf:nodeID="b6721"/>
+    <rdfs:range rdf:resource="InstanceEdit"/>
+  </owl:ObjectProperty>
+
+  <owl:ObjectProperty rdf:about="species">
+    <rdfs:domain rdf:nodeID="b6730"/>
+    <rdfs:range rdf:resource="Species"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="stableIdentifier">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:comment rdf:datatype="&xsd;string">Contains stable ID and version number</rdfs:comment>
+    <rdfs:domain rdf:resource="DatabaseObject"/>
+    <rdfs:range rdf:resource="StableIdentifier"/>
+  </owl:FunctionalProperty>
+
+  <owl:ObjectProperty rdf:about="summation">
+    <rdfs:domain rdf:nodeID="b6749"/>
+    <rdfs:range rdf:resource="Summation"/>
+  </owl:ObjectProperty>
+
+  <owl:FunctionalProperty rdf:about="superTaxon">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:nodeID="b6726"/>
+    <rdfs:range rdf:resource="Taxon"/>
+  </owl:FunctionalProperty>
+
+  <owl:FunctionalProperty rdf:about="templateEvent">
+    <rdf:type rdf:resource="&owl;ObjectProperty"/>
+    <rdfs:domain rdf:resource="BlackBoxEvent"/>
+    <rdfs:range rdf:resource="Event"/>
+  </owl:FunctionalProperty>
+</rdf:RDF>

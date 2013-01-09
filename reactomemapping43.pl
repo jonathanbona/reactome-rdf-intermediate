@@ -1,0 +1,8239 @@
+# http://banon.cshl.edu/object_relational_mapping.html
+
+###############################
+# Example of a datatype property: Table Affiliation_2_name
+###############################
+### Original ###
+### toss! ###
+# map:Affiliation_2_name a d2rq:ClassMap;
+# 	d2rq:dataStorage map:database;
+# 	# Sorry, I don't know which columns to put into the uriPattern
+# 	# because the table doesn't have a primary key
+# 	d2rq:uriPattern "Affiliation_2_name";
+# 	d2rq:class vocab:Affiliation_2_name;
+# 	.
+# ### toss! ###
+# map:Affiliation_2_name__label a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Affiliation_2_name;
+# 	d2rq:property rdfs:label;
+# 	d2rq:pattern "Affiliation_2_name #";
+# 	.
+# ### toss! ###
+# map:Affiliation_2_name_DB_ID a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Affiliation_2_name;
+# 	d2rq:property vocab:Affiliation_2_name_DB_ID;
+# 	d2rq:column "Affiliation_2_name.DB_ID";
+# 	d2rq:datatype xsd:int;
+# 	.
+# ### toss! ###
+# map:Affiliation_2_name_name_rank a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Affiliation_2_name;
+# 	d2rq:property vocab:Affiliation_2_name_name_rank;
+# 	d2rq:column "Affiliation_2_name.name_rank";
+# 	d2rq:datatype xsd:int;
+# 	.
+# ### Recognize this by being a _2_foo_foo propertybridge, and not having a d2rq:datatype line ###
+# map:Affiliation_2_name_name a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Affiliation_2_name;
+# 	d2rq:property vocab:Affiliation_2_name_name;
+# 	d2rq:column "Affiliation_2_name.name";
+#
+# ### Rewrite as follows: ###
+#map:hasName a d2rq:PropertyBridge;
+#	d2rq:belongsToClassMap map:Affiliation;
+#	d2rq:property re:hasName;
+#	d2rq:column "Affiliation_2_name.name";
+#	d2rq:join "Affiliation.DB_ID = Affiliation_2_name.DB_ID";
+
+#########################################
+# Example of an object property. Person_2_affiliation
+#########################################
+# Table Person_2_affiliation
+
+# ### toss! ###
+# map:Person_2_affiliation a d2rq:ClassMap;
+# 	d2rq:dataStorage map:database;
+# 	# Sorry, I don't know which columns to put into the uriPattern
+# 	# because the table doesn't have a primary key
+# 	d2rq:uriPattern "Person_2_affiliation";
+# 	d2rq:class vocab:Person_2_affiliation;
+# 	.
+# ### toss! __label ###
+# map:Person_2_affiliation__label a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person_2_affiliation;
+# 	d2rq:property rdfs:label;
+# 	d2rq:pattern "Person_2_affiliation #";
+# 	.
+# ### toss! DB_ID ###
+# map:Person_2_affiliation_DB_ID a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person_2_affiliation;
+# 	d2rq:property vocab:Person_2_affiliation_DB_ID;
+# 	d2rq:column "Person_2_affiliation.DB_ID";
+# 	d2rq:datatype xsd:int;
+# 	.
+# ### toss! _rank ###
+# map:Person_2_affiliation_affiliation_rank a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person_2_affiliation;
+# 	d2rq:property vocab:Person_2_affiliation_affiliation_rank;
+# 	d2rq:column "Person_2_affiliation.affiliation_rank";
+# 	d2rq:datatype xsd:int;
+
+# ### Recognize by being a _2_foo_foo PropertyBridge and having a datatype row
+# map:Person_2_affiliation_affiliation a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person_2_affiliation;
+# 	d2rq:property vocab:Person_2_affiliation_affiliation;
+# 	d2rq:column "Person_2_affiliation.affiliation";
+# 	d2rq:datatype xsd:int;
+# 	.
+# ### toss! _class ###
+# map:Person_2_affiliation_affiliation_class a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person_2_affiliation;
+# 	d2rq:property vocab:Person_2_affiliation_affiliation_class;
+# 	d2rq:column "Person_2_affiliation.affiliation_class";
+
+# ### Rewrite as follows: ###
+# map:hasAffiliation a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:Person;
+# 	d2rq:property re:hasAffiliation;
+# 	d2rq:uriPattern "@@Person_2_affiliation.affiliation@@"; 
+# 	d2rq:join "Person.DB_ID = Person_2_affiliation.DB_ID";
+
+# ### Add uri property for each GO accession 
+# map:GO_MolecularFunction_property_accession a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:GO_MolecularFunction;
+# 	d2rq:property vocab:accession;
+# 	d2rq:column "GO_MolecularFunction.accession";
+
+# .
+# map:GO_MolecularFunction_property_uri a d2rq:PropertyBridge;
+# 	d2rq:belongsToClassMap map:GO_MolecularFunction;
+# 	d2rq:property vocab:uri;
+# 	d2rq:uriPattern "http://purl.org/obo/owl/GO#GO_@@GO_MolecularFunction.accession@@";
+# .
+
+my @classes =qw(Affiliation BlackBoxEvent CandidateSet
+CatalystActivity Compartment Complex ComplexDomain ConcurrentEventSet
+ControlledVocabulary DataModel DatabaseIdentifier DatabaseObject
+DefinedSet DeletedControlledVocabulary Depolymerisation Domain
+EntityCompartment EntitySet EntityWithAccessionedSequence Event
+EvidenceType Figure FrontPage GO_BiologicalProcess
+GO_CellularComponent GO_MolecularFunction GenericDomain
+GenomeEncodedEntity InstanceEdit LiteratureReference ModifiedResidue
+NegativeRegulation Ontology OpenSet OtherEntity Parameters Pathway
+PathwayCoordinates Person PhysicalEntity Polymer Polymerisation
+PositiveRegulation Reaction ReactionCoordinates ReactionlikeEvent
+ReferenceDNASequence ReferenceDatabase ReferenceEntity ReferenceGroup
+# ReferenceGroupCount - lost in 43 compared to 25
+ ReferenceMolecule
+# ReferenceMoleculeClass - lost in 43 compared to 25
+# ReferencePeptideSequence - lost in 43 compared to 25
+ ReferenceRNASequence ReferenceSequence
+Regulation RegulationType ReplacedResidue Requirement SequenceDomain
+SimpleEntity Species StableIdentifier Summation Taxon
+_AttributeValueBeforeChange _Deleted _InstanceBeforeChange
+# new in 43 compared to 25
+AbstractModifiedResidue Book CellType CrosslinkedResidue Disease Edge
+EntityFunctionalStatus EntityVertex ExternalOntology
+FragmentDeletionModification FragmentInsertionModification
+FragmentModification FunctionalStatus FunctionalStatusType
+GeneticallyModifiedResidue GroupModifiedResidue
+InterChainCrosslinkedResidue IntraChainCrosslinkedResidue
+PathwayDiagram PathwayDiagramItem PathwayVertex PsiMod Publication
+ReactionVertex ReferenceGeneProduct ReferenceIsoform SequenceOntology
+TranslationalModification URL Vertex VertexSearchableTerm );
+
+my $map;
+my @lines;
+while (<DATA>)
+  { last unless /^@/;
+    print;
+  }
+
+while (<DATA>)
+  {     if (/^map:/)
+      { my @lines = ($_);
+	while (!((my $line = <DATA>) =~ /^\s*\.\s*$/)) {push @lines, $line; }
+	my $desc = join ("",@lines);
+	next if ($desc =~ /map:(\S+)_(class|rank|_label|DB_ID|_Protege_id) a d2rq:PropertyBridge;/s); # remove unused _class,_rank, DB_ID, and d2rq invented __label fields
+	next if ($desc =~ /map:.*?_2_.*? d2rq:ClassMap;/s); # remove property tables
+	if ($desc =~ /map:(\S+)_class a d2rq:PropertyBridge;/s)	# remove the class name from the property name
+	  { $desc =~ s/(d2rq:property vocab:)$map\_(.*;)/$1.$2/es; }
+	if ($desc =~ /a d2rq:ClassMap/s) # Make all the instances us just the id in their URI
+	  { $desc =~ s/d2rq:uriPattern "[^\/]*\/(@@..*?@@)"/d2rq:uriPattern "$1"/s;}
+	if (($desc =~ /^map:(_{0,1}(GO_){0,1}[^_]*?)_(_*\S*?) a d2rq:PropertyBridge;/) && !($desc =~ /_2_/)) # a single-valued property
+	  { my $table=$1; my $field=$3; my $fieldClass = ucfirst($3);
+	    if ((grep(/^$fieldClass$/ , @classes) || $field=~/^(created|go|author|activity)/) && !($field=~/^ontology/))  # a single-valued object property
+	      { #print "### $table ### $field ###\n";
+		$desc = "map:$table\_property_$field a d2rq:PropertyBridge;\n".
+		  "\td2rq:belongsToClassMap map:$table;\n".
+		  "\td2rq:property vocab:$field;\n".
+		  "\td2rq:uriPattern \"@@"."$table.$field@@\";\n"
+		}
+	    else # a single-valued data property
+	      { if ($field =~ /^_displayName/)
+		  {$desc =~ s/(vocab:$table\_$field)/"rdfs:label"/es;} # rename the field to drop the class name
+		else
+		  { $desc =~ s/(vocab:$table\_$field)/"vocab:".$field/es;} # rename the field to drop the class name
+		$desc =~ s/($table\_$field)/$table."_property_".$field/es; # rename the map to be consistent
+	      }
+	  }
+	if ($desc =~ /^map:(_{0,1}.*?)_2_(.*?)_\2 a d2rq:PropertyBridge;/) {
+	  my $table = $1; my $field = $2; my $fieldtable=ucfirst($2);
+	  print "### $table ### $field ###\n";
+	  if ($desc =~ /d2rq:datatype/) { # an object property
+	    $desc = "map:$table\_property_$field a d2rq:PropertyBridge;\n".
+	      "\td2rq:belongsToClassMap map:$table;\n".
+	      "\td2rq:property vocab:$field;\n".
+	      "\td2rq:uriPattern \"@@"."$table\_2_$field.$field@@\";\n".
+	      "\td2rq:join \"$table.DB_ID = $table\_2_$field.DB_ID\";\n"
+		#	      "\td2rq:join \"$table.DB_ID = $table\_2_$field.$field\";\n";
+	    }
+	  else {	# a datatype property
+	      $desc = "map:$table\_property_$field a d2rq:PropertyBridge;\n".
+		"\td2rq:belongsToClassMap map:$table;\n".
+		"\td2rq:property vocab:$field;\n".
+		"\td2rq:column \"$table\_2_$field.$field\";\n".
+		"\td2rq:join \"$table.DB_ID = $table\_2_$field.DB_ID\";\n";
+	    }
+	}
+	# special cases
+	# no key. This is a schema encoding of some sort
+	$desc =~ s/d2rq:uriPattern "DataModel";/d2rq:uriPattern "\@\@DataModel.thing\@\@";/s;
+	# 
+
+
+	print "$desc\n.\n";
+      }
+   }
+
+__DATA__
+@prefix map: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmap/> .
+@prefix db: <> .
+@prefix vocab: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmodel/> .
+@prefix record: <http://purl.org/commons/record/reactome/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix jdbc: <http://d2rq.org/terms/jdbc/> .
+
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql://127.0.0.1/reactome_43";
+	d2rq:username "root";
+	jdbc:autoReconnect "true";
+	jdbc:zeroDateTimeBehavior "convertToNull";
+	.
+
+# Table AbstractModifiedResidue
+map:AbstractModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "AbstractModifiedResidue/@@AbstractModifiedResidue.DB_ID@@";
+	d2rq:class vocab:AbstractModifiedResidue;
+	d2rq:classDefinitionLabel "AbstractModifiedResidue";
+	.
+map:AbstractModifiedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AbstractModifiedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "AbstractModifiedResidue #@@AbstractModifiedResidue.DB_ID@@";
+	.
+map:AbstractModifiedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AbstractModifiedResidue;
+	d2rq:property vocab:AbstractModifiedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "AbstractModifiedResidue DB_ID";
+	d2rq:column "AbstractModifiedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:AbstractModifiedResidue_referenceSequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AbstractModifiedResidue;
+	d2rq:property vocab:AbstractModifiedResidue_referenceSequence;
+	d2rq:propertyDefinitionLabel "AbstractModifiedResidue referenceSequence";
+	d2rq:column "AbstractModifiedResidue.referenceSequence";
+	d2rq:datatype xsd:integer;
+	.
+map:AbstractModifiedResidue_referenceSequence_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:AbstractModifiedResidue;
+	d2rq:property vocab:AbstractModifiedResidue_referenceSequence_class;
+	d2rq:propertyDefinitionLabel "AbstractModifiedResidue referenceSequence_class";
+	d2rq:column "AbstractModifiedResidue.referenceSequence_class";
+	.
+
+# Table Affiliation
+map:Affiliation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Affiliation/@@Affiliation.DB_ID@@";
+	d2rq:class vocab:Affiliation;
+	d2rq:classDefinitionLabel "Affiliation";
+	.
+map:Affiliation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Affiliation #@@Affiliation.DB_ID@@";
+	.
+map:Affiliation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation;
+	d2rq:property vocab:Affiliation_DB_ID;
+	d2rq:propertyDefinitionLabel "Affiliation DB_ID";
+	d2rq:column "Affiliation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Affiliation_address a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation;
+	d2rq:property vocab:Affiliation_address;
+	d2rq:propertyDefinitionLabel "Affiliation address";
+	d2rq:column "Affiliation.address";
+	.
+
+# Table Affiliation_2_name
+map:Affiliation_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Affiliation_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Affiliation_2_name";
+	d2rq:class vocab:Affiliation_2_name;
+	d2rq:classDefinitionLabel "Affiliation_2_name";
+	.
+map:Affiliation_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation_2_name;
+	d2rq:property vocab:Affiliation_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "Affiliation_2_name DB_ID";
+	d2rq:column "Affiliation_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Affiliation_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation_2_name;
+	d2rq:property vocab:Affiliation_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "Affiliation_2_name name_rank";
+	d2rq:column "Affiliation_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Affiliation_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation_2_name;
+	d2rq:property vocab:Affiliation_2_name_name;
+	d2rq:propertyDefinitionLabel "Affiliation_2_name name";
+	d2rq:column "Affiliation_2_name.name";
+	.
+
+# Table BlackBoxEvent
+map:BlackBoxEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "BlackBoxEvent/@@BlackBoxEvent.DB_ID@@";
+	d2rq:class vocab:BlackBoxEvent;
+	d2rq:classDefinitionLabel "BlackBoxEvent";
+	.
+map:BlackBoxEvent__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property rdfs:label;
+	d2rq:pattern "BlackBoxEvent #@@BlackBoxEvent.DB_ID@@";
+	.
+map:BlackBoxEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property vocab:BlackBoxEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent DB_ID";
+	d2rq:column "BlackBoxEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:BlackBoxEvent_templateEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property vocab:BlackBoxEvent_templateEvent;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent templateEvent";
+	d2rq:column "BlackBoxEvent.templateEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:BlackBoxEvent_templateEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property vocab:BlackBoxEvent_templateEvent_class;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent templateEvent_class";
+	d2rq:column "BlackBoxEvent.templateEvent_class";
+	.
+
+# Table BlackBoxEvent_2_hasEvent
+map:BlackBoxEvent_2_hasEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "BlackBoxEvent_2_hasEvent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "BlackBoxEvent_2_hasEvent";
+	d2rq:class vocab:BlackBoxEvent_2_hasEvent;
+	d2rq:classDefinitionLabel "BlackBoxEvent_2_hasEvent";
+	.
+map:BlackBoxEvent_2_hasEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent_2_hasEvent;
+	d2rq:property vocab:BlackBoxEvent_2_hasEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent_2_hasEvent DB_ID";
+	d2rq:column "BlackBoxEvent_2_hasEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:BlackBoxEvent_2_hasEvent_hasEvent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent_2_hasEvent;
+	d2rq:property vocab:BlackBoxEvent_2_hasEvent_hasEvent_rank;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent_2_hasEvent hasEvent_rank";
+	d2rq:column "BlackBoxEvent_2_hasEvent.hasEvent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:BlackBoxEvent_2_hasEvent_hasEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent_2_hasEvent;
+	d2rq:property vocab:BlackBoxEvent_2_hasEvent_hasEvent;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent_2_hasEvent hasEvent";
+	d2rq:column "BlackBoxEvent_2_hasEvent.hasEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:BlackBoxEvent_2_hasEvent_hasEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent_2_hasEvent;
+	d2rq:property vocab:BlackBoxEvent_2_hasEvent_hasEvent_class;
+	d2rq:propertyDefinitionLabel "BlackBoxEvent_2_hasEvent hasEvent_class";
+	d2rq:column "BlackBoxEvent_2_hasEvent.hasEvent_class";
+	.
+
+# Table Book
+map:Book a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Book/@@Book.DB_ID@@";
+	d2rq:class vocab:Book;
+	d2rq:classDefinitionLabel "Book";
+	.
+map:Book__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Book #@@Book.DB_ID@@";
+	.
+map:Book_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_DB_ID;
+	d2rq:propertyDefinitionLabel "Book DB_ID";
+	d2rq:column "Book.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Book_ISBN a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_ISBN;
+	d2rq:propertyDefinitionLabel "Book ISBN";
+	d2rq:column "Book.ISBN";
+	.
+map:Book_chapterTitle a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_chapterTitle;
+	d2rq:propertyDefinitionLabel "Book chapterTitle";
+	d2rq:column "Book.chapterTitle";
+	.
+map:Book_pages a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_pages;
+	d2rq:propertyDefinitionLabel "Book pages";
+	d2rq:column "Book.pages";
+	.
+map:Book_publisher a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_publisher;
+	d2rq:propertyDefinitionLabel "Book publisher";
+	d2rq:column "Book.publisher";
+	d2rq:datatype xsd:integer;
+	.
+map:Book_publisher_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_publisher_class;
+	d2rq:propertyDefinitionLabel "Book publisher_class";
+	d2rq:column "Book.publisher_class";
+	.
+map:Book_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book;
+	d2rq:property vocab:Book_year;
+	d2rq:propertyDefinitionLabel "Book year";
+	d2rq:column "Book.year";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Book_2_chapterAuthors
+map:Book_2_chapterAuthors a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Book_2_chapterAuthors" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Book_2_chapterAuthors";
+	d2rq:class vocab:Book_2_chapterAuthors;
+	d2rq:classDefinitionLabel "Book_2_chapterAuthors";
+	.
+map:Book_2_chapterAuthors_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book_2_chapterAuthors;
+	d2rq:property vocab:Book_2_chapterAuthors_DB_ID;
+	d2rq:propertyDefinitionLabel "Book_2_chapterAuthors DB_ID";
+	d2rq:column "Book_2_chapterAuthors.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Book_2_chapterAuthors_chapterAuthors_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book_2_chapterAuthors;
+	d2rq:property vocab:Book_2_chapterAuthors_chapterAuthors_rank;
+	d2rq:propertyDefinitionLabel "Book_2_chapterAuthors chapterAuthors_rank";
+	d2rq:column "Book_2_chapterAuthors.chapterAuthors_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Book_2_chapterAuthors_chapterAuthors a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book_2_chapterAuthors;
+	d2rq:property vocab:Book_2_chapterAuthors_chapterAuthors;
+	d2rq:propertyDefinitionLabel "Book_2_chapterAuthors chapterAuthors";
+	d2rq:column "Book_2_chapterAuthors.chapterAuthors";
+	d2rq:datatype xsd:integer;
+	.
+map:Book_2_chapterAuthors_chapterAuthors_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Book_2_chapterAuthors;
+	d2rq:property vocab:Book_2_chapterAuthors_chapterAuthors_class;
+	d2rq:propertyDefinitionLabel "Book_2_chapterAuthors chapterAuthors_class";
+	d2rq:column "Book_2_chapterAuthors.chapterAuthors_class";
+	.
+
+# Table CandidateSet
+map:CandidateSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CandidateSet/@@CandidateSet.DB_ID@@";
+	d2rq:class vocab:CandidateSet;
+	d2rq:classDefinitionLabel "CandidateSet";
+	.
+map:CandidateSet__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CandidateSet #@@CandidateSet.DB_ID@@";
+	.
+map:CandidateSet_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet;
+	d2rq:property vocab:CandidateSet_DB_ID;
+	d2rq:propertyDefinitionLabel "CandidateSet DB_ID";
+	d2rq:column "CandidateSet.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table CandidateSet_2_hasCandidate
+map:CandidateSet_2_hasCandidate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "CandidateSet_2_hasCandidate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "CandidateSet_2_hasCandidate";
+	d2rq:class vocab:CandidateSet_2_hasCandidate;
+	d2rq:classDefinitionLabel "CandidateSet_2_hasCandidate";
+	.
+map:CandidateSet_2_hasCandidate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet_2_hasCandidate;
+	d2rq:property vocab:CandidateSet_2_hasCandidate_DB_ID;
+	d2rq:propertyDefinitionLabel "CandidateSet_2_hasCandidate DB_ID";
+	d2rq:column "CandidateSet_2_hasCandidate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CandidateSet_2_hasCandidate_hasCandidate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet_2_hasCandidate;
+	d2rq:property vocab:CandidateSet_2_hasCandidate_hasCandidate_rank;
+	d2rq:propertyDefinitionLabel "CandidateSet_2_hasCandidate hasCandidate_rank";
+	d2rq:column "CandidateSet_2_hasCandidate.hasCandidate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:CandidateSet_2_hasCandidate_hasCandidate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet_2_hasCandidate;
+	d2rq:property vocab:CandidateSet_2_hasCandidate_hasCandidate;
+	d2rq:propertyDefinitionLabel "CandidateSet_2_hasCandidate hasCandidate";
+	d2rq:column "CandidateSet_2_hasCandidate.hasCandidate";
+	d2rq:datatype xsd:integer;
+	.
+map:CandidateSet_2_hasCandidate_hasCandidate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet_2_hasCandidate;
+	d2rq:property vocab:CandidateSet_2_hasCandidate_hasCandidate_class;
+	d2rq:propertyDefinitionLabel "CandidateSet_2_hasCandidate hasCandidate_class";
+	d2rq:column "CandidateSet_2_hasCandidate.hasCandidate_class";
+	.
+
+# Table CatalystActivity
+map:CatalystActivity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CatalystActivity/@@CatalystActivity.DB_ID@@";
+	d2rq:class vocab:CatalystActivity;
+	d2rq:classDefinitionLabel "CatalystActivity";
+	.
+map:CatalystActivity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CatalystActivity #@@CatalystActivity.DB_ID@@";
+	.
+map:CatalystActivity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:CatalystActivity_DB_ID;
+	d2rq:propertyDefinitionLabel "CatalystActivity DB_ID";
+	d2rq:column "CatalystActivity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_activity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:CatalystActivity_activity;
+	d2rq:propertyDefinitionLabel "CatalystActivity activity";
+	d2rq:column "CatalystActivity.activity";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_activity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:CatalystActivity_activity_class;
+	d2rq:propertyDefinitionLabel "CatalystActivity activity_class";
+	d2rq:column "CatalystActivity.activity_class";
+	.
+map:CatalystActivity_physicalEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:CatalystActivity_physicalEntity;
+	d2rq:propertyDefinitionLabel "CatalystActivity physicalEntity";
+	d2rq:column "CatalystActivity.physicalEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_physicalEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:CatalystActivity_physicalEntity_class;
+	d2rq:propertyDefinitionLabel "CatalystActivity physicalEntity_class";
+	d2rq:column "CatalystActivity.physicalEntity_class";
+	.
+
+# Table CatalystActivity_2_activeUnit
+map:CatalystActivity_2_activeUnit a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "CatalystActivity_2_activeUnit" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "CatalystActivity_2_activeUnit";
+	d2rq:class vocab:CatalystActivity_2_activeUnit;
+	d2rq:classDefinitionLabel "CatalystActivity_2_activeUnit";
+	.
+map:CatalystActivity_2_activeUnit_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_activeUnit;
+	d2rq:property vocab:CatalystActivity_2_activeUnit_DB_ID;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_activeUnit DB_ID";
+	d2rq:column "CatalystActivity_2_activeUnit.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_activeUnit_activeUnit_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_activeUnit;
+	d2rq:property vocab:CatalystActivity_2_activeUnit_activeUnit_rank;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_activeUnit activeUnit_rank";
+	d2rq:column "CatalystActivity_2_activeUnit.activeUnit_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_activeUnit_activeUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_activeUnit;
+	d2rq:property vocab:CatalystActivity_2_activeUnit_activeUnit;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_activeUnit activeUnit";
+	d2rq:column "CatalystActivity_2_activeUnit.activeUnit";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_activeUnit_activeUnit_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_activeUnit;
+	d2rq:property vocab:CatalystActivity_2_activeUnit_activeUnit_class;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_activeUnit activeUnit_class";
+	d2rq:column "CatalystActivity_2_activeUnit.activeUnit_class";
+	.
+
+# Table CatalystActivity_2_literatureReference
+map:CatalystActivity_2_literatureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "CatalystActivity_2_literatureReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "CatalystActivity_2_literatureReference";
+	d2rq:class vocab:CatalystActivity_2_literatureReference;
+	d2rq:classDefinitionLabel "CatalystActivity_2_literatureReference";
+	.
+map:CatalystActivity_2_literatureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_literatureReference;
+	d2rq:property vocab:CatalystActivity_2_literatureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_literatureReference DB_ID";
+	d2rq:column "CatalystActivity_2_literatureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_literatureReference_literatureReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_literatureReference;
+	d2rq:property vocab:CatalystActivity_2_literatureReference_literatureReference_rank;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_literatureReference literatureReference_rank";
+	d2rq:column "CatalystActivity_2_literatureReference.literatureReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_literatureReference_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_literatureReference;
+	d2rq:property vocab:CatalystActivity_2_literatureReference_literatureReference;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_literatureReference literatureReference";
+	d2rq:column "CatalystActivity_2_literatureReference.literatureReference";
+	d2rq:datatype xsd:integer;
+	.
+map:CatalystActivity_2_literatureReference_literatureReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity_2_literatureReference;
+	d2rq:property vocab:CatalystActivity_2_literatureReference_literatureReference_class;
+	d2rq:propertyDefinitionLabel "CatalystActivity_2_literatureReference literatureReference_class";
+	d2rq:column "CatalystActivity_2_literatureReference.literatureReference_class";
+	.
+
+# Table CellType
+map:CellType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CellType/@@CellType.DB_ID@@";
+	d2rq:class vocab:CellType;
+	d2rq:classDefinitionLabel "CellType";
+	.
+map:CellType__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CellType;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CellType #@@CellType.DB_ID@@";
+	.
+map:CellType_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CellType;
+	d2rq:property vocab:CellType_DB_ID;
+	d2rq:propertyDefinitionLabel "CellType DB_ID";
+	d2rq:column "CellType.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Compartment
+map:Compartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Compartment/@@Compartment.DB_ID@@";
+	d2rq:class vocab:Compartment;
+	d2rq:classDefinitionLabel "Compartment";
+	.
+map:Compartment__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Compartment;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Compartment #@@Compartment.DB_ID@@";
+	.
+map:Compartment_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Compartment;
+	d2rq:property vocab:Compartment_DB_ID;
+	d2rq:propertyDefinitionLabel "Compartment DB_ID";
+	d2rq:column "Compartment.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Complex
+map:Complex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Complex/@@Complex.DB_ID@@";
+	d2rq:class vocab:Complex;
+	d2rq:classDefinitionLabel "Complex";
+	.
+map:Complex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Complex #@@Complex.DB_ID@@";
+	.
+map:Complex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:Complex_DB_ID;
+	d2rq:propertyDefinitionLabel "Complex DB_ID";
+	d2rq:column "Complex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_isChimeric a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:Complex_isChimeric;
+	d2rq:propertyDefinitionLabel "Complex isChimeric";
+	d2rq:column "Complex.isChimeric";
+	.
+map:Complex_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:Complex_totalProt;
+	d2rq:propertyDefinitionLabel "Complex totalProt";
+	d2rq:column "Complex.totalProt";
+	.
+map:Complex_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:Complex_maxHomologues;
+	d2rq:propertyDefinitionLabel "Complex maxHomologues";
+	d2rq:column "Complex.maxHomologues";
+	.
+map:Complex_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:Complex_inferredProt;
+	d2rq:propertyDefinitionLabel "Complex inferredProt";
+	d2rq:column "Complex.inferredProt";
+	.
+
+# Table ComplexDomain
+map:ComplexDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ComplexDomain/@@ComplexDomain.DB_ID@@";
+	d2rq:class vocab:ComplexDomain;
+	d2rq:classDefinitionLabel "ComplexDomain";
+	.
+map:ComplexDomain__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ComplexDomain #@@ComplexDomain.DB_ID@@";
+	.
+map:ComplexDomain_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain;
+	d2rq:property vocab:ComplexDomain_DB_ID;
+	d2rq:propertyDefinitionLabel "ComplexDomain DB_ID";
+	d2rq:column "ComplexDomain.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ComplexDomain_2_hasComponent
+map:ComplexDomain_2_hasComponent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ComplexDomain_2_hasComponent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ComplexDomain_2_hasComponent";
+	d2rq:class vocab:ComplexDomain_2_hasComponent;
+	d2rq:classDefinitionLabel "ComplexDomain_2_hasComponent";
+	.
+map:ComplexDomain_2_hasComponent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain_2_hasComponent;
+	d2rq:property vocab:ComplexDomain_2_hasComponent_DB_ID;
+	d2rq:propertyDefinitionLabel "ComplexDomain_2_hasComponent DB_ID";
+	d2rq:column "ComplexDomain_2_hasComponent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ComplexDomain_2_hasComponent_hasComponent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain_2_hasComponent;
+	d2rq:property vocab:ComplexDomain_2_hasComponent_hasComponent_rank;
+	d2rq:propertyDefinitionLabel "ComplexDomain_2_hasComponent hasComponent_rank";
+	d2rq:column "ComplexDomain_2_hasComponent.hasComponent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ComplexDomain_2_hasComponent_hasComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain_2_hasComponent;
+	d2rq:property vocab:ComplexDomain_2_hasComponent_hasComponent;
+	d2rq:propertyDefinitionLabel "ComplexDomain_2_hasComponent hasComponent";
+	d2rq:column "ComplexDomain_2_hasComponent.hasComponent";
+	d2rq:datatype xsd:integer;
+	.
+map:ComplexDomain_2_hasComponent_hasComponent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain_2_hasComponent;
+	d2rq:property vocab:ComplexDomain_2_hasComponent_hasComponent_class;
+	d2rq:propertyDefinitionLabel "ComplexDomain_2_hasComponent hasComponent_class";
+	d2rq:column "ComplexDomain_2_hasComponent.hasComponent_class";
+	.
+
+# Table Complex_2_entityOnOtherCell
+map:Complex_2_entityOnOtherCell a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Complex_2_entityOnOtherCell" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Complex_2_entityOnOtherCell";
+	d2rq:class vocab:Complex_2_entityOnOtherCell;
+	d2rq:classDefinitionLabel "Complex_2_entityOnOtherCell";
+	.
+map:Complex_2_entityOnOtherCell_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_entityOnOtherCell;
+	d2rq:property vocab:Complex_2_entityOnOtherCell_DB_ID;
+	d2rq:propertyDefinitionLabel "Complex_2_entityOnOtherCell DB_ID";
+	d2rq:column "Complex_2_entityOnOtherCell.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_entityOnOtherCell_entityOnOtherCell_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_entityOnOtherCell;
+	d2rq:property vocab:Complex_2_entityOnOtherCell_entityOnOtherCell_rank;
+	d2rq:propertyDefinitionLabel "Complex_2_entityOnOtherCell entityOnOtherCell_rank";
+	d2rq:column "Complex_2_entityOnOtherCell.entityOnOtherCell_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_entityOnOtherCell_entityOnOtherCell a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_entityOnOtherCell;
+	d2rq:property vocab:Complex_2_entityOnOtherCell_entityOnOtherCell;
+	d2rq:propertyDefinitionLabel "Complex_2_entityOnOtherCell entityOnOtherCell";
+	d2rq:column "Complex_2_entityOnOtherCell.entityOnOtherCell";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_entityOnOtherCell_entityOnOtherCell_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_entityOnOtherCell;
+	d2rq:property vocab:Complex_2_entityOnOtherCell_entityOnOtherCell_class;
+	d2rq:propertyDefinitionLabel "Complex_2_entityOnOtherCell entityOnOtherCell_class";
+	d2rq:column "Complex_2_entityOnOtherCell.entityOnOtherCell_class";
+	.
+
+# Table Complex_2_hasComponent
+map:Complex_2_hasComponent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Complex_2_hasComponent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Complex_2_hasComponent";
+	d2rq:class vocab:Complex_2_hasComponent;
+	d2rq:classDefinitionLabel "Complex_2_hasComponent";
+	.
+map:Complex_2_hasComponent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_hasComponent;
+	d2rq:property vocab:Complex_2_hasComponent_DB_ID;
+	d2rq:propertyDefinitionLabel "Complex_2_hasComponent DB_ID";
+	d2rq:column "Complex_2_hasComponent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_hasComponent_hasComponent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_hasComponent;
+	d2rq:property vocab:Complex_2_hasComponent_hasComponent_rank;
+	d2rq:propertyDefinitionLabel "Complex_2_hasComponent hasComponent_rank";
+	d2rq:column "Complex_2_hasComponent.hasComponent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_hasComponent_hasComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_hasComponent;
+	d2rq:property vocab:Complex_2_hasComponent_hasComponent;
+	d2rq:propertyDefinitionLabel "Complex_2_hasComponent hasComponent";
+	d2rq:column "Complex_2_hasComponent.hasComponent";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_hasComponent_hasComponent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_hasComponent;
+	d2rq:property vocab:Complex_2_hasComponent_hasComponent_class;
+	d2rq:propertyDefinitionLabel "Complex_2_hasComponent hasComponent_class";
+	d2rq:column "Complex_2_hasComponent.hasComponent_class";
+	.
+
+# Table Complex_2_includedLocation
+map:Complex_2_includedLocation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Complex_2_includedLocation" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Complex_2_includedLocation";
+	d2rq:class vocab:Complex_2_includedLocation;
+	d2rq:classDefinitionLabel "Complex_2_includedLocation";
+	.
+map:Complex_2_includedLocation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_includedLocation;
+	d2rq:property vocab:Complex_2_includedLocation_DB_ID;
+	d2rq:propertyDefinitionLabel "Complex_2_includedLocation DB_ID";
+	d2rq:column "Complex_2_includedLocation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_includedLocation_includedLocation_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_includedLocation;
+	d2rq:property vocab:Complex_2_includedLocation_includedLocation_rank;
+	d2rq:propertyDefinitionLabel "Complex_2_includedLocation includedLocation_rank";
+	d2rq:column "Complex_2_includedLocation.includedLocation_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_includedLocation_includedLocation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_includedLocation;
+	d2rq:property vocab:Complex_2_includedLocation_includedLocation;
+	d2rq:propertyDefinitionLabel "Complex_2_includedLocation includedLocation";
+	d2rq:column "Complex_2_includedLocation.includedLocation";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_includedLocation_includedLocation_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_includedLocation;
+	d2rq:property vocab:Complex_2_includedLocation_includedLocation_class;
+	d2rq:propertyDefinitionLabel "Complex_2_includedLocation includedLocation_class";
+	d2rq:column "Complex_2_includedLocation.includedLocation_class";
+	.
+
+# Table Complex_2_species
+map:Complex_2_species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Complex_2_species" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Complex_2_species";
+	d2rq:class vocab:Complex_2_species;
+	d2rq:classDefinitionLabel "Complex_2_species";
+	.
+map:Complex_2_species_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_species;
+	d2rq:property vocab:Complex_2_species_DB_ID;
+	d2rq:propertyDefinitionLabel "Complex_2_species DB_ID";
+	d2rq:column "Complex_2_species.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_species_species_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_species;
+	d2rq:property vocab:Complex_2_species_species_rank;
+	d2rq:propertyDefinitionLabel "Complex_2_species species_rank";
+	d2rq:column "Complex_2_species.species_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_species_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_species;
+	d2rq:property vocab:Complex_2_species_species;
+	d2rq:propertyDefinitionLabel "Complex_2_species species";
+	d2rq:column "Complex_2_species.species";
+	d2rq:datatype xsd:integer;
+	.
+map:Complex_2_species_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex_2_species;
+	d2rq:property vocab:Complex_2_species_species_class;
+	d2rq:propertyDefinitionLabel "Complex_2_species species_class";
+	d2rq:column "Complex_2_species.species_class";
+	.
+
+# Table ConcurrentEventSet
+map:ConcurrentEventSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ConcurrentEventSet/@@ConcurrentEventSet.DB_ID@@";
+	d2rq:class vocab:ConcurrentEventSet;
+	d2rq:classDefinitionLabel "ConcurrentEventSet";
+	.
+map:ConcurrentEventSet__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ConcurrentEventSet #@@ConcurrentEventSet.DB_ID@@";
+	.
+map:ConcurrentEventSet_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet;
+	d2rq:property vocab:ConcurrentEventSet_DB_ID;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet DB_ID";
+	d2rq:column "ConcurrentEventSet.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ConcurrentEventSet_2_concurrentEvents
+map:ConcurrentEventSet_2_concurrentEvents a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ConcurrentEventSet_2_concurrentEvents" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ConcurrentEventSet_2_concurrentEvents";
+	d2rq:class vocab:ConcurrentEventSet_2_concurrentEvents;
+	d2rq:classDefinitionLabel "ConcurrentEventSet_2_concurrentEvents";
+	.
+map:ConcurrentEventSet_2_concurrentEvents_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_concurrentEvents;
+	d2rq:property vocab:ConcurrentEventSet_2_concurrentEvents_DB_ID;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_concurrentEvents DB_ID";
+	d2rq:column "ConcurrentEventSet_2_concurrentEvents.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_concurrentEvents_concurrentEvents_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_concurrentEvents;
+	d2rq:property vocab:ConcurrentEventSet_2_concurrentEvents_concurrentEvents_rank;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_concurrentEvents concurrentEvents_rank";
+	d2rq:column "ConcurrentEventSet_2_concurrentEvents.concurrentEvents_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_concurrentEvents_concurrentEvents a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_concurrentEvents;
+	d2rq:property vocab:ConcurrentEventSet_2_concurrentEvents_concurrentEvents;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_concurrentEvents concurrentEvents";
+	d2rq:column "ConcurrentEventSet_2_concurrentEvents.concurrentEvents";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_concurrentEvents_concurrentEvents_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_concurrentEvents;
+	d2rq:property vocab:ConcurrentEventSet_2_concurrentEvents_concurrentEvents_class;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_concurrentEvents concurrentEvents_class";
+	d2rq:column "ConcurrentEventSet_2_concurrentEvents.concurrentEvents_class";
+	.
+
+# Table ConcurrentEventSet_2_focusEntity
+map:ConcurrentEventSet_2_focusEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ConcurrentEventSet_2_focusEntity" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ConcurrentEventSet_2_focusEntity";
+	d2rq:class vocab:ConcurrentEventSet_2_focusEntity;
+	d2rq:classDefinitionLabel "ConcurrentEventSet_2_focusEntity";
+	.
+map:ConcurrentEventSet_2_focusEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_focusEntity;
+	d2rq:property vocab:ConcurrentEventSet_2_focusEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_focusEntity DB_ID";
+	d2rq:column "ConcurrentEventSet_2_focusEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_focusEntity_focusEntity_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_focusEntity;
+	d2rq:property vocab:ConcurrentEventSet_2_focusEntity_focusEntity_rank;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_focusEntity focusEntity_rank";
+	d2rq:column "ConcurrentEventSet_2_focusEntity.focusEntity_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_focusEntity_focusEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_focusEntity;
+	d2rq:property vocab:ConcurrentEventSet_2_focusEntity_focusEntity;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_focusEntity focusEntity";
+	d2rq:column "ConcurrentEventSet_2_focusEntity.focusEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:ConcurrentEventSet_2_focusEntity_focusEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet_2_focusEntity;
+	d2rq:property vocab:ConcurrentEventSet_2_focusEntity_focusEntity_class;
+	d2rq:propertyDefinitionLabel "ConcurrentEventSet_2_focusEntity focusEntity_class";
+	d2rq:column "ConcurrentEventSet_2_focusEntity.focusEntity_class";
+	.
+
+# Table ControlledVocabulary
+map:ControlledVocabulary a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ControlledVocabulary/@@ControlledVocabulary.DB_ID@@";
+	d2rq:class vocab:ControlledVocabulary;
+	d2rq:classDefinitionLabel "ControlledVocabulary";
+	.
+map:ControlledVocabulary__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ControlledVocabulary #@@ControlledVocabulary.DB_ID@@";
+	.
+map:ControlledVocabulary_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary;
+	d2rq:property vocab:ControlledVocabulary_DB_ID;
+	d2rq:propertyDefinitionLabel "ControlledVocabulary DB_ID";
+	d2rq:column "ControlledVocabulary.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ControlledVocabulary_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary;
+	d2rq:property vocab:ControlledVocabulary_definition;
+	d2rq:propertyDefinitionLabel "ControlledVocabulary definition";
+	d2rq:column "ControlledVocabulary.definition";
+	.
+
+# Table ControlledVocabulary_2_name
+map:ControlledVocabulary_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ControlledVocabulary_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ControlledVocabulary_2_name";
+	d2rq:class vocab:ControlledVocabulary_2_name;
+	d2rq:classDefinitionLabel "ControlledVocabulary_2_name";
+	.
+map:ControlledVocabulary_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary_2_name;
+	d2rq:property vocab:ControlledVocabulary_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "ControlledVocabulary_2_name DB_ID";
+	d2rq:column "ControlledVocabulary_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ControlledVocabulary_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary_2_name;
+	d2rq:property vocab:ControlledVocabulary_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "ControlledVocabulary_2_name name_rank";
+	d2rq:column "ControlledVocabulary_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ControlledVocabulary_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary_2_name;
+	d2rq:property vocab:ControlledVocabulary_2_name_name;
+	d2rq:propertyDefinitionLabel "ControlledVocabulary_2_name name";
+	d2rq:column "ControlledVocabulary_2_name.name";
+	.
+
+# Table CrosslinkedResidue
+map:CrosslinkedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "CrosslinkedResidue/@@CrosslinkedResidue.DB_ID@@";
+	d2rq:class vocab:CrosslinkedResidue;
+	d2rq:classDefinitionLabel "CrosslinkedResidue";
+	.
+map:CrosslinkedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "CrosslinkedResidue #@@CrosslinkedResidue.DB_ID@@";
+	.
+map:CrosslinkedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue;
+	d2rq:property vocab:CrosslinkedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue DB_ID";
+	d2rq:column "CrosslinkedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CrosslinkedResidue_modification a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue;
+	d2rq:property vocab:CrosslinkedResidue_modification;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue modification";
+	d2rq:column "CrosslinkedResidue.modification";
+	d2rq:datatype xsd:integer;
+	.
+map:CrosslinkedResidue_modification_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue;
+	d2rq:property vocab:CrosslinkedResidue_modification_class;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue modification_class";
+	d2rq:column "CrosslinkedResidue.modification_class";
+	.
+
+# Table CrosslinkedResidue_2_secondCoordinate
+map:CrosslinkedResidue_2_secondCoordinate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "CrosslinkedResidue_2_secondCoordinate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "CrosslinkedResidue_2_secondCoordinate";
+	d2rq:class vocab:CrosslinkedResidue_2_secondCoordinate;
+	d2rq:classDefinitionLabel "CrosslinkedResidue_2_secondCoordinate";
+	.
+map:CrosslinkedResidue_2_secondCoordinate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue_2_secondCoordinate;
+	d2rq:property vocab:CrosslinkedResidue_2_secondCoordinate_DB_ID;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue_2_secondCoordinate DB_ID";
+	d2rq:column "CrosslinkedResidue_2_secondCoordinate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:CrosslinkedResidue_2_secondCoordinate_secondCoordinate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue_2_secondCoordinate;
+	d2rq:property vocab:CrosslinkedResidue_2_secondCoordinate_secondCoordinate_rank;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue_2_secondCoordinate secondCoordinate_rank";
+	d2rq:column "CrosslinkedResidue_2_secondCoordinate.secondCoordinate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:CrosslinkedResidue_2_secondCoordinate_secondCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CrosslinkedResidue_2_secondCoordinate;
+	d2rq:property vocab:CrosslinkedResidue_2_secondCoordinate_secondCoordinate;
+	d2rq:propertyDefinitionLabel "CrosslinkedResidue_2_secondCoordinate secondCoordinate";
+	d2rq:column "CrosslinkedResidue_2_secondCoordinate.secondCoordinate";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table DataModel
+map:DataModel a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "DataModel" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "DataModel";
+	d2rq:class vocab:DataModel;
+	d2rq:classDefinitionLabel "DataModel";
+	.
+map:DataModel_thing a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_thing;
+	d2rq:propertyDefinitionLabel "DataModel thing";
+	d2rq:column "DataModel.thing";
+	.
+map:DataModel_thing_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_thing_class;
+	d2rq:propertyDefinitionLabel "DataModel thing_class";
+	d2rq:column "DataModel.thing_class";
+	.
+map:DataModel_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_property_name;
+	d2rq:propertyDefinitionLabel "DataModel property_name";
+	d2rq:column "DataModel.property_name";
+	.
+map:DataModel_property_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_property_value;
+	d2rq:propertyDefinitionLabel "DataModel property_value";
+	d2rq:column "DataModel.property_value";
+	.
+map:DataModel_property_value_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_property_value_type;
+	d2rq:propertyDefinitionLabel "DataModel property_value_type";
+	d2rq:column "DataModel.property_value_type";
+	.
+map:DataModel_property_value_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:DataModel_property_value_rank;
+	d2rq:propertyDefinitionLabel "DataModel property_value_rank";
+	d2rq:column "DataModel.property_value_rank";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table DatabaseIdentifier
+map:DatabaseIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "DatabaseIdentifier/@@DatabaseIdentifier.DB_ID@@";
+	d2rq:class vocab:DatabaseIdentifier;
+	d2rq:classDefinitionLabel "DatabaseIdentifier";
+	.
+map:DatabaseIdentifier__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property rdfs:label;
+	d2rq:pattern "DatabaseIdentifier #@@DatabaseIdentifier.DB_ID@@";
+	.
+map:DatabaseIdentifier_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:DatabaseIdentifier_DB_ID;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier DB_ID";
+	d2rq:column "DatabaseIdentifier.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseIdentifier_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:DatabaseIdentifier_identifier;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier identifier";
+	d2rq:column "DatabaseIdentifier.identifier";
+	.
+map:DatabaseIdentifier_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:DatabaseIdentifier_referenceDatabase;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier referenceDatabase";
+	d2rq:column "DatabaseIdentifier.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseIdentifier_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:DatabaseIdentifier_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier referenceDatabase_class";
+	d2rq:column "DatabaseIdentifier.referenceDatabase_class";
+	.
+
+# Table DatabaseIdentifier_2_crossReference
+map:DatabaseIdentifier_2_crossReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "DatabaseIdentifier_2_crossReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "DatabaseIdentifier_2_crossReference";
+	d2rq:class vocab:DatabaseIdentifier_2_crossReference;
+	d2rq:classDefinitionLabel "DatabaseIdentifier_2_crossReference";
+	.
+map:DatabaseIdentifier_2_crossReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier_2_crossReference;
+	d2rq:property vocab:DatabaseIdentifier_2_crossReference_DB_ID;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier_2_crossReference DB_ID";
+	d2rq:column "DatabaseIdentifier_2_crossReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseIdentifier_2_crossReference_crossReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier_2_crossReference;
+	d2rq:property vocab:DatabaseIdentifier_2_crossReference_crossReference_rank;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier_2_crossReference crossReference_rank";
+	d2rq:column "DatabaseIdentifier_2_crossReference.crossReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseIdentifier_2_crossReference_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier_2_crossReference;
+	d2rq:property vocab:DatabaseIdentifier_2_crossReference_crossReference;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier_2_crossReference crossReference";
+	d2rq:column "DatabaseIdentifier_2_crossReference.crossReference";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseIdentifier_2_crossReference_crossReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier_2_crossReference;
+	d2rq:property vocab:DatabaseIdentifier_2_crossReference_crossReference_class;
+	d2rq:propertyDefinitionLabel "DatabaseIdentifier_2_crossReference crossReference_class";
+	d2rq:column "DatabaseIdentifier_2_crossReference.crossReference_class";
+	.
+
+# Table DatabaseObject
+map:DatabaseObject a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "DatabaseObject/@@DatabaseObject.DB_ID@@";
+	d2rq:class vocab:DatabaseObject;
+	d2rq:classDefinitionLabel "DatabaseObject";
+	.
+map:DatabaseObject__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property rdfs:label;
+	d2rq:pattern "DatabaseObject #@@DatabaseObject.DB_ID@@";
+	.
+map:DatabaseObject_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject_DB_ID;
+	d2rq:propertyDefinitionLabel "DatabaseObject DB_ID";
+	d2rq:column "DatabaseObject.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject__Protege_id a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject__Protege_id;
+	d2rq:propertyDefinitionLabel "DatabaseObject _Protege_id";
+	d2rq:column "DatabaseObject._Protege_id";
+	.
+map:DatabaseObject___is_ghost a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject___is_ghost;
+	d2rq:propertyDefinitionLabel "DatabaseObject __is_ghost";
+	d2rq:column "DatabaseObject.__is_ghost";
+	.
+map:DatabaseObject__class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject__class;
+	d2rq:propertyDefinitionLabel "DatabaseObject _class";
+	d2rq:column "DatabaseObject._class";
+	.
+map:DatabaseObject__displayName a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject__displayName;
+	d2rq:propertyDefinitionLabel "DatabaseObject _displayName";
+	d2rq:column "DatabaseObject._displayName";
+	.
+map:DatabaseObject__timestamp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject__timestamp;
+	d2rq:propertyDefinitionLabel "DatabaseObject _timestamp";
+	d2rq:column "DatabaseObject._timestamp";
+	d2rq:datatype xsd:dateTime;
+	.
+map:DatabaseObject_created a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject_created;
+	d2rq:propertyDefinitionLabel "DatabaseObject created";
+	d2rq:column "DatabaseObject.created";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject_created_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject_created_class;
+	d2rq:propertyDefinitionLabel "DatabaseObject created_class";
+	d2rq:column "DatabaseObject.created_class";
+	.
+map:DatabaseObject_stableIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject_stableIdentifier;
+	d2rq:propertyDefinitionLabel "DatabaseObject stableIdentifier";
+	d2rq:column "DatabaseObject.stableIdentifier";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject_stableIdentifier_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:DatabaseObject_stableIdentifier_class;
+	d2rq:propertyDefinitionLabel "DatabaseObject stableIdentifier_class";
+	d2rq:column "DatabaseObject.stableIdentifier_class";
+	.
+
+# Table DatabaseObject_2_modified
+map:DatabaseObject_2_modified a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "DatabaseObject_2_modified" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "DatabaseObject_2_modified";
+	d2rq:class vocab:DatabaseObject_2_modified;
+	d2rq:classDefinitionLabel "DatabaseObject_2_modified";
+	.
+map:DatabaseObject_2_modified_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject_2_modified;
+	d2rq:property vocab:DatabaseObject_2_modified_DB_ID;
+	d2rq:propertyDefinitionLabel "DatabaseObject_2_modified DB_ID";
+	d2rq:column "DatabaseObject_2_modified.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject_2_modified_modified_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject_2_modified;
+	d2rq:property vocab:DatabaseObject_2_modified_modified_rank;
+	d2rq:propertyDefinitionLabel "DatabaseObject_2_modified modified_rank";
+	d2rq:column "DatabaseObject_2_modified.modified_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject_2_modified_modified a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject_2_modified;
+	d2rq:property vocab:DatabaseObject_2_modified_modified;
+	d2rq:propertyDefinitionLabel "DatabaseObject_2_modified modified";
+	d2rq:column "DatabaseObject_2_modified.modified";
+	d2rq:datatype xsd:integer;
+	.
+map:DatabaseObject_2_modified_modified_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject_2_modified;
+	d2rq:property vocab:DatabaseObject_2_modified_modified_class;
+	d2rq:propertyDefinitionLabel "DatabaseObject_2_modified modified_class";
+	d2rq:column "DatabaseObject_2_modified.modified_class";
+	.
+
+# Table DefinedSet
+map:DefinedSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "DefinedSet/@@DefinedSet.DB_ID@@";
+	d2rq:class vocab:DefinedSet;
+	d2rq:classDefinitionLabel "DefinedSet";
+	.
+map:DefinedSet__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DefinedSet;
+	d2rq:property rdfs:label;
+	d2rq:pattern "DefinedSet #@@DefinedSet.DB_ID@@";
+	.
+map:DefinedSet_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DefinedSet;
+	d2rq:property vocab:DefinedSet_DB_ID;
+	d2rq:propertyDefinitionLabel "DefinedSet DB_ID";
+	d2rq:column "DefinedSet.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table DeletedControlledVocabulary
+map:DeletedControlledVocabulary a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "DeletedControlledVocabulary/@@DeletedControlledVocabulary.DB_ID@@";
+	d2rq:class vocab:DeletedControlledVocabulary;
+	d2rq:classDefinitionLabel "DeletedControlledVocabulary";
+	.
+map:DeletedControlledVocabulary__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DeletedControlledVocabulary;
+	d2rq:property rdfs:label;
+	d2rq:pattern "DeletedControlledVocabulary #@@DeletedControlledVocabulary.DB_ID@@";
+	.
+map:DeletedControlledVocabulary_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DeletedControlledVocabulary;
+	d2rq:property vocab:DeletedControlledVocabulary_DB_ID;
+	d2rq:propertyDefinitionLabel "DeletedControlledVocabulary DB_ID";
+	d2rq:column "DeletedControlledVocabulary.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Depolymerisation
+map:Depolymerisation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Depolymerisation/@@Depolymerisation.DB_ID@@";
+	d2rq:class vocab:Depolymerisation;
+	d2rq:classDefinitionLabel "Depolymerisation";
+	.
+map:Depolymerisation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Depolymerisation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Depolymerisation #@@Depolymerisation.DB_ID@@";
+	.
+map:Depolymerisation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Depolymerisation;
+	d2rq:property vocab:Depolymerisation_DB_ID;
+	d2rq:propertyDefinitionLabel "Depolymerisation DB_ID";
+	d2rq:column "Depolymerisation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Disease
+map:Disease a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Disease/@@Disease.DB_ID@@";
+	d2rq:class vocab:Disease;
+	d2rq:classDefinitionLabel "Disease";
+	.
+map:Disease__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Disease;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Disease #@@Disease.DB_ID@@";
+	.
+map:Disease_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Disease;
+	d2rq:property vocab:Disease_DB_ID;
+	d2rq:propertyDefinitionLabel "Disease DB_ID";
+	d2rq:column "Disease.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Domain
+map:Domain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Domain/@@Domain.DB_ID@@";
+	d2rq:class vocab:Domain;
+	d2rq:classDefinitionLabel "Domain";
+	.
+map:Domain__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Domain #@@Domain.DB_ID@@";
+	.
+map:Domain_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain;
+	d2rq:property vocab:Domain_DB_ID;
+	d2rq:propertyDefinitionLabel "Domain DB_ID";
+	d2rq:column "Domain.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Domain_2_name
+map:Domain_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Domain_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Domain_2_name";
+	d2rq:class vocab:Domain_2_name;
+	d2rq:classDefinitionLabel "Domain_2_name";
+	.
+map:Domain_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain_2_name;
+	d2rq:property vocab:Domain_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "Domain_2_name DB_ID";
+	d2rq:column "Domain_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Domain_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain_2_name;
+	d2rq:property vocab:Domain_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "Domain_2_name name_rank";
+	d2rq:column "Domain_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Domain_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain_2_name;
+	d2rq:property vocab:Domain_2_name_name;
+	d2rq:propertyDefinitionLabel "Domain_2_name name";
+	d2rq:column "Domain_2_name.name";
+	.
+
+# Table Edge
+map:Edge a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Edge/@@Edge.DB_ID@@";
+	d2rq:class vocab:Edge;
+	d2rq:classDefinitionLabel "Edge";
+	.
+map:Edge__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Edge #@@Edge.DB_ID@@";
+	.
+map:Edge_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_DB_ID;
+	d2rq:propertyDefinitionLabel "Edge DB_ID";
+	d2rq:column "Edge.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Edge_edgeType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_edgeType;
+	d2rq:propertyDefinitionLabel "Edge edgeType";
+	d2rq:column "Edge.edgeType";
+	d2rq:datatype xsd:integer;
+	.
+map:Edge_pathwayDiagram a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_pathwayDiagram;
+	d2rq:propertyDefinitionLabel "Edge pathwayDiagram";
+	d2rq:column "Edge.pathwayDiagram";
+	d2rq:datatype xsd:integer;
+	.
+map:Edge_pathwayDiagram_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_pathwayDiagram_class;
+	d2rq:propertyDefinitionLabel "Edge pathwayDiagram_class";
+	d2rq:column "Edge.pathwayDiagram_class";
+	.
+map:Edge_pointCoordinates a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_pointCoordinates;
+	d2rq:propertyDefinitionLabel "Edge pointCoordinates";
+	d2rq:column "Edge.pointCoordinates";
+	.
+map:Edge_sourceVertex a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_sourceVertex;
+	d2rq:propertyDefinitionLabel "Edge sourceVertex";
+	d2rq:column "Edge.sourceVertex";
+	d2rq:datatype xsd:integer;
+	.
+map:Edge_sourceVertex_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_sourceVertex_class;
+	d2rq:propertyDefinitionLabel "Edge sourceVertex_class";
+	d2rq:column "Edge.sourceVertex_class";
+	.
+map:Edge_targetVertex a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_targetVertex;
+	d2rq:propertyDefinitionLabel "Edge targetVertex";
+	d2rq:column "Edge.targetVertex";
+	d2rq:datatype xsd:integer;
+	.
+map:Edge_targetVertex_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Edge;
+	d2rq:property vocab:Edge_targetVertex_class;
+	d2rq:propertyDefinitionLabel "Edge targetVertex_class";
+	d2rq:column "Edge.targetVertex_class";
+	.
+
+# Table EntityCompartment
+map:EntityCompartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EntityCompartment/@@EntityCompartment.DB_ID@@";
+	d2rq:class vocab:EntityCompartment;
+	d2rq:classDefinitionLabel "EntityCompartment";
+	.
+map:EntityCompartment__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityCompartment;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EntityCompartment #@@EntityCompartment.DB_ID@@";
+	.
+map:EntityCompartment_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityCompartment;
+	d2rq:property vocab:EntityCompartment_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityCompartment DB_ID";
+	d2rq:column "EntityCompartment.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table EntityFunctionalStatus
+map:EntityFunctionalStatus a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EntityFunctionalStatus/@@EntityFunctionalStatus.DB_ID@@";
+	d2rq:class vocab:EntityFunctionalStatus;
+	d2rq:classDefinitionLabel "EntityFunctionalStatus";
+	.
+map:EntityFunctionalStatus__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EntityFunctionalStatus #@@EntityFunctionalStatus.DB_ID@@";
+	.
+map:EntityFunctionalStatus_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus DB_ID";
+	d2rq:column "EntityFunctionalStatus.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityFunctionalStatus_physicalEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_physicalEntity;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus physicalEntity";
+	d2rq:column "EntityFunctionalStatus.physicalEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityFunctionalStatus_physicalEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_physicalEntity_class;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus physicalEntity_class";
+	d2rq:column "EntityFunctionalStatus.physicalEntity_class";
+	.
+
+# Table EntityFunctionalStatus_2_functionalStatus
+map:EntityFunctionalStatus_2_functionalStatus a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EntityFunctionalStatus_2_functionalStatus" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EntityFunctionalStatus_2_functionalStatus";
+	d2rq:class vocab:EntityFunctionalStatus_2_functionalStatus;
+	d2rq:classDefinitionLabel "EntityFunctionalStatus_2_functionalStatus";
+	.
+map:EntityFunctionalStatus_2_functionalStatus_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus_2_functionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_2_functionalStatus_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus_2_functionalStatus DB_ID";
+	d2rq:column "EntityFunctionalStatus_2_functionalStatus.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityFunctionalStatus_2_functionalStatus_functionalStatus_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus_2_functionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_2_functionalStatus_functionalStatus_rank;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus_2_functionalStatus functionalStatus_rank";
+	d2rq:column "EntityFunctionalStatus_2_functionalStatus.functionalStatus_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityFunctionalStatus_2_functionalStatus_functionalStatus a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus_2_functionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_2_functionalStatus_functionalStatus;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus_2_functionalStatus functionalStatus";
+	d2rq:column "EntityFunctionalStatus_2_functionalStatus.functionalStatus";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityFunctionalStatus_2_functionalStatus_functionalStatus_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityFunctionalStatus_2_functionalStatus;
+	d2rq:property vocab:EntityFunctionalStatus_2_functionalStatus_functionalStatus_class;
+	d2rq:propertyDefinitionLabel "EntityFunctionalStatus_2_functionalStatus functionalStatus_class";
+	d2rq:column "EntityFunctionalStatus_2_functionalStatus.functionalStatus_class";
+	.
+
+# Table EntitySet
+map:EntitySet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EntitySet/@@EntitySet.DB_ID@@";
+	d2rq:class vocab:EntitySet;
+	d2rq:classDefinitionLabel "EntitySet";
+	.
+map:EntitySet__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EntitySet #@@EntitySet.DB_ID@@";
+	.
+map:EntitySet_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:EntitySet_DB_ID;
+	d2rq:propertyDefinitionLabel "EntitySet DB_ID";
+	d2rq:column "EntitySet.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:EntitySet_totalProt;
+	d2rq:propertyDefinitionLabel "EntitySet totalProt";
+	d2rq:column "EntitySet.totalProt";
+	.
+map:EntitySet_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:EntitySet_inferredProt;
+	d2rq:propertyDefinitionLabel "EntitySet inferredProt";
+	d2rq:column "EntitySet.inferredProt";
+	.
+map:EntitySet_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:EntitySet_maxHomologues;
+	d2rq:propertyDefinitionLabel "EntitySet maxHomologues";
+	d2rq:column "EntitySet.maxHomologues";
+	.
+
+# Table EntitySet_2_hasMember
+map:EntitySet_2_hasMember a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EntitySet_2_hasMember" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EntitySet_2_hasMember";
+	d2rq:class vocab:EntitySet_2_hasMember;
+	d2rq:classDefinitionLabel "EntitySet_2_hasMember";
+	.
+map:EntitySet_2_hasMember_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_hasMember;
+	d2rq:property vocab:EntitySet_2_hasMember_DB_ID;
+	d2rq:propertyDefinitionLabel "EntitySet_2_hasMember DB_ID";
+	d2rq:column "EntitySet_2_hasMember.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_hasMember_hasMember_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_hasMember;
+	d2rq:property vocab:EntitySet_2_hasMember_hasMember_rank;
+	d2rq:propertyDefinitionLabel "EntitySet_2_hasMember hasMember_rank";
+	d2rq:column "EntitySet_2_hasMember.hasMember_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_hasMember_hasMember a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_hasMember;
+	d2rq:property vocab:EntitySet_2_hasMember_hasMember;
+	d2rq:propertyDefinitionLabel "EntitySet_2_hasMember hasMember";
+	d2rq:column "EntitySet_2_hasMember.hasMember";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_hasMember_hasMember_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_hasMember;
+	d2rq:property vocab:EntitySet_2_hasMember_hasMember_class;
+	d2rq:propertyDefinitionLabel "EntitySet_2_hasMember hasMember_class";
+	d2rq:column "EntitySet_2_hasMember.hasMember_class";
+	.
+
+# Table EntitySet_2_species
+map:EntitySet_2_species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EntitySet_2_species" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EntitySet_2_species";
+	d2rq:class vocab:EntitySet_2_species;
+	d2rq:classDefinitionLabel "EntitySet_2_species";
+	.
+map:EntitySet_2_species_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_species;
+	d2rq:property vocab:EntitySet_2_species_DB_ID;
+	d2rq:propertyDefinitionLabel "EntitySet_2_species DB_ID";
+	d2rq:column "EntitySet_2_species.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_species_species_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_species;
+	d2rq:property vocab:EntitySet_2_species_species_rank;
+	d2rq:propertyDefinitionLabel "EntitySet_2_species species_rank";
+	d2rq:column "EntitySet_2_species.species_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_species_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_species;
+	d2rq:property vocab:EntitySet_2_species_species;
+	d2rq:propertyDefinitionLabel "EntitySet_2_species species";
+	d2rq:column "EntitySet_2_species.species";
+	d2rq:datatype xsd:integer;
+	.
+map:EntitySet_2_species_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet_2_species;
+	d2rq:property vocab:EntitySet_2_species_species_class;
+	d2rq:propertyDefinitionLabel "EntitySet_2_species species_class";
+	d2rq:column "EntitySet_2_species.species_class";
+	.
+
+# Table EntityVertex
+map:EntityVertex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EntityVertex/@@EntityVertex.DB_ID@@";
+	d2rq:class vocab:EntityVertex;
+	d2rq:classDefinitionLabel "EntityVertex";
+	.
+map:EntityVertex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityVertex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EntityVertex #@@EntityVertex.DB_ID@@";
+	.
+map:EntityVertex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityVertex;
+	d2rq:property vocab:EntityVertex_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityVertex DB_ID";
+	d2rq:column "EntityVertex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityVertex_containedInEntityVertex a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityVertex;
+	d2rq:property vocab:EntityVertex_containedInEntityVertex;
+	d2rq:propertyDefinitionLabel "EntityVertex containedInEntityVertex";
+	d2rq:column "EntityVertex.containedInEntityVertex";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityVertex_containedInEntityVertex_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityVertex;
+	d2rq:property vocab:EntityVertex_containedInEntityVertex_class;
+	d2rq:propertyDefinitionLabel "EntityVertex containedInEntityVertex_class";
+	d2rq:column "EntityVertex.containedInEntityVertex_class";
+	.
+
+# Table EntityWithAccessionedSequence
+map:EntityWithAccessionedSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EntityWithAccessionedSequence/@@EntityWithAccessionedSequence.DB_ID@@";
+	d2rq:class vocab:EntityWithAccessionedSequence;
+	d2rq:classDefinitionLabel "EntityWithAccessionedSequence";
+	.
+map:EntityWithAccessionedSequence__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EntityWithAccessionedSequence #@@EntityWithAccessionedSequence.DB_ID@@";
+	.
+map:EntityWithAccessionedSequence_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:EntityWithAccessionedSequence_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence DB_ID";
+	d2rq:column "EntityWithAccessionedSequence.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_endCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:EntityWithAccessionedSequence_endCoordinate;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence endCoordinate";
+	d2rq:column "EntityWithAccessionedSequence.endCoordinate";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:EntityWithAccessionedSequence_referenceEntity;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence referenceEntity";
+	d2rq:column "EntityWithAccessionedSequence.referenceEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_referenceEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:EntityWithAccessionedSequence_referenceEntity_class;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence referenceEntity_class";
+	d2rq:column "EntityWithAccessionedSequence.referenceEntity_class";
+	.
+map:EntityWithAccessionedSequence_startCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:EntityWithAccessionedSequence_startCoordinate;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence startCoordinate";
+	d2rq:column "EntityWithAccessionedSequence.startCoordinate";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table EntityWithAccessionedSequence_2_hasModifiedResidue
+map:EntityWithAccessionedSequence_2_hasModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EntityWithAccessionedSequence_2_hasModifiedResidue" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EntityWithAccessionedSequence_2_hasModifiedResidue";
+	d2rq:class vocab:EntityWithAccessionedSequence_2_hasModifiedResidue;
+	d2rq:classDefinitionLabel "EntityWithAccessionedSequence_2_hasModifiedResidue";
+	.
+map:EntityWithAccessionedSequence_2_hasModifiedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence_2_hasModifiedResidue;
+	d2rq:property vocab:EntityWithAccessionedSequence_2_hasModifiedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence_2_hasModifiedResidue DB_ID";
+	d2rq:column "EntityWithAccessionedSequence_2_hasModifiedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence_2_hasModifiedResidue;
+	d2rq:property vocab:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue_rank;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence_2_hasModifiedResidue hasModifiedResidue_rank";
+	d2rq:column "EntityWithAccessionedSequence_2_hasModifiedResidue.hasModifiedResidue_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence_2_hasModifiedResidue;
+	d2rq:property vocab:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence_2_hasModifiedResidue hasModifiedResidue";
+	d2rq:column "EntityWithAccessionedSequence_2_hasModifiedResidue.hasModifiedResidue";
+	d2rq:datatype xsd:integer;
+	.
+map:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence_2_hasModifiedResidue;
+	d2rq:property vocab:EntityWithAccessionedSequence_2_hasModifiedResidue_hasModifiedResidue_class;
+	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence_2_hasModifiedResidue hasModifiedResidue_class";
+	d2rq:column "EntityWithAccessionedSequence_2_hasModifiedResidue.hasModifiedResidue_class";
+	.
+
+# Table Event
+map:Event a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Event/@@Event.DB_ID@@";
+	d2rq:class vocab:Event;
+	d2rq:classDefinitionLabel "Event";
+	.
+map:Event__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Event #@@Event.DB_ID@@";
+	.
+map:Event_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_DB_ID;
+	d2rq:propertyDefinitionLabel "Event DB_ID";
+	d2rq:column "Event.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event__doRelease a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event__doRelease;
+	d2rq:propertyDefinitionLabel "Event _doRelease";
+	d2rq:column "Event._doRelease";
+	.
+map:Event_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_definition;
+	d2rq:propertyDefinitionLabel "Event definition";
+	d2rq:column "Event.definition";
+	.
+map:Event_evidenceType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_evidenceType;
+	d2rq:propertyDefinitionLabel "Event evidenceType";
+	d2rq:column "Event.evidenceType";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_evidenceType_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_evidenceType_class;
+	d2rq:propertyDefinitionLabel "Event evidenceType_class";
+	d2rq:column "Event.evidenceType_class";
+	.
+map:Event_goBiologicalProcess a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_goBiologicalProcess;
+	d2rq:propertyDefinitionLabel "Event goBiologicalProcess";
+	d2rq:column "Event.goBiologicalProcess";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_goBiologicalProcess_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_goBiologicalProcess_class;
+	d2rq:propertyDefinitionLabel "Event goBiologicalProcess_class";
+	d2rq:column "Event.goBiologicalProcess_class";
+	.
+map:Event_releaseDate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_releaseDate;
+	d2rq:propertyDefinitionLabel "Event releaseDate";
+	d2rq:column "Event.releaseDate";
+	d2rq:datatype xsd:date;
+	.
+map:Event_releaseStatus a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:Event_releaseStatus;
+	d2rq:propertyDefinitionLabel "Event releaseStatus";
+	d2rq:column "Event.releaseStatus";
+	.
+
+# Table Event_2_authored
+map:Event_2_authored a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_authored" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_authored";
+	d2rq:class vocab:Event_2_authored;
+	d2rq:classDefinitionLabel "Event_2_authored";
+	.
+map:Event_2_authored_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_authored;
+	d2rq:property vocab:Event_2_authored_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_authored DB_ID";
+	d2rq:column "Event_2_authored.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_authored_authored_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_authored;
+	d2rq:property vocab:Event_2_authored_authored_rank;
+	d2rq:propertyDefinitionLabel "Event_2_authored authored_rank";
+	d2rq:column "Event_2_authored.authored_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_authored_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_authored;
+	d2rq:property vocab:Event_2_authored_authored;
+	d2rq:propertyDefinitionLabel "Event_2_authored authored";
+	d2rq:column "Event_2_authored.authored";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_authored_authored_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_authored;
+	d2rq:property vocab:Event_2_authored_authored_class;
+	d2rq:propertyDefinitionLabel "Event_2_authored authored_class";
+	d2rq:column "Event_2_authored.authored_class";
+	.
+
+# Table Event_2_compartment
+map:Event_2_compartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_compartment" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_compartment";
+	d2rq:class vocab:Event_2_compartment;
+	d2rq:classDefinitionLabel "Event_2_compartment";
+	.
+map:Event_2_compartment_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_compartment;
+	d2rq:property vocab:Event_2_compartment_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_compartment DB_ID";
+	d2rq:column "Event_2_compartment.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_compartment_compartment_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_compartment;
+	d2rq:property vocab:Event_2_compartment_compartment_rank;
+	d2rq:propertyDefinitionLabel "Event_2_compartment compartment_rank";
+	d2rq:column "Event_2_compartment.compartment_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_compartment_compartment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_compartment;
+	d2rq:property vocab:Event_2_compartment_compartment;
+	d2rq:propertyDefinitionLabel "Event_2_compartment compartment";
+	d2rq:column "Event_2_compartment.compartment";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_compartment_compartment_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_compartment;
+	d2rq:property vocab:Event_2_compartment_compartment_class;
+	d2rq:propertyDefinitionLabel "Event_2_compartment compartment_class";
+	d2rq:column "Event_2_compartment.compartment_class";
+	.
+
+# Table Event_2_crossReference
+map:Event_2_crossReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_crossReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_crossReference";
+	d2rq:class vocab:Event_2_crossReference;
+	d2rq:classDefinitionLabel "Event_2_crossReference";
+	.
+map:Event_2_crossReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_crossReference;
+	d2rq:property vocab:Event_2_crossReference_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_crossReference DB_ID";
+	d2rq:column "Event_2_crossReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_crossReference_crossReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_crossReference;
+	d2rq:property vocab:Event_2_crossReference_crossReference_rank;
+	d2rq:propertyDefinitionLabel "Event_2_crossReference crossReference_rank";
+	d2rq:column "Event_2_crossReference.crossReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_crossReference_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_crossReference;
+	d2rq:property vocab:Event_2_crossReference_crossReference;
+	d2rq:propertyDefinitionLabel "Event_2_crossReference crossReference";
+	d2rq:column "Event_2_crossReference.crossReference";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_crossReference_crossReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_crossReference;
+	d2rq:property vocab:Event_2_crossReference_crossReference_class;
+	d2rq:propertyDefinitionLabel "Event_2_crossReference crossReference_class";
+	d2rq:column "Event_2_crossReference.crossReference_class";
+	.
+
+# Table Event_2_disease
+map:Event_2_disease a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_disease" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_disease";
+	d2rq:class vocab:Event_2_disease;
+	d2rq:classDefinitionLabel "Event_2_disease";
+	.
+map:Event_2_disease_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_disease;
+	d2rq:property vocab:Event_2_disease_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_disease DB_ID";
+	d2rq:column "Event_2_disease.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_disease_disease_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_disease;
+	d2rq:property vocab:Event_2_disease_disease_rank;
+	d2rq:propertyDefinitionLabel "Event_2_disease disease_rank";
+	d2rq:column "Event_2_disease.disease_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_disease_disease a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_disease;
+	d2rq:property vocab:Event_2_disease_disease;
+	d2rq:propertyDefinitionLabel "Event_2_disease disease";
+	d2rq:column "Event_2_disease.disease";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_disease_disease_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_disease;
+	d2rq:property vocab:Event_2_disease_disease_class;
+	d2rq:propertyDefinitionLabel "Event_2_disease disease_class";
+	d2rq:column "Event_2_disease.disease_class";
+	.
+
+# Table Event_2_edited
+map:Event_2_edited a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_edited" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_edited";
+	d2rq:class vocab:Event_2_edited;
+	d2rq:classDefinitionLabel "Event_2_edited";
+	.
+map:Event_2_edited_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_edited;
+	d2rq:property vocab:Event_2_edited_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_edited DB_ID";
+	d2rq:column "Event_2_edited.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_edited_edited_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_edited;
+	d2rq:property vocab:Event_2_edited_edited_rank;
+	d2rq:propertyDefinitionLabel "Event_2_edited edited_rank";
+	d2rq:column "Event_2_edited.edited_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_edited_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_edited;
+	d2rq:property vocab:Event_2_edited_edited;
+	d2rq:propertyDefinitionLabel "Event_2_edited edited";
+	d2rq:column "Event_2_edited.edited";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_edited_edited_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_edited;
+	d2rq:property vocab:Event_2_edited_edited_class;
+	d2rq:propertyDefinitionLabel "Event_2_edited edited_class";
+	d2rq:column "Event_2_edited.edited_class";
+	.
+
+# Table Event_2_figure
+map:Event_2_figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_figure" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_figure";
+	d2rq:class vocab:Event_2_figure;
+	d2rq:classDefinitionLabel "Event_2_figure";
+	.
+map:Event_2_figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_figure;
+	d2rq:property vocab:Event_2_figure_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_figure DB_ID";
+	d2rq:column "Event_2_figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_figure_figure_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_figure;
+	d2rq:property vocab:Event_2_figure_figure_rank;
+	d2rq:propertyDefinitionLabel "Event_2_figure figure_rank";
+	d2rq:column "Event_2_figure.figure_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_figure_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_figure;
+	d2rq:property vocab:Event_2_figure_figure;
+	d2rq:propertyDefinitionLabel "Event_2_figure figure";
+	d2rq:column "Event_2_figure.figure";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_figure_figure_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_figure;
+	d2rq:property vocab:Event_2_figure_figure_class;
+	d2rq:propertyDefinitionLabel "Event_2_figure figure_class";
+	d2rq:column "Event_2_figure.figure_class";
+	.
+
+# Table Event_2_inferredFrom
+map:Event_2_inferredFrom a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_inferredFrom" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_inferredFrom";
+	d2rq:class vocab:Event_2_inferredFrom;
+	d2rq:classDefinitionLabel "Event_2_inferredFrom";
+	.
+map:Event_2_inferredFrom_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_inferredFrom;
+	d2rq:property vocab:Event_2_inferredFrom_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_inferredFrom DB_ID";
+	d2rq:column "Event_2_inferredFrom.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_inferredFrom_inferredFrom_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_inferredFrom;
+	d2rq:property vocab:Event_2_inferredFrom_inferredFrom_rank;
+	d2rq:propertyDefinitionLabel "Event_2_inferredFrom inferredFrom_rank";
+	d2rq:column "Event_2_inferredFrom.inferredFrom_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_inferredFrom_inferredFrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_inferredFrom;
+	d2rq:property vocab:Event_2_inferredFrom_inferredFrom;
+	d2rq:propertyDefinitionLabel "Event_2_inferredFrom inferredFrom";
+	d2rq:column "Event_2_inferredFrom.inferredFrom";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_inferredFrom_inferredFrom_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_inferredFrom;
+	d2rq:property vocab:Event_2_inferredFrom_inferredFrom_class;
+	d2rq:propertyDefinitionLabel "Event_2_inferredFrom inferredFrom_class";
+	d2rq:column "Event_2_inferredFrom.inferredFrom_class";
+	.
+
+# Table Event_2_literatureReference
+map:Event_2_literatureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_literatureReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_literatureReference";
+	d2rq:class vocab:Event_2_literatureReference;
+	d2rq:classDefinitionLabel "Event_2_literatureReference";
+	.
+map:Event_2_literatureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_literatureReference;
+	d2rq:property vocab:Event_2_literatureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_literatureReference DB_ID";
+	d2rq:column "Event_2_literatureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_literatureReference_literatureReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_literatureReference;
+	d2rq:property vocab:Event_2_literatureReference_literatureReference_rank;
+	d2rq:propertyDefinitionLabel "Event_2_literatureReference literatureReference_rank";
+	d2rq:column "Event_2_literatureReference.literatureReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_literatureReference_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_literatureReference;
+	d2rq:property vocab:Event_2_literatureReference_literatureReference;
+	d2rq:propertyDefinitionLabel "Event_2_literatureReference literatureReference";
+	d2rq:column "Event_2_literatureReference.literatureReference";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_literatureReference_literatureReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_literatureReference;
+	d2rq:property vocab:Event_2_literatureReference_literatureReference_class;
+	d2rq:propertyDefinitionLabel "Event_2_literatureReference literatureReference_class";
+	d2rq:column "Event_2_literatureReference.literatureReference_class";
+	.
+
+# Table Event_2_name
+map:Event_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_name";
+	d2rq:class vocab:Event_2_name;
+	d2rq:classDefinitionLabel "Event_2_name";
+	.
+map:Event_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_name;
+	d2rq:property vocab:Event_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_name DB_ID";
+	d2rq:column "Event_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_name;
+	d2rq:property vocab:Event_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "Event_2_name name_rank";
+	d2rq:column "Event_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_name;
+	d2rq:property vocab:Event_2_name_name;
+	d2rq:propertyDefinitionLabel "Event_2_name name";
+	d2rq:column "Event_2_name.name";
+	.
+
+# Table Event_2_orthologousEvent
+map:Event_2_orthologousEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_orthologousEvent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_orthologousEvent";
+	d2rq:class vocab:Event_2_orthologousEvent;
+	d2rq:classDefinitionLabel "Event_2_orthologousEvent";
+	.
+map:Event_2_orthologousEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_orthologousEvent;
+	d2rq:property vocab:Event_2_orthologousEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_orthologousEvent DB_ID";
+	d2rq:column "Event_2_orthologousEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_orthologousEvent_orthologousEvent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_orthologousEvent;
+	d2rq:property vocab:Event_2_orthologousEvent_orthologousEvent_rank;
+	d2rq:propertyDefinitionLabel "Event_2_orthologousEvent orthologousEvent_rank";
+	d2rq:column "Event_2_orthologousEvent.orthologousEvent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_orthologousEvent_orthologousEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_orthologousEvent;
+	d2rq:property vocab:Event_2_orthologousEvent_orthologousEvent;
+	d2rq:propertyDefinitionLabel "Event_2_orthologousEvent orthologousEvent";
+	d2rq:column "Event_2_orthologousEvent.orthologousEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_orthologousEvent_orthologousEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_orthologousEvent;
+	d2rq:property vocab:Event_2_orthologousEvent_orthologousEvent_class;
+	d2rq:propertyDefinitionLabel "Event_2_orthologousEvent orthologousEvent_class";
+	d2rq:column "Event_2_orthologousEvent.orthologousEvent_class";
+	.
+
+# Table Event_2_precedingEvent
+map:Event_2_precedingEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_precedingEvent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_precedingEvent";
+	d2rq:class vocab:Event_2_precedingEvent;
+	d2rq:classDefinitionLabel "Event_2_precedingEvent";
+	.
+map:Event_2_precedingEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_precedingEvent;
+	d2rq:property vocab:Event_2_precedingEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_precedingEvent DB_ID";
+	d2rq:column "Event_2_precedingEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_precedingEvent_precedingEvent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_precedingEvent;
+	d2rq:property vocab:Event_2_precedingEvent_precedingEvent_rank;
+	d2rq:propertyDefinitionLabel "Event_2_precedingEvent precedingEvent_rank";
+	d2rq:column "Event_2_precedingEvent.precedingEvent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_precedingEvent_precedingEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_precedingEvent;
+	d2rq:property vocab:Event_2_precedingEvent_precedingEvent;
+	d2rq:propertyDefinitionLabel "Event_2_precedingEvent precedingEvent";
+	d2rq:column "Event_2_precedingEvent.precedingEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_precedingEvent_precedingEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_precedingEvent;
+	d2rq:property vocab:Event_2_precedingEvent_precedingEvent_class;
+	d2rq:propertyDefinitionLabel "Event_2_precedingEvent precedingEvent_class";
+	d2rq:column "Event_2_precedingEvent.precedingEvent_class";
+	.
+
+# Table Event_2_reviewed
+map:Event_2_reviewed a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_reviewed" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_reviewed";
+	d2rq:class vocab:Event_2_reviewed;
+	d2rq:classDefinitionLabel "Event_2_reviewed";
+	.
+map:Event_2_reviewed_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_reviewed;
+	d2rq:property vocab:Event_2_reviewed_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_reviewed DB_ID";
+	d2rq:column "Event_2_reviewed.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_reviewed_reviewed_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_reviewed;
+	d2rq:property vocab:Event_2_reviewed_reviewed_rank;
+	d2rq:propertyDefinitionLabel "Event_2_reviewed reviewed_rank";
+	d2rq:column "Event_2_reviewed.reviewed_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_reviewed_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_reviewed;
+	d2rq:property vocab:Event_2_reviewed_reviewed;
+	d2rq:propertyDefinitionLabel "Event_2_reviewed reviewed";
+	d2rq:column "Event_2_reviewed.reviewed";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_reviewed_reviewed_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_reviewed;
+	d2rq:property vocab:Event_2_reviewed_reviewed_class;
+	d2rq:propertyDefinitionLabel "Event_2_reviewed reviewed_class";
+	d2rq:column "Event_2_reviewed.reviewed_class";
+	.
+
+# Table Event_2_revised
+map:Event_2_revised a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_revised" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_revised";
+	d2rq:class vocab:Event_2_revised;
+	d2rq:classDefinitionLabel "Event_2_revised";
+	.
+map:Event_2_revised_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_revised;
+	d2rq:property vocab:Event_2_revised_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_revised DB_ID";
+	d2rq:column "Event_2_revised.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_revised_revised_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_revised;
+	d2rq:property vocab:Event_2_revised_revised_rank;
+	d2rq:propertyDefinitionLabel "Event_2_revised revised_rank";
+	d2rq:column "Event_2_revised.revised_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_revised_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_revised;
+	d2rq:property vocab:Event_2_revised_revised;
+	d2rq:propertyDefinitionLabel "Event_2_revised revised";
+	d2rq:column "Event_2_revised.revised";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_revised_revised_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_revised;
+	d2rq:property vocab:Event_2_revised_revised_class;
+	d2rq:propertyDefinitionLabel "Event_2_revised revised_class";
+	d2rq:column "Event_2_revised.revised_class";
+	.
+
+# Table Event_2_species
+map:Event_2_species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_species" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_species";
+	d2rq:class vocab:Event_2_species;
+	d2rq:classDefinitionLabel "Event_2_species";
+	.
+map:Event_2_species_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_species;
+	d2rq:property vocab:Event_2_species_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_species DB_ID";
+	d2rq:column "Event_2_species.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_species_species_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_species;
+	d2rq:property vocab:Event_2_species_species_rank;
+	d2rq:propertyDefinitionLabel "Event_2_species species_rank";
+	d2rq:column "Event_2_species.species_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_species_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_species;
+	d2rq:property vocab:Event_2_species_species;
+	d2rq:propertyDefinitionLabel "Event_2_species species";
+	d2rq:column "Event_2_species.species";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_species_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_species;
+	d2rq:property vocab:Event_2_species_species_class;
+	d2rq:propertyDefinitionLabel "Event_2_species species_class";
+	d2rq:column "Event_2_species.species_class";
+	.
+
+# Table Event_2_summation
+map:Event_2_summation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Event_2_summation" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Event_2_summation";
+	d2rq:class vocab:Event_2_summation;
+	d2rq:classDefinitionLabel "Event_2_summation";
+	.
+map:Event_2_summation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_summation;
+	d2rq:property vocab:Event_2_summation_DB_ID;
+	d2rq:propertyDefinitionLabel "Event_2_summation DB_ID";
+	d2rq:column "Event_2_summation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_summation_summation_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_summation;
+	d2rq:property vocab:Event_2_summation_summation_rank;
+	d2rq:propertyDefinitionLabel "Event_2_summation summation_rank";
+	d2rq:column "Event_2_summation.summation_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_summation_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_summation;
+	d2rq:property vocab:Event_2_summation_summation;
+	d2rq:propertyDefinitionLabel "Event_2_summation summation";
+	d2rq:column "Event_2_summation.summation";
+	d2rq:datatype xsd:integer;
+	.
+map:Event_2_summation_summation_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event_2_summation;
+	d2rq:property vocab:Event_2_summation_summation_class;
+	d2rq:propertyDefinitionLabel "Event_2_summation summation_class";
+	d2rq:column "Event_2_summation.summation_class";
+	.
+
+# Table EvidenceType
+map:EvidenceType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "EvidenceType/@@EvidenceType.DB_ID@@";
+	d2rq:class vocab:EvidenceType;
+	d2rq:classDefinitionLabel "EvidenceType";
+	.
+map:EvidenceType__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property rdfs:label;
+	d2rq:pattern "EvidenceType #@@EvidenceType.DB_ID@@";
+	.
+map:EvidenceType_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property vocab:EvidenceType_DB_ID;
+	d2rq:propertyDefinitionLabel "EvidenceType DB_ID";
+	d2rq:column "EvidenceType.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property vocab:EvidenceType_definition;
+	d2rq:propertyDefinitionLabel "EvidenceType definition";
+	d2rq:column "EvidenceType.definition";
+	.
+
+# Table EvidenceType_2_instanceOf
+map:EvidenceType_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EvidenceType_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EvidenceType_2_instanceOf";
+	d2rq:class vocab:EvidenceType_2_instanceOf;
+	d2rq:classDefinitionLabel "EvidenceType_2_instanceOf";
+	.
+map:EvidenceType_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_instanceOf;
+	d2rq:property vocab:EvidenceType_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_instanceOf DB_ID";
+	d2rq:column "EvidenceType_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_instanceOf;
+	d2rq:property vocab:EvidenceType_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_instanceOf instanceOf_rank";
+	d2rq:column "EvidenceType_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_instanceOf;
+	d2rq:property vocab:EvidenceType_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_instanceOf instanceOf";
+	d2rq:column "EvidenceType_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_instanceOf;
+	d2rq:property vocab:EvidenceType_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_instanceOf instanceOf_class";
+	d2rq:column "EvidenceType_2_instanceOf.instanceOf_class";
+	.
+
+# Table EvidenceType_2_name
+map:EvidenceType_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "EvidenceType_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "EvidenceType_2_name";
+	d2rq:class vocab:EvidenceType_2_name;
+	d2rq:classDefinitionLabel "EvidenceType_2_name";
+	.
+map:EvidenceType_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_name;
+	d2rq:property vocab:EvidenceType_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_name DB_ID";
+	d2rq:column "EvidenceType_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_name;
+	d2rq:property vocab:EvidenceType_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_name name_rank";
+	d2rq:column "EvidenceType_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:EvidenceType_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType_2_name;
+	d2rq:property vocab:EvidenceType_2_name_name;
+	d2rq:propertyDefinitionLabel "EvidenceType_2_name name";
+	d2rq:column "EvidenceType_2_name.name";
+	.
+
+# Table ExternalOntology
+map:ExternalOntology a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ExternalOntology/@@ExternalOntology.DB_ID@@";
+	d2rq:class vocab:ExternalOntology;
+	d2rq:classDefinitionLabel "ExternalOntology";
+	.
+map:ExternalOntology__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ExternalOntology #@@ExternalOntology.DB_ID@@";
+	.
+map:ExternalOntology_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property vocab:ExternalOntology_DB_ID;
+	d2rq:propertyDefinitionLabel "ExternalOntology DB_ID";
+	d2rq:column "ExternalOntology.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property vocab:ExternalOntology_definition;
+	d2rq:propertyDefinitionLabel "ExternalOntology definition";
+	d2rq:column "ExternalOntology.definition";
+	.
+map:ExternalOntology_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property vocab:ExternalOntology_identifier;
+	d2rq:propertyDefinitionLabel "ExternalOntology identifier";
+	d2rq:column "ExternalOntology.identifier";
+	.
+map:ExternalOntology_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property vocab:ExternalOntology_referenceDatabase;
+	d2rq:propertyDefinitionLabel "ExternalOntology referenceDatabase";
+	d2rq:column "ExternalOntology.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology;
+	d2rq:property vocab:ExternalOntology_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "ExternalOntology referenceDatabase_class";
+	d2rq:column "ExternalOntology.referenceDatabase_class";
+	.
+
+# Table ExternalOntology_2_instanceOf
+map:ExternalOntology_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ExternalOntology_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ExternalOntology_2_instanceOf";
+	d2rq:class vocab:ExternalOntology_2_instanceOf;
+	d2rq:classDefinitionLabel "ExternalOntology_2_instanceOf";
+	.
+map:ExternalOntology_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_instanceOf;
+	d2rq:property vocab:ExternalOntology_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_instanceOf DB_ID";
+	d2rq:column "ExternalOntology_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_instanceOf;
+	d2rq:property vocab:ExternalOntology_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_instanceOf instanceOf_rank";
+	d2rq:column "ExternalOntology_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_instanceOf;
+	d2rq:property vocab:ExternalOntology_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_instanceOf instanceOf";
+	d2rq:column "ExternalOntology_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_instanceOf;
+	d2rq:property vocab:ExternalOntology_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_instanceOf instanceOf_class";
+	d2rq:column "ExternalOntology_2_instanceOf.instanceOf_class";
+	.
+
+# Table ExternalOntology_2_name
+map:ExternalOntology_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ExternalOntology_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ExternalOntology_2_name";
+	d2rq:class vocab:ExternalOntology_2_name;
+	d2rq:classDefinitionLabel "ExternalOntology_2_name";
+	.
+map:ExternalOntology_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_name;
+	d2rq:property vocab:ExternalOntology_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_name DB_ID";
+	d2rq:column "ExternalOntology_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_name;
+	d2rq:property vocab:ExternalOntology_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_name name_rank";
+	d2rq:column "ExternalOntology_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_name;
+	d2rq:property vocab:ExternalOntology_2_name_name;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_name name";
+	d2rq:column "ExternalOntology_2_name.name";
+	.
+
+# Table ExternalOntology_2_synonym
+map:ExternalOntology_2_synonym a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ExternalOntology_2_synonym" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ExternalOntology_2_synonym";
+	d2rq:class vocab:ExternalOntology_2_synonym;
+	d2rq:classDefinitionLabel "ExternalOntology_2_synonym";
+	.
+map:ExternalOntology_2_synonym_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_synonym;
+	d2rq:property vocab:ExternalOntology_2_synonym_DB_ID;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_synonym DB_ID";
+	d2rq:column "ExternalOntology_2_synonym.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_synonym_synonym_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_synonym;
+	d2rq:property vocab:ExternalOntology_2_synonym_synonym_rank;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_synonym synonym_rank";
+	d2rq:column "ExternalOntology_2_synonym.synonym_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ExternalOntology_2_synonym_synonym a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ExternalOntology_2_synonym;
+	d2rq:property vocab:ExternalOntology_2_synonym_synonym;
+	d2rq:propertyDefinitionLabel "ExternalOntology_2_synonym synonym";
+	d2rq:column "ExternalOntology_2_synonym.synonym";
+	.
+
+# Table Figure
+map:Figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Figure/@@Figure.DB_ID@@";
+	d2rq:class vocab:Figure;
+	d2rq:classDefinitionLabel "Figure";
+	.
+map:Figure__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Figure;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Figure #@@Figure.DB_ID@@";
+	.
+map:Figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Figure;
+	d2rq:property vocab:Figure_DB_ID;
+	d2rq:propertyDefinitionLabel "Figure DB_ID";
+	d2rq:column "Figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Figure_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Figure;
+	d2rq:property vocab:Figure_url;
+	d2rq:propertyDefinitionLabel "Figure url";
+	d2rq:column "Figure.url";
+	.
+
+# Table FragmentDeletionModification
+map:FragmentDeletionModification a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FragmentDeletionModification/@@FragmentDeletionModification.DB_ID@@";
+	d2rq:class vocab:FragmentDeletionModification;
+	d2rq:classDefinitionLabel "FragmentDeletionModification";
+	.
+map:FragmentDeletionModification__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentDeletionModification;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FragmentDeletionModification #@@FragmentDeletionModification.DB_ID@@";
+	.
+map:FragmentDeletionModification_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentDeletionModification;
+	d2rq:property vocab:FragmentDeletionModification_DB_ID;
+	d2rq:propertyDefinitionLabel "FragmentDeletionModification DB_ID";
+	d2rq:column "FragmentDeletionModification.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table FragmentInsertionModification
+map:FragmentInsertionModification a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FragmentInsertionModification/@@FragmentInsertionModification.DB_ID@@";
+	d2rq:class vocab:FragmentInsertionModification;
+	d2rq:classDefinitionLabel "FragmentInsertionModification";
+	.
+map:FragmentInsertionModification__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentInsertionModification;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FragmentInsertionModification #@@FragmentInsertionModification.DB_ID@@";
+	.
+map:FragmentInsertionModification_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentInsertionModification;
+	d2rq:property vocab:FragmentInsertionModification_DB_ID;
+	d2rq:propertyDefinitionLabel "FragmentInsertionModification DB_ID";
+	d2rq:column "FragmentInsertionModification.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FragmentInsertionModification_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentInsertionModification;
+	d2rq:property vocab:FragmentInsertionModification_coordinate;
+	d2rq:propertyDefinitionLabel "FragmentInsertionModification coordinate";
+	d2rq:column "FragmentInsertionModification.coordinate";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table FragmentModification
+map:FragmentModification a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FragmentModification/@@FragmentModification.DB_ID@@";
+	d2rq:class vocab:FragmentModification;
+	d2rq:classDefinitionLabel "FragmentModification";
+	.
+map:FragmentModification__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentModification;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FragmentModification #@@FragmentModification.DB_ID@@";
+	.
+map:FragmentModification_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentModification;
+	d2rq:property vocab:FragmentModification_DB_ID;
+	d2rq:propertyDefinitionLabel "FragmentModification DB_ID";
+	d2rq:column "FragmentModification.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FragmentModification_endPositionInReferenceSequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentModification;
+	d2rq:property vocab:FragmentModification_endPositionInReferenceSequence;
+	d2rq:propertyDefinitionLabel "FragmentModification endPositionInReferenceSequence";
+	d2rq:column "FragmentModification.endPositionInReferenceSequence";
+	d2rq:datatype xsd:integer;
+	.
+map:FragmentModification_startPositionInReferenceSequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FragmentModification;
+	d2rq:property vocab:FragmentModification_startPositionInReferenceSequence;
+	d2rq:propertyDefinitionLabel "FragmentModification startPositionInReferenceSequence";
+	d2rq:column "FragmentModification.startPositionInReferenceSequence";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table FrontPage
+map:FrontPage a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FrontPage/@@FrontPage.DB_ID@@";
+	d2rq:class vocab:FrontPage;
+	d2rq:classDefinitionLabel "FrontPage";
+	.
+map:FrontPage__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FrontPage #@@FrontPage.DB_ID@@";
+	.
+map:FrontPage_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage;
+	d2rq:property vocab:FrontPage_DB_ID;
+	d2rq:propertyDefinitionLabel "FrontPage DB_ID";
+	d2rq:column "FrontPage.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table FrontPage_2_frontPageItem
+map:FrontPage_2_frontPageItem a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "FrontPage_2_frontPageItem" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "FrontPage_2_frontPageItem";
+	d2rq:class vocab:FrontPage_2_frontPageItem;
+	d2rq:classDefinitionLabel "FrontPage_2_frontPageItem";
+	.
+map:FrontPage_2_frontPageItem_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage_2_frontPageItem;
+	d2rq:property vocab:FrontPage_2_frontPageItem_DB_ID;
+	d2rq:propertyDefinitionLabel "FrontPage_2_frontPageItem DB_ID";
+	d2rq:column "FrontPage_2_frontPageItem.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FrontPage_2_frontPageItem_frontPageItem_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage_2_frontPageItem;
+	d2rq:property vocab:FrontPage_2_frontPageItem_frontPageItem_rank;
+	d2rq:propertyDefinitionLabel "FrontPage_2_frontPageItem frontPageItem_rank";
+	d2rq:column "FrontPage_2_frontPageItem.frontPageItem_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:FrontPage_2_frontPageItem_frontPageItem a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage_2_frontPageItem;
+	d2rq:property vocab:FrontPage_2_frontPageItem_frontPageItem;
+	d2rq:propertyDefinitionLabel "FrontPage_2_frontPageItem frontPageItem";
+	d2rq:column "FrontPage_2_frontPageItem.frontPageItem";
+	d2rq:datatype xsd:integer;
+	.
+map:FrontPage_2_frontPageItem_frontPageItem_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage_2_frontPageItem;
+	d2rq:property vocab:FrontPage_2_frontPageItem_frontPageItem_class;
+	d2rq:propertyDefinitionLabel "FrontPage_2_frontPageItem frontPageItem_class";
+	d2rq:column "FrontPage_2_frontPageItem.frontPageItem_class";
+	.
+
+# Table FunctionalStatus
+map:FunctionalStatus a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FunctionalStatus/@@FunctionalStatus.DB_ID@@";
+	d2rq:class vocab:FunctionalStatus;
+	d2rq:classDefinitionLabel "FunctionalStatus";
+	.
+map:FunctionalStatus__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FunctionalStatus #@@FunctionalStatus.DB_ID@@";
+	.
+map:FunctionalStatus_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property vocab:FunctionalStatus_DB_ID;
+	d2rq:propertyDefinitionLabel "FunctionalStatus DB_ID";
+	d2rq:column "FunctionalStatus.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatus_functionalStatusType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property vocab:FunctionalStatus_functionalStatusType;
+	d2rq:propertyDefinitionLabel "FunctionalStatus functionalStatusType";
+	d2rq:column "FunctionalStatus.functionalStatusType";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatus_functionalStatusType_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property vocab:FunctionalStatus_functionalStatusType_class;
+	d2rq:propertyDefinitionLabel "FunctionalStatus functionalStatusType_class";
+	d2rq:column "FunctionalStatus.functionalStatusType_class";
+	.
+map:FunctionalStatus_structuralVariant a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property vocab:FunctionalStatus_structuralVariant;
+	d2rq:propertyDefinitionLabel "FunctionalStatus structuralVariant";
+	d2rq:column "FunctionalStatus.structuralVariant";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatus_structuralVariant_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatus;
+	d2rq:property vocab:FunctionalStatus_structuralVariant_class;
+	d2rq:propertyDefinitionLabel "FunctionalStatus structuralVariant_class";
+	d2rq:column "FunctionalStatus.structuralVariant_class";
+	.
+
+# Table FunctionalStatusType
+map:FunctionalStatusType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "FunctionalStatusType/@@FunctionalStatusType.DB_ID@@";
+	d2rq:class vocab:FunctionalStatusType;
+	d2rq:classDefinitionLabel "FunctionalStatusType";
+	.
+map:FunctionalStatusType__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType;
+	d2rq:property rdfs:label;
+	d2rq:pattern "FunctionalStatusType #@@FunctionalStatusType.DB_ID@@";
+	.
+map:FunctionalStatusType_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType;
+	d2rq:property vocab:FunctionalStatusType_DB_ID;
+	d2rq:propertyDefinitionLabel "FunctionalStatusType DB_ID";
+	d2rq:column "FunctionalStatusType.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatusType_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType;
+	d2rq:property vocab:FunctionalStatusType_definition;
+	d2rq:propertyDefinitionLabel "FunctionalStatusType definition";
+	d2rq:column "FunctionalStatusType.definition";
+	.
+
+# Table FunctionalStatusType_2_name
+map:FunctionalStatusType_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "FunctionalStatusType_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "FunctionalStatusType_2_name";
+	d2rq:class vocab:FunctionalStatusType_2_name;
+	d2rq:classDefinitionLabel "FunctionalStatusType_2_name";
+	.
+map:FunctionalStatusType_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType_2_name;
+	d2rq:property vocab:FunctionalStatusType_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "FunctionalStatusType_2_name DB_ID";
+	d2rq:column "FunctionalStatusType_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatusType_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType_2_name;
+	d2rq:property vocab:FunctionalStatusType_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "FunctionalStatusType_2_name name_rank";
+	d2rq:column "FunctionalStatusType_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:FunctionalStatusType_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FunctionalStatusType_2_name;
+	d2rq:property vocab:FunctionalStatusType_2_name_name;
+	d2rq:propertyDefinitionLabel "FunctionalStatusType_2_name name";
+	d2rq:column "FunctionalStatusType_2_name.name";
+	.
+
+# Table GO_BiologicalProcess
+map:GO_BiologicalProcess a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GO_BiologicalProcess/@@GO_BiologicalProcess.DB_ID@@";
+	d2rq:class vocab:GO_BiologicalProcess;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess";
+	.
+map:GO_BiologicalProcess__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GO_BiologicalProcess #@@GO_BiologicalProcess.DB_ID@@";
+	.
+map:GO_BiologicalProcess_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:GO_BiologicalProcess_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess DB_ID";
+	d2rq:column "GO_BiologicalProcess.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:GO_BiologicalProcess_accession;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess accession";
+	d2rq:column "GO_BiologicalProcess.accession";
+	.
+map:GO_BiologicalProcess_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:GO_BiologicalProcess_definition;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess definition";
+	d2rq:column "GO_BiologicalProcess.definition";
+	.
+map:GO_BiologicalProcess_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:GO_BiologicalProcess_referenceDatabase;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess referenceDatabase";
+	d2rq:column "GO_BiologicalProcess.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:GO_BiologicalProcess_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess referenceDatabase_class";
+	d2rq:column "GO_BiologicalProcess.referenceDatabase_class";
+	.
+
+# Table GO_BiologicalProcess_2_componentOf
+map:GO_BiologicalProcess_2_componentOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_componentOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_componentOf";
+	d2rq:class vocab:GO_BiologicalProcess_2_componentOf;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_componentOf";
+	.
+map:GO_BiologicalProcess_2_componentOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_componentOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_componentOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_componentOf DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_componentOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_componentOf_componentOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_componentOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_componentOf_componentOf_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_componentOf componentOf_rank";
+	d2rq:column "GO_BiologicalProcess_2_componentOf.componentOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_componentOf_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_componentOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_componentOf_componentOf;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_componentOf componentOf";
+	d2rq:column "GO_BiologicalProcess_2_componentOf.componentOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_componentOf_componentOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_componentOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_componentOf_componentOf_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_componentOf componentOf_class";
+	d2rq:column "GO_BiologicalProcess_2_componentOf.componentOf_class";
+	.
+
+# Table GO_BiologicalProcess_2_hasPart
+map:GO_BiologicalProcess_2_hasPart a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_hasPart" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_hasPart";
+	d2rq:class vocab:GO_BiologicalProcess_2_hasPart;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_hasPart";
+	.
+map:GO_BiologicalProcess_2_hasPart_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_hasPart;
+	d2rq:property vocab:GO_BiologicalProcess_2_hasPart_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_hasPart DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_hasPart.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_hasPart_hasPart_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_hasPart;
+	d2rq:property vocab:GO_BiologicalProcess_2_hasPart_hasPart_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_hasPart hasPart_rank";
+	d2rq:column "GO_BiologicalProcess_2_hasPart.hasPart_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_hasPart_hasPart a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_hasPart;
+	d2rq:property vocab:GO_BiologicalProcess_2_hasPart_hasPart;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_hasPart hasPart";
+	d2rq:column "GO_BiologicalProcess_2_hasPart.hasPart";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_hasPart_hasPart_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_hasPart;
+	d2rq:property vocab:GO_BiologicalProcess_2_hasPart_hasPart_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_hasPart hasPart_class";
+	d2rq:column "GO_BiologicalProcess_2_hasPart.hasPart_class";
+	.
+
+# Table GO_BiologicalProcess_2_instanceOf
+map:GO_BiologicalProcess_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_instanceOf";
+	d2rq:class vocab:GO_BiologicalProcess_2_instanceOf;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_instanceOf";
+	.
+map:GO_BiologicalProcess_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_instanceOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_instanceOf DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_instanceOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_instanceOf instanceOf_rank";
+	d2rq:column "GO_BiologicalProcess_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_instanceOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_instanceOf instanceOf";
+	d2rq:column "GO_BiologicalProcess_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_instanceOf;
+	d2rq:property vocab:GO_BiologicalProcess_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_instanceOf instanceOf_class";
+	d2rq:column "GO_BiologicalProcess_2_instanceOf.instanceOf_class";
+	.
+
+# Table GO_BiologicalProcess_2_name
+map:GO_BiologicalProcess_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_name";
+	d2rq:class vocab:GO_BiologicalProcess_2_name;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_name";
+	.
+map:GO_BiologicalProcess_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_name;
+	d2rq:property vocab:GO_BiologicalProcess_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_name DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_name;
+	d2rq:property vocab:GO_BiologicalProcess_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_name name_rank";
+	d2rq:column "GO_BiologicalProcess_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_name;
+	d2rq:property vocab:GO_BiologicalProcess_2_name_name;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_name name";
+	d2rq:column "GO_BiologicalProcess_2_name.name";
+	.
+
+# Table GO_BiologicalProcess_2_negativelyRegulate
+map:GO_BiologicalProcess_2_negativelyRegulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_negativelyRegulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_negativelyRegulate";
+	d2rq:class vocab:GO_BiologicalProcess_2_negativelyRegulate;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_negativelyRegulate";
+	.
+map:GO_BiologicalProcess_2_negativelyRegulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_negativelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_negativelyRegulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_negativelyRegulate DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_negativelyRegulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_negativelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_negativelyRegulate negativelyRegulate_rank";
+	d2rq:column "GO_BiologicalProcess_2_negativelyRegulate.negativelyRegulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_negativelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_negativelyRegulate negativelyRegulate";
+	d2rq:column "GO_BiologicalProcess_2_negativelyRegulate.negativelyRegulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_negativelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_negativelyRegulate_negativelyRegulate_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_negativelyRegulate negativelyRegulate_class";
+	d2rq:column "GO_BiologicalProcess_2_negativelyRegulate.negativelyRegulate_class";
+	.
+
+# Table GO_BiologicalProcess_2_positivelyRegulate
+map:GO_BiologicalProcess_2_positivelyRegulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_positivelyRegulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_positivelyRegulate";
+	d2rq:class vocab:GO_BiologicalProcess_2_positivelyRegulate;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_positivelyRegulate";
+	.
+map:GO_BiologicalProcess_2_positivelyRegulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_positivelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_positivelyRegulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_positivelyRegulate DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_positivelyRegulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_positivelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_positivelyRegulate positivelyRegulate_rank";
+	d2rq:column "GO_BiologicalProcess_2_positivelyRegulate.positivelyRegulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_positivelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_positivelyRegulate positivelyRegulate";
+	d2rq:column "GO_BiologicalProcess_2_positivelyRegulate.positivelyRegulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_positivelyRegulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_positivelyRegulate_positivelyRegulate_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_positivelyRegulate positivelyRegulate_class";
+	d2rq:column "GO_BiologicalProcess_2_positivelyRegulate.positivelyRegulate_class";
+	.
+
+# Table GO_BiologicalProcess_2_regulate
+map:GO_BiologicalProcess_2_regulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_BiologicalProcess_2_regulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_BiologicalProcess_2_regulate";
+	d2rq:class vocab:GO_BiologicalProcess_2_regulate;
+	d2rq:classDefinitionLabel "GO_BiologicalProcess_2_regulate";
+	.
+map:GO_BiologicalProcess_2_regulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_regulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_regulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_regulate DB_ID";
+	d2rq:column "GO_BiologicalProcess_2_regulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_regulate_regulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_regulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_regulate_regulate_rank;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_regulate regulate_rank";
+	d2rq:column "GO_BiologicalProcess_2_regulate.regulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_regulate_regulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_regulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_regulate_regulate;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_regulate regulate";
+	d2rq:column "GO_BiologicalProcess_2_regulate.regulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_BiologicalProcess_2_regulate_regulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess_2_regulate;
+	d2rq:property vocab:GO_BiologicalProcess_2_regulate_regulate_class;
+	d2rq:propertyDefinitionLabel "GO_BiologicalProcess_2_regulate regulate_class";
+	d2rq:column "GO_BiologicalProcess_2_regulate.regulate_class";
+	.
+
+# Table GO_CellularComponent
+map:GO_CellularComponent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GO_CellularComponent/@@GO_CellularComponent.DB_ID@@";
+	d2rq:class vocab:GO_CellularComponent;
+	d2rq:classDefinitionLabel "GO_CellularComponent";
+	.
+map:GO_CellularComponent__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GO_CellularComponent #@@GO_CellularComponent.DB_ID@@";
+	.
+map:GO_CellularComponent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:GO_CellularComponent_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent DB_ID";
+	d2rq:column "GO_CellularComponent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:GO_CellularComponent_accession;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent accession";
+	d2rq:column "GO_CellularComponent.accession";
+	.
+map:GO_CellularComponent_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:GO_CellularComponent_definition;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent definition";
+	d2rq:column "GO_CellularComponent.definition";
+	.
+map:GO_CellularComponent_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:GO_CellularComponent_referenceDatabase;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent referenceDatabase";
+	d2rq:column "GO_CellularComponent.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:GO_CellularComponent_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent referenceDatabase_class";
+	d2rq:column "GO_CellularComponent.referenceDatabase_class";
+	.
+
+# Table GO_CellularComponent_2_componentOf
+map:GO_CellularComponent_2_componentOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_CellularComponent_2_componentOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_CellularComponent_2_componentOf";
+	d2rq:class vocab:GO_CellularComponent_2_componentOf;
+	d2rq:classDefinitionLabel "GO_CellularComponent_2_componentOf";
+	.
+map:GO_CellularComponent_2_componentOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_componentOf;
+	d2rq:property vocab:GO_CellularComponent_2_componentOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_componentOf DB_ID";
+	d2rq:column "GO_CellularComponent_2_componentOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_componentOf_componentOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_componentOf;
+	d2rq:property vocab:GO_CellularComponent_2_componentOf_componentOf_rank;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_componentOf componentOf_rank";
+	d2rq:column "GO_CellularComponent_2_componentOf.componentOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_componentOf_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_componentOf;
+	d2rq:property vocab:GO_CellularComponent_2_componentOf_componentOf;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_componentOf componentOf";
+	d2rq:column "GO_CellularComponent_2_componentOf.componentOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_componentOf_componentOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_componentOf;
+	d2rq:property vocab:GO_CellularComponent_2_componentOf_componentOf_class;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_componentOf componentOf_class";
+	d2rq:column "GO_CellularComponent_2_componentOf.componentOf_class";
+	.
+
+# Table GO_CellularComponent_2_hasPart
+map:GO_CellularComponent_2_hasPart a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_CellularComponent_2_hasPart" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_CellularComponent_2_hasPart";
+	d2rq:class vocab:GO_CellularComponent_2_hasPart;
+	d2rq:classDefinitionLabel "GO_CellularComponent_2_hasPart";
+	.
+map:GO_CellularComponent_2_hasPart_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_hasPart;
+	d2rq:property vocab:GO_CellularComponent_2_hasPart_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_hasPart DB_ID";
+	d2rq:column "GO_CellularComponent_2_hasPart.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_hasPart_hasPart_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_hasPart;
+	d2rq:property vocab:GO_CellularComponent_2_hasPart_hasPart_rank;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_hasPart hasPart_rank";
+	d2rq:column "GO_CellularComponent_2_hasPart.hasPart_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_hasPart_hasPart a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_hasPart;
+	d2rq:property vocab:GO_CellularComponent_2_hasPart_hasPart;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_hasPart hasPart";
+	d2rq:column "GO_CellularComponent_2_hasPart.hasPart";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_hasPart_hasPart_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_hasPart;
+	d2rq:property vocab:GO_CellularComponent_2_hasPart_hasPart_class;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_hasPart hasPart_class";
+	d2rq:column "GO_CellularComponent_2_hasPart.hasPart_class";
+	.
+
+# Table GO_CellularComponent_2_instanceOf
+map:GO_CellularComponent_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_CellularComponent_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_CellularComponent_2_instanceOf";
+	d2rq:class vocab:GO_CellularComponent_2_instanceOf;
+	d2rq:classDefinitionLabel "GO_CellularComponent_2_instanceOf";
+	.
+map:GO_CellularComponent_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_instanceOf;
+	d2rq:property vocab:GO_CellularComponent_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_instanceOf DB_ID";
+	d2rq:column "GO_CellularComponent_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_instanceOf;
+	d2rq:property vocab:GO_CellularComponent_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_instanceOf instanceOf_rank";
+	d2rq:column "GO_CellularComponent_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_instanceOf;
+	d2rq:property vocab:GO_CellularComponent_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_instanceOf instanceOf";
+	d2rq:column "GO_CellularComponent_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_instanceOf;
+	d2rq:property vocab:GO_CellularComponent_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_instanceOf instanceOf_class";
+	d2rq:column "GO_CellularComponent_2_instanceOf.instanceOf_class";
+	.
+
+# Table GO_CellularComponent_2_name
+map:GO_CellularComponent_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_CellularComponent_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_CellularComponent_2_name";
+	d2rq:class vocab:GO_CellularComponent_2_name;
+	d2rq:classDefinitionLabel "GO_CellularComponent_2_name";
+	.
+map:GO_CellularComponent_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_name;
+	d2rq:property vocab:GO_CellularComponent_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_name DB_ID";
+	d2rq:column "GO_CellularComponent_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_name;
+	d2rq:property vocab:GO_CellularComponent_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_name name_rank";
+	d2rq:column "GO_CellularComponent_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_CellularComponent_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent_2_name;
+	d2rq:property vocab:GO_CellularComponent_2_name_name;
+	d2rq:propertyDefinitionLabel "GO_CellularComponent_2_name name";
+	d2rq:column "GO_CellularComponent_2_name.name";
+	.
+
+# Table GO_MolecularFunction
+map:GO_MolecularFunction a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GO_MolecularFunction/@@GO_MolecularFunction.DB_ID@@";
+	d2rq:class vocab:GO_MolecularFunction;
+	d2rq:classDefinitionLabel "GO_MolecularFunction";
+	.
+map:GO_MolecularFunction__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GO_MolecularFunction #@@GO_MolecularFunction.DB_ID@@";
+	.
+map:GO_MolecularFunction_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:GO_MolecularFunction_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction DB_ID";
+	d2rq:column "GO_MolecularFunction.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:GO_MolecularFunction_accession;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction accession";
+	d2rq:column "GO_MolecularFunction.accession";
+	.
+map:GO_MolecularFunction_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:GO_MolecularFunction_definition;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction definition";
+	d2rq:column "GO_MolecularFunction.definition";
+	.
+map:GO_MolecularFunction_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:GO_MolecularFunction_referenceDatabase;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction referenceDatabase";
+	d2rq:column "GO_MolecularFunction.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:GO_MolecularFunction_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction referenceDatabase_class";
+	d2rq:column "GO_MolecularFunction.referenceDatabase_class";
+	.
+
+# Table GO_MolecularFunction_2_componentOf
+map:GO_MolecularFunction_2_componentOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_componentOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_componentOf";
+	d2rq:class vocab:GO_MolecularFunction_2_componentOf;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_componentOf";
+	.
+map:GO_MolecularFunction_2_componentOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_componentOf;
+	d2rq:property vocab:GO_MolecularFunction_2_componentOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_componentOf DB_ID";
+	d2rq:column "GO_MolecularFunction_2_componentOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_componentOf_componentOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_componentOf;
+	d2rq:property vocab:GO_MolecularFunction_2_componentOf_componentOf_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_componentOf componentOf_rank";
+	d2rq:column "GO_MolecularFunction_2_componentOf.componentOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_componentOf_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_componentOf;
+	d2rq:property vocab:GO_MolecularFunction_2_componentOf_componentOf;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_componentOf componentOf";
+	d2rq:column "GO_MolecularFunction_2_componentOf.componentOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_componentOf_componentOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_componentOf;
+	d2rq:property vocab:GO_MolecularFunction_2_componentOf_componentOf_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_componentOf componentOf_class";
+	d2rq:column "GO_MolecularFunction_2_componentOf.componentOf_class";
+	.
+
+# Table GO_MolecularFunction_2_ecNumber
+map:GO_MolecularFunction_2_ecNumber a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_ecNumber" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_ecNumber";
+	d2rq:class vocab:GO_MolecularFunction_2_ecNumber;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_ecNumber";
+	.
+map:GO_MolecularFunction_2_ecNumber_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_ecNumber;
+	d2rq:property vocab:GO_MolecularFunction_2_ecNumber_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_ecNumber DB_ID";
+	d2rq:column "GO_MolecularFunction_2_ecNumber.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_ecNumber_ecNumber_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_ecNumber;
+	d2rq:property vocab:GO_MolecularFunction_2_ecNumber_ecNumber_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_ecNumber ecNumber_rank";
+	d2rq:column "GO_MolecularFunction_2_ecNumber.ecNumber_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_ecNumber_ecNumber a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_ecNumber;
+	d2rq:property vocab:GO_MolecularFunction_2_ecNumber_ecNumber;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_ecNumber ecNumber";
+	d2rq:column "GO_MolecularFunction_2_ecNumber.ecNumber";
+	.
+
+# Table GO_MolecularFunction_2_hasPart
+map:GO_MolecularFunction_2_hasPart a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_hasPart" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_hasPart";
+	d2rq:class vocab:GO_MolecularFunction_2_hasPart;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_hasPart";
+	.
+map:GO_MolecularFunction_2_hasPart_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_hasPart;
+	d2rq:property vocab:GO_MolecularFunction_2_hasPart_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_hasPart DB_ID";
+	d2rq:column "GO_MolecularFunction_2_hasPart.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_hasPart_hasPart_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_hasPart;
+	d2rq:property vocab:GO_MolecularFunction_2_hasPart_hasPart_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_hasPart hasPart_rank";
+	d2rq:column "GO_MolecularFunction_2_hasPart.hasPart_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_hasPart_hasPart a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_hasPart;
+	d2rq:property vocab:GO_MolecularFunction_2_hasPart_hasPart;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_hasPart hasPart";
+	d2rq:column "GO_MolecularFunction_2_hasPart.hasPart";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_hasPart_hasPart_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_hasPart;
+	d2rq:property vocab:GO_MolecularFunction_2_hasPart_hasPart_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_hasPart hasPart_class";
+	d2rq:column "GO_MolecularFunction_2_hasPart.hasPart_class";
+	.
+
+# Table GO_MolecularFunction_2_instanceOf
+map:GO_MolecularFunction_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_instanceOf";
+	d2rq:class vocab:GO_MolecularFunction_2_instanceOf;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_instanceOf";
+	.
+map:GO_MolecularFunction_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_instanceOf;
+	d2rq:property vocab:GO_MolecularFunction_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_instanceOf DB_ID";
+	d2rq:column "GO_MolecularFunction_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_instanceOf;
+	d2rq:property vocab:GO_MolecularFunction_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_instanceOf instanceOf_rank";
+	d2rq:column "GO_MolecularFunction_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_instanceOf;
+	d2rq:property vocab:GO_MolecularFunction_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_instanceOf instanceOf";
+	d2rq:column "GO_MolecularFunction_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_instanceOf;
+	d2rq:property vocab:GO_MolecularFunction_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_instanceOf instanceOf_class";
+	d2rq:column "GO_MolecularFunction_2_instanceOf.instanceOf_class";
+	.
+
+# Table GO_MolecularFunction_2_name
+map:GO_MolecularFunction_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_name";
+	d2rq:class vocab:GO_MolecularFunction_2_name;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_name";
+	.
+map:GO_MolecularFunction_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_name;
+	d2rq:property vocab:GO_MolecularFunction_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_name DB_ID";
+	d2rq:column "GO_MolecularFunction_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_name;
+	d2rq:property vocab:GO_MolecularFunction_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_name name_rank";
+	d2rq:column "GO_MolecularFunction_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_name;
+	d2rq:property vocab:GO_MolecularFunction_2_name_name;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_name name";
+	d2rq:column "GO_MolecularFunction_2_name.name";
+	.
+
+# Table GO_MolecularFunction_2_negativelyRegulate
+map:GO_MolecularFunction_2_negativelyRegulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_negativelyRegulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_negativelyRegulate";
+	d2rq:class vocab:GO_MolecularFunction_2_negativelyRegulate;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_negativelyRegulate";
+	.
+map:GO_MolecularFunction_2_negativelyRegulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_negativelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_negativelyRegulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_negativelyRegulate DB_ID";
+	d2rq:column "GO_MolecularFunction_2_negativelyRegulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_negativelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_negativelyRegulate negativelyRegulate_rank";
+	d2rq:column "GO_MolecularFunction_2_negativelyRegulate.negativelyRegulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_negativelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_negativelyRegulate negativelyRegulate";
+	d2rq:column "GO_MolecularFunction_2_negativelyRegulate.negativelyRegulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_negativelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_negativelyRegulate_negativelyRegulate_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_negativelyRegulate negativelyRegulate_class";
+	d2rq:column "GO_MolecularFunction_2_negativelyRegulate.negativelyRegulate_class";
+	.
+
+# Table GO_MolecularFunction_2_positivelyRegulate
+map:GO_MolecularFunction_2_positivelyRegulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_positivelyRegulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_positivelyRegulate";
+	d2rq:class vocab:GO_MolecularFunction_2_positivelyRegulate;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_positivelyRegulate";
+	.
+map:GO_MolecularFunction_2_positivelyRegulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_positivelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_positivelyRegulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_positivelyRegulate DB_ID";
+	d2rq:column "GO_MolecularFunction_2_positivelyRegulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_positivelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_positivelyRegulate positivelyRegulate_rank";
+	d2rq:column "GO_MolecularFunction_2_positivelyRegulate.positivelyRegulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_positivelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_positivelyRegulate positivelyRegulate";
+	d2rq:column "GO_MolecularFunction_2_positivelyRegulate.positivelyRegulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_positivelyRegulate;
+	d2rq:property vocab:GO_MolecularFunction_2_positivelyRegulate_positivelyRegulate_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_positivelyRegulate positivelyRegulate_class";
+	d2rq:column "GO_MolecularFunction_2_positivelyRegulate.positivelyRegulate_class";
+	.
+
+# Table GO_MolecularFunction_2_regulate
+map:GO_MolecularFunction_2_regulate a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GO_MolecularFunction_2_regulate" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GO_MolecularFunction_2_regulate";
+	d2rq:class vocab:GO_MolecularFunction_2_regulate;
+	d2rq:classDefinitionLabel "GO_MolecularFunction_2_regulate";
+	.
+map:GO_MolecularFunction_2_regulate_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_regulate;
+	d2rq:property vocab:GO_MolecularFunction_2_regulate_DB_ID;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_regulate DB_ID";
+	d2rq:column "GO_MolecularFunction_2_regulate.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_regulate_regulate_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_regulate;
+	d2rq:property vocab:GO_MolecularFunction_2_regulate_regulate_rank;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_regulate regulate_rank";
+	d2rq:column "GO_MolecularFunction_2_regulate.regulate_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_regulate_regulate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_regulate;
+	d2rq:property vocab:GO_MolecularFunction_2_regulate_regulate;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_regulate regulate";
+	d2rq:column "GO_MolecularFunction_2_regulate.regulate";
+	d2rq:datatype xsd:integer;
+	.
+map:GO_MolecularFunction_2_regulate_regulate_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction_2_regulate;
+	d2rq:property vocab:GO_MolecularFunction_2_regulate_regulate_class;
+	d2rq:propertyDefinitionLabel "GO_MolecularFunction_2_regulate regulate_class";
+	d2rq:column "GO_MolecularFunction_2_regulate.regulate_class";
+	.
+
+# Table GenericDomain
+map:GenericDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GenericDomain/@@GenericDomain.DB_ID@@";
+	d2rq:class vocab:GenericDomain;
+	d2rq:classDefinitionLabel "GenericDomain";
+	.
+map:GenericDomain__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GenericDomain #@@GenericDomain.DB_ID@@";
+	.
+map:GenericDomain_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain;
+	d2rq:property vocab:GenericDomain_DB_ID;
+	d2rq:propertyDefinitionLabel "GenericDomain DB_ID";
+	d2rq:column "GenericDomain.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table GenericDomain_2_hasInstance
+map:GenericDomain_2_hasInstance a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "GenericDomain_2_hasInstance" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "GenericDomain_2_hasInstance";
+	d2rq:class vocab:GenericDomain_2_hasInstance;
+	d2rq:classDefinitionLabel "GenericDomain_2_hasInstance";
+	.
+map:GenericDomain_2_hasInstance_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain_2_hasInstance;
+	d2rq:property vocab:GenericDomain_2_hasInstance_DB_ID;
+	d2rq:propertyDefinitionLabel "GenericDomain_2_hasInstance DB_ID";
+	d2rq:column "GenericDomain_2_hasInstance.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GenericDomain_2_hasInstance_hasInstance_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain_2_hasInstance;
+	d2rq:property vocab:GenericDomain_2_hasInstance_hasInstance_rank;
+	d2rq:propertyDefinitionLabel "GenericDomain_2_hasInstance hasInstance_rank";
+	d2rq:column "GenericDomain_2_hasInstance.hasInstance_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:GenericDomain_2_hasInstance_hasInstance a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain_2_hasInstance;
+	d2rq:property vocab:GenericDomain_2_hasInstance_hasInstance;
+	d2rq:propertyDefinitionLabel "GenericDomain_2_hasInstance hasInstance";
+	d2rq:column "GenericDomain_2_hasInstance.hasInstance";
+	d2rq:datatype xsd:integer;
+	.
+map:GenericDomain_2_hasInstance_hasInstance_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain_2_hasInstance;
+	d2rq:property vocab:GenericDomain_2_hasInstance_hasInstance_class;
+	d2rq:propertyDefinitionLabel "GenericDomain_2_hasInstance hasInstance_class";
+	d2rq:column "GenericDomain_2_hasInstance.hasInstance_class";
+	.
+
+# Table GeneticallyModifiedResidue
+map:GeneticallyModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GeneticallyModifiedResidue/@@GeneticallyModifiedResidue.DB_ID@@";
+	d2rq:class vocab:GeneticallyModifiedResidue;
+	d2rq:classDefinitionLabel "GeneticallyModifiedResidue";
+	.
+map:GeneticallyModifiedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GeneticallyModifiedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GeneticallyModifiedResidue #@@GeneticallyModifiedResidue.DB_ID@@";
+	.
+map:GeneticallyModifiedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GeneticallyModifiedResidue;
+	d2rq:property vocab:GeneticallyModifiedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "GeneticallyModifiedResidue DB_ID";
+	d2rq:column "GeneticallyModifiedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table GenomeEncodedEntity
+map:GenomeEncodedEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GenomeEncodedEntity/@@GenomeEncodedEntity.DB_ID@@";
+	d2rq:class vocab:GenomeEncodedEntity;
+	d2rq:classDefinitionLabel "GenomeEncodedEntity";
+	.
+map:GenomeEncodedEntity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenomeEncodedEntity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GenomeEncodedEntity #@@GenomeEncodedEntity.DB_ID@@";
+	.
+map:GenomeEncodedEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenomeEncodedEntity;
+	d2rq:property vocab:GenomeEncodedEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "GenomeEncodedEntity DB_ID";
+	d2rq:column "GenomeEncodedEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GenomeEncodedEntity_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenomeEncodedEntity;
+	d2rq:property vocab:GenomeEncodedEntity_species;
+	d2rq:propertyDefinitionLabel "GenomeEncodedEntity species";
+	d2rq:column "GenomeEncodedEntity.species";
+	d2rq:datatype xsd:integer;
+	.
+map:GenomeEncodedEntity_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenomeEncodedEntity;
+	d2rq:property vocab:GenomeEncodedEntity_species_class;
+	d2rq:propertyDefinitionLabel "GenomeEncodedEntity species_class";
+	d2rq:column "GenomeEncodedEntity.species_class";
+	.
+
+# Table GroupModifiedResidue
+map:GroupModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "GroupModifiedResidue/@@GroupModifiedResidue.DB_ID@@";
+	d2rq:class vocab:GroupModifiedResidue;
+	d2rq:classDefinitionLabel "GroupModifiedResidue";
+	.
+map:GroupModifiedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GroupModifiedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "GroupModifiedResidue #@@GroupModifiedResidue.DB_ID@@";
+	.
+map:GroupModifiedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GroupModifiedResidue;
+	d2rq:property vocab:GroupModifiedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "GroupModifiedResidue DB_ID";
+	d2rq:column "GroupModifiedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:GroupModifiedResidue_modification a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GroupModifiedResidue;
+	d2rq:property vocab:GroupModifiedResidue_modification;
+	d2rq:propertyDefinitionLabel "GroupModifiedResidue modification";
+	d2rq:column "GroupModifiedResidue.modification";
+	d2rq:datatype xsd:integer;
+	.
+map:GroupModifiedResidue_modification_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GroupModifiedResidue;
+	d2rq:property vocab:GroupModifiedResidue_modification_class;
+	d2rq:propertyDefinitionLabel "GroupModifiedResidue modification_class";
+	d2rq:column "GroupModifiedResidue.modification_class";
+	.
+
+# Table InstanceEdit
+map:InstanceEdit a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "InstanceEdit/@@InstanceEdit.DB_ID@@";
+	d2rq:class vocab:InstanceEdit;
+	d2rq:classDefinitionLabel "InstanceEdit";
+	.
+map:InstanceEdit__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property rdfs:label;
+	d2rq:pattern "InstanceEdit #@@InstanceEdit.DB_ID@@";
+	.
+map:InstanceEdit_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:InstanceEdit_DB_ID;
+	d2rq:propertyDefinitionLabel "InstanceEdit DB_ID";
+	d2rq:column "InstanceEdit.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:InstanceEdit__applyToAllEditedInstances a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:InstanceEdit__applyToAllEditedInstances;
+	d2rq:propertyDefinitionLabel "InstanceEdit _applyToAllEditedInstances";
+	d2rq:column "InstanceEdit._applyToAllEditedInstances";
+	.
+map:InstanceEdit_dateTime a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:InstanceEdit_dateTime;
+	d2rq:propertyDefinitionLabel "InstanceEdit dateTime";
+	d2rq:column "InstanceEdit.dateTime";
+	d2rq:datatype xsd:dateTime;
+	.
+map:InstanceEdit_note a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:InstanceEdit_note;
+	d2rq:propertyDefinitionLabel "InstanceEdit note";
+	d2rq:column "InstanceEdit.note";
+	.
+
+# Table InstanceEdit_2_author
+map:InstanceEdit_2_author a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "InstanceEdit_2_author" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "InstanceEdit_2_author";
+	d2rq:class vocab:InstanceEdit_2_author;
+	d2rq:classDefinitionLabel "InstanceEdit_2_author";
+	.
+map:InstanceEdit_2_author_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit_2_author;
+	d2rq:property vocab:InstanceEdit_2_author_DB_ID;
+	d2rq:propertyDefinitionLabel "InstanceEdit_2_author DB_ID";
+	d2rq:column "InstanceEdit_2_author.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:InstanceEdit_2_author_author_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit_2_author;
+	d2rq:property vocab:InstanceEdit_2_author_author_rank;
+	d2rq:propertyDefinitionLabel "InstanceEdit_2_author author_rank";
+	d2rq:column "InstanceEdit_2_author.author_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:InstanceEdit_2_author_author a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit_2_author;
+	d2rq:property vocab:InstanceEdit_2_author_author;
+	d2rq:propertyDefinitionLabel "InstanceEdit_2_author author";
+	d2rq:column "InstanceEdit_2_author.author";
+	d2rq:datatype xsd:integer;
+	.
+map:InstanceEdit_2_author_author_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit_2_author;
+	d2rq:property vocab:InstanceEdit_2_author_author_class;
+	d2rq:propertyDefinitionLabel "InstanceEdit_2_author author_class";
+	d2rq:column "InstanceEdit_2_author.author_class";
+	.
+
+# Table InterChainCrosslinkedResidue
+map:InterChainCrosslinkedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "InterChainCrosslinkedResidue/@@InterChainCrosslinkedResidue.DB_ID@@";
+	d2rq:class vocab:InterChainCrosslinkedResidue;
+	d2rq:classDefinitionLabel "InterChainCrosslinkedResidue";
+	.
+map:InterChainCrosslinkedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "InterChainCrosslinkedResidue #@@InterChainCrosslinkedResidue.DB_ID@@";
+	.
+map:InterChainCrosslinkedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue;
+	d2rq:property vocab:InterChainCrosslinkedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue DB_ID";
+	d2rq:column "InterChainCrosslinkedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table InterChainCrosslinkedResidue_2_equivalentTo
+map:InterChainCrosslinkedResidue_2_equivalentTo a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "InterChainCrosslinkedResidue_2_equivalentTo" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "InterChainCrosslinkedResidue_2_equivalentTo";
+	d2rq:class vocab:InterChainCrosslinkedResidue_2_equivalentTo;
+	d2rq:classDefinitionLabel "InterChainCrosslinkedResidue_2_equivalentTo";
+	.
+map:InterChainCrosslinkedResidue_2_equivalentTo_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_equivalentTo;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_equivalentTo_DB_ID;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_equivalentTo DB_ID";
+	d2rq:column "InterChainCrosslinkedResidue_2_equivalentTo.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_equivalentTo;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo_rank;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_equivalentTo equivalentTo_rank";
+	d2rq:column "InterChainCrosslinkedResidue_2_equivalentTo.equivalentTo_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_equivalentTo;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_equivalentTo equivalentTo";
+	d2rq:column "InterChainCrosslinkedResidue_2_equivalentTo.equivalentTo";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_equivalentTo;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_equivalentTo_equivalentTo_class;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_equivalentTo equivalentTo_class";
+	d2rq:column "InterChainCrosslinkedResidue_2_equivalentTo.equivalentTo_class";
+	.
+
+# Table InterChainCrosslinkedResidue_2_secondReferenceSequence
+map:InterChainCrosslinkedResidue_2_secondReferenceSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "InterChainCrosslinkedResidue_2_secondReferenceSequence" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "InterChainCrosslinkedResidue_2_secondReferenceSequence";
+	d2rq:class vocab:InterChainCrosslinkedResidue_2_secondReferenceSequence;
+	d2rq:classDefinitionLabel "InterChainCrosslinkedResidue_2_secondReferenceSequence";
+	.
+map:InterChainCrosslinkedResidue_2_secondReferenceSequence_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_secondReferenceSequence;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_secondReferenceSequence_DB_ID;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_secondReferenceSequence DB_ID";
+	d2rq:column "InterChainCrosslinkedResidue_2_secondReferenceSequence.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_secondReferenceSequence;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence_rank;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_secondReferenceSequence secondReferenceSequence_rank";
+	d2rq:column "InterChainCrosslinkedResidue_2_secondReferenceSequence.secondReferenceSequence_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_secondReferenceSequence;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_secondReferenceSequence secondReferenceSequence";
+	d2rq:column "InterChainCrosslinkedResidue_2_secondReferenceSequence.secondReferenceSequence";
+	d2rq:datatype xsd:integer;
+	.
+map:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InterChainCrosslinkedResidue_2_secondReferenceSequence;
+	d2rq:property vocab:InterChainCrosslinkedResidue_2_secondReferenceSequence_secondReferenceSequence_class;
+	d2rq:propertyDefinitionLabel "InterChainCrosslinkedResidue_2_secondReferenceSequence secondReferenceSequence_class";
+	d2rq:column "InterChainCrosslinkedResidue_2_secondReferenceSequence.secondReferenceSequence_class";
+	.
+
+# Table IntraChainCrosslinkedResidue
+map:IntraChainCrosslinkedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "IntraChainCrosslinkedResidue/@@IntraChainCrosslinkedResidue.DB_ID@@";
+	d2rq:class vocab:IntraChainCrosslinkedResidue;
+	d2rq:classDefinitionLabel "IntraChainCrosslinkedResidue";
+	.
+map:IntraChainCrosslinkedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:IntraChainCrosslinkedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "IntraChainCrosslinkedResidue #@@IntraChainCrosslinkedResidue.DB_ID@@";
+	.
+map:IntraChainCrosslinkedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:IntraChainCrosslinkedResidue;
+	d2rq:property vocab:IntraChainCrosslinkedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "IntraChainCrosslinkedResidue DB_ID";
+	d2rq:column "IntraChainCrosslinkedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table LiteratureReference
+map:LiteratureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "LiteratureReference/@@LiteratureReference.DB_ID@@";
+	d2rq:class vocab:LiteratureReference;
+	d2rq:classDefinitionLabel "LiteratureReference";
+	.
+map:LiteratureReference__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property rdfs:label;
+	d2rq:pattern "LiteratureReference #@@LiteratureReference.DB_ID@@";
+	.
+map:LiteratureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "LiteratureReference DB_ID";
+	d2rq:column "LiteratureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:LiteratureReference_journal a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_journal;
+	d2rq:propertyDefinitionLabel "LiteratureReference journal";
+	d2rq:column "LiteratureReference.journal";
+	.
+map:LiteratureReference_pages a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_pages;
+	d2rq:propertyDefinitionLabel "LiteratureReference pages";
+	d2rq:column "LiteratureReference.pages";
+	.
+map:LiteratureReference_pubMedIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_pubMedIdentifier;
+	d2rq:propertyDefinitionLabel "LiteratureReference pubMedIdentifier";
+	d2rq:column "LiteratureReference.pubMedIdentifier";
+	d2rq:datatype xsd:integer;
+	.
+map:LiteratureReference_volume a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_volume;
+	d2rq:propertyDefinitionLabel "LiteratureReference volume";
+	d2rq:column "LiteratureReference.volume";
+	d2rq:datatype xsd:integer;
+	.
+map:LiteratureReference_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:LiteratureReference_year;
+	d2rq:propertyDefinitionLabel "LiteratureReference year";
+	d2rq:column "LiteratureReference.year";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ModifiedResidue
+map:ModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ModifiedResidue/@@ModifiedResidue.DB_ID@@";
+	d2rq:class vocab:ModifiedResidue;
+	d2rq:classDefinitionLabel "ModifiedResidue";
+	.
+map:ModifiedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ModifiedResidue #@@ModifiedResidue.DB_ID@@";
+	.
+map:ModifiedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property vocab:ModifiedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "ModifiedResidue DB_ID";
+	d2rq:column "ModifiedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table NegativeRegulation
+map:NegativeRegulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "NegativeRegulation/@@NegativeRegulation.DB_ID@@";
+	d2rq:class vocab:NegativeRegulation;
+	d2rq:classDefinitionLabel "NegativeRegulation";
+	.
+map:NegativeRegulation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:NegativeRegulation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "NegativeRegulation #@@NegativeRegulation.DB_ID@@";
+	.
+map:NegativeRegulation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:NegativeRegulation;
+	d2rq:property vocab:NegativeRegulation_DB_ID;
+	d2rq:propertyDefinitionLabel "NegativeRegulation DB_ID";
+	d2rq:column "NegativeRegulation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Ontology
+map:Ontology a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Ontology" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Ontology";
+	d2rq:class vocab:Ontology;
+	d2rq:classDefinitionLabel "Ontology";
+	.
+map:Ontology_ontology a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Ontology;
+	d2rq:property vocab:Ontology_ontology;
+	d2rq:propertyDefinitionLabel "Ontology ontology";
+	d2rq:column "Ontology.ontology";
+	d2rq:datatype xsd:hexBinary;
+	.
+
+# Table OpenSet
+map:OpenSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "OpenSet/@@OpenSet.DB_ID@@";
+	d2rq:class vocab:OpenSet;
+	d2rq:classDefinitionLabel "OpenSet";
+	.
+map:OpenSet__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OpenSet;
+	d2rq:property rdfs:label;
+	d2rq:pattern "OpenSet #@@OpenSet.DB_ID@@";
+	.
+map:OpenSet_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OpenSet;
+	d2rq:property vocab:OpenSet_DB_ID;
+	d2rq:propertyDefinitionLabel "OpenSet DB_ID";
+	d2rq:column "OpenSet.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:OpenSet_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OpenSet;
+	d2rq:property vocab:OpenSet_referenceEntity;
+	d2rq:propertyDefinitionLabel "OpenSet referenceEntity";
+	d2rq:column "OpenSet.referenceEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:OpenSet_referenceEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OpenSet;
+	d2rq:property vocab:OpenSet_referenceEntity_class;
+	d2rq:propertyDefinitionLabel "OpenSet referenceEntity_class";
+	d2rq:column "OpenSet.referenceEntity_class";
+	.
+
+# Table OtherEntity
+map:OtherEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "OtherEntity/@@OtherEntity.DB_ID@@";
+	d2rq:class vocab:OtherEntity;
+	d2rq:classDefinitionLabel "OtherEntity";
+	.
+map:OtherEntity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OtherEntity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "OtherEntity #@@OtherEntity.DB_ID@@";
+	.
+map:OtherEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OtherEntity;
+	d2rq:property vocab:OtherEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "OtherEntity DB_ID";
+	d2rq:column "OtherEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Parameters
+map:Parameters a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Parameters/@@Parameters.parameter|urlify@@";
+	d2rq:class vocab:Parameters;
+	d2rq:classDefinitionLabel "Parameters";
+	.
+map:Parameters__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Parameters;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Parameters #@@Parameters.parameter@@";
+	.
+map:Parameters_parameter a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Parameters;
+	d2rq:property vocab:Parameters_parameter;
+	d2rq:propertyDefinitionLabel "Parameters parameter";
+	d2rq:column "Parameters.parameter";
+	.
+map:Parameters_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Parameters;
+	d2rq:property vocab:Parameters_value;
+	d2rq:propertyDefinitionLabel "Parameters value";
+	d2rq:column "Parameters.value";
+	d2rq:datatype xsd:hexBinary;
+	.
+
+# Table Pathway
+map:Pathway a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Pathway/@@Pathway.DB_ID@@";
+	d2rq:class vocab:Pathway;
+	d2rq:classDefinitionLabel "Pathway";
+	.
+map:Pathway__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Pathway #@@Pathway.DB_ID@@";
+	.
+map:Pathway_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway;
+	d2rq:property vocab:Pathway_DB_ID;
+	d2rq:propertyDefinitionLabel "Pathway DB_ID";
+	d2rq:column "Pathway.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Pathway_doi a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway;
+	d2rq:property vocab:Pathway_doi;
+	d2rq:propertyDefinitionLabel "Pathway doi";
+	d2rq:column "Pathway.doi";
+	.
+map:Pathway_isCanonical a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway;
+	d2rq:property vocab:Pathway_isCanonical;
+	d2rq:propertyDefinitionLabel "Pathway isCanonical";
+	d2rq:column "Pathway.isCanonical";
+	.
+
+# Table PathwayCoordinates
+map:PathwayCoordinates a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PathwayCoordinates/@@PathwayCoordinates.DB_ID@@";
+	d2rq:class vocab:PathwayCoordinates;
+	d2rq:classDefinitionLabel "PathwayCoordinates";
+	.
+map:PathwayCoordinates__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PathwayCoordinates #@@PathwayCoordinates.DB_ID@@";
+	.
+map:PathwayCoordinates_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_DB_ID;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates DB_ID";
+	d2rq:column "PathwayCoordinates.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayCoordinates_locatedEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_locatedEvent;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates locatedEvent";
+	d2rq:column "PathwayCoordinates.locatedEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayCoordinates_locatedEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_locatedEvent_class;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates locatedEvent_class";
+	d2rq:column "PathwayCoordinates.locatedEvent_class";
+	.
+map:PathwayCoordinates_maxX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_maxX;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates maxX";
+	d2rq:column "PathwayCoordinates.maxX";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayCoordinates_maxY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_maxY;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates maxY";
+	d2rq:column "PathwayCoordinates.maxY";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayCoordinates_minX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_minX;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates minX";
+	d2rq:column "PathwayCoordinates.minX";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayCoordinates_minY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:PathwayCoordinates_minY;
+	d2rq:propertyDefinitionLabel "PathwayCoordinates minY";
+	d2rq:column "PathwayCoordinates.minY";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table PathwayDiagram
+map:PathwayDiagram a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PathwayDiagram/@@PathwayDiagram.DB_ID@@";
+	d2rq:class vocab:PathwayDiagram;
+	d2rq:classDefinitionLabel "PathwayDiagram";
+	.
+map:PathwayDiagram__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PathwayDiagram #@@PathwayDiagram.DB_ID@@";
+	.
+map:PathwayDiagram_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram;
+	d2rq:property vocab:PathwayDiagram_DB_ID;
+	d2rq:propertyDefinitionLabel "PathwayDiagram DB_ID";
+	d2rq:column "PathwayDiagram.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayDiagram_height a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram;
+	d2rq:property vocab:PathwayDiagram_height;
+	d2rq:propertyDefinitionLabel "PathwayDiagram height";
+	d2rq:column "PathwayDiagram.height";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayDiagram_storedATXML a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram;
+	d2rq:property vocab:PathwayDiagram_storedATXML;
+	d2rq:propertyDefinitionLabel "PathwayDiagram storedATXML";
+	d2rq:column "PathwayDiagram.storedATXML";
+	d2rq:datatype xsd:hexBinary;
+	.
+map:PathwayDiagram_width a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram;
+	d2rq:property vocab:PathwayDiagram_width;
+	d2rq:propertyDefinitionLabel "PathwayDiagram width";
+	d2rq:column "PathwayDiagram.width";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table PathwayDiagramItem
+map:PathwayDiagramItem a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PathwayDiagramItem/@@PathwayDiagramItem.DB_ID@@";
+	d2rq:class vocab:PathwayDiagramItem;
+	d2rq:classDefinitionLabel "PathwayDiagramItem";
+	.
+map:PathwayDiagramItem__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagramItem;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PathwayDiagramItem #@@PathwayDiagramItem.DB_ID@@";
+	.
+map:PathwayDiagramItem_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagramItem;
+	d2rq:property vocab:PathwayDiagramItem_DB_ID;
+	d2rq:propertyDefinitionLabel "PathwayDiagramItem DB_ID";
+	d2rq:column "PathwayDiagramItem.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table PathwayDiagram_2_representedPathway
+map:PathwayDiagram_2_representedPathway a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PathwayDiagram_2_representedPathway" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PathwayDiagram_2_representedPathway";
+	d2rq:class vocab:PathwayDiagram_2_representedPathway;
+	d2rq:classDefinitionLabel "PathwayDiagram_2_representedPathway";
+	.
+map:PathwayDiagram_2_representedPathway_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram_2_representedPathway;
+	d2rq:property vocab:PathwayDiagram_2_representedPathway_DB_ID;
+	d2rq:propertyDefinitionLabel "PathwayDiagram_2_representedPathway DB_ID";
+	d2rq:column "PathwayDiagram_2_representedPathway.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayDiagram_2_representedPathway_representedPathway_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram_2_representedPathway;
+	d2rq:property vocab:PathwayDiagram_2_representedPathway_representedPathway_rank;
+	d2rq:propertyDefinitionLabel "PathwayDiagram_2_representedPathway representedPathway_rank";
+	d2rq:column "PathwayDiagram_2_representedPathway.representedPathway_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayDiagram_2_representedPathway_representedPathway a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram_2_representedPathway;
+	d2rq:property vocab:PathwayDiagram_2_representedPathway_representedPathway;
+	d2rq:propertyDefinitionLabel "PathwayDiagram_2_representedPathway representedPathway";
+	d2rq:column "PathwayDiagram_2_representedPathway.representedPathway";
+	d2rq:datatype xsd:integer;
+	.
+map:PathwayDiagram_2_representedPathway_representedPathway_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayDiagram_2_representedPathway;
+	d2rq:property vocab:PathwayDiagram_2_representedPathway_representedPathway_class;
+	d2rq:propertyDefinitionLabel "PathwayDiagram_2_representedPathway representedPathway_class";
+	d2rq:column "PathwayDiagram_2_representedPathway.representedPathway_class";
+	.
+
+# Table PathwayVertex
+map:PathwayVertex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PathwayVertex/@@PathwayVertex.DB_ID@@";
+	d2rq:class vocab:PathwayVertex;
+	d2rq:classDefinitionLabel "PathwayVertex";
+	.
+map:PathwayVertex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayVertex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PathwayVertex #@@PathwayVertex.DB_ID@@";
+	.
+map:PathwayVertex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayVertex;
+	d2rq:property vocab:PathwayVertex_DB_ID;
+	d2rq:propertyDefinitionLabel "PathwayVertex DB_ID";
+	d2rq:column "PathwayVertex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Pathway_2_hasEvent
+map:Pathway_2_hasEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Pathway_2_hasEvent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Pathway_2_hasEvent";
+	d2rq:class vocab:Pathway_2_hasEvent;
+	d2rq:classDefinitionLabel "Pathway_2_hasEvent";
+	.
+map:Pathway_2_hasEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway_2_hasEvent;
+	d2rq:property vocab:Pathway_2_hasEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "Pathway_2_hasEvent DB_ID";
+	d2rq:column "Pathway_2_hasEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Pathway_2_hasEvent_hasEvent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway_2_hasEvent;
+	d2rq:property vocab:Pathway_2_hasEvent_hasEvent_rank;
+	d2rq:propertyDefinitionLabel "Pathway_2_hasEvent hasEvent_rank";
+	d2rq:column "Pathway_2_hasEvent.hasEvent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Pathway_2_hasEvent_hasEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway_2_hasEvent;
+	d2rq:property vocab:Pathway_2_hasEvent_hasEvent;
+	d2rq:propertyDefinitionLabel "Pathway_2_hasEvent hasEvent";
+	d2rq:column "Pathway_2_hasEvent.hasEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:Pathway_2_hasEvent_hasEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway_2_hasEvent;
+	d2rq:property vocab:Pathway_2_hasEvent_hasEvent_class;
+	d2rq:propertyDefinitionLabel "Pathway_2_hasEvent hasEvent_class";
+	d2rq:column "Pathway_2_hasEvent.hasEvent_class";
+	.
+
+# Table Person
+map:Person a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Person/@@Person.DB_ID@@";
+	d2rq:class vocab:Person;
+	d2rq:classDefinitionLabel "Person";
+	.
+map:Person__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Person #@@Person.DB_ID@@";
+	.
+map:Person_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_DB_ID;
+	d2rq:propertyDefinitionLabel "Person DB_ID";
+	d2rq:column "Person.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_eMailAddress a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_eMailAddress;
+	d2rq:propertyDefinitionLabel "Person eMailAddress";
+	d2rq:column "Person.eMailAddress";
+	.
+map:Person_firstname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_firstname;
+	d2rq:propertyDefinitionLabel "Person firstname";
+	d2rq:column "Person.firstname";
+	.
+map:Person_initial a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_initial;
+	d2rq:propertyDefinitionLabel "Person initial";
+	d2rq:column "Person.initial";
+	.
+map:Person_project a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_project;
+	d2rq:propertyDefinitionLabel "Person project";
+	d2rq:column "Person.project";
+	.
+map:Person_surname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:Person_surname;
+	d2rq:propertyDefinitionLabel "Person surname";
+	d2rq:column "Person.surname";
+	.
+
+# Table Person_2_affiliation
+map:Person_2_affiliation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Person_2_affiliation" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Person_2_affiliation";
+	d2rq:class vocab:Person_2_affiliation;
+	d2rq:classDefinitionLabel "Person_2_affiliation";
+	.
+map:Person_2_affiliation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_affiliation;
+	d2rq:property vocab:Person_2_affiliation_DB_ID;
+	d2rq:propertyDefinitionLabel "Person_2_affiliation DB_ID";
+	d2rq:column "Person_2_affiliation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_affiliation_affiliation_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_affiliation;
+	d2rq:property vocab:Person_2_affiliation_affiliation_rank;
+	d2rq:propertyDefinitionLabel "Person_2_affiliation affiliation_rank";
+	d2rq:column "Person_2_affiliation.affiliation_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_affiliation_affiliation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_affiliation;
+	d2rq:property vocab:Person_2_affiliation_affiliation;
+	d2rq:propertyDefinitionLabel "Person_2_affiliation affiliation";
+	d2rq:column "Person_2_affiliation.affiliation";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_affiliation_affiliation_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_affiliation;
+	d2rq:property vocab:Person_2_affiliation_affiliation_class;
+	d2rq:propertyDefinitionLabel "Person_2_affiliation affiliation_class";
+	d2rq:column "Person_2_affiliation.affiliation_class";
+	.
+
+# Table Person_2_figure
+map:Person_2_figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Person_2_figure" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Person_2_figure";
+	d2rq:class vocab:Person_2_figure;
+	d2rq:classDefinitionLabel "Person_2_figure";
+	.
+map:Person_2_figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_figure;
+	d2rq:property vocab:Person_2_figure_DB_ID;
+	d2rq:propertyDefinitionLabel "Person_2_figure DB_ID";
+	d2rq:column "Person_2_figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_figure_figure_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_figure;
+	d2rq:property vocab:Person_2_figure_figure_rank;
+	d2rq:propertyDefinitionLabel "Person_2_figure figure_rank";
+	d2rq:column "Person_2_figure.figure_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_figure_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_figure;
+	d2rq:property vocab:Person_2_figure_figure;
+	d2rq:propertyDefinitionLabel "Person_2_figure figure";
+	d2rq:column "Person_2_figure.figure";
+	d2rq:datatype xsd:integer;
+	.
+map:Person_2_figure_figure_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person_2_figure;
+	d2rq:property vocab:Person_2_figure_figure_class;
+	d2rq:propertyDefinitionLabel "Person_2_figure figure_class";
+	d2rq:column "Person_2_figure.figure_class";
+	.
+
+# Table PhysicalEntity
+map:PhysicalEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PhysicalEntity/@@PhysicalEntity.DB_ID@@";
+	d2rq:class vocab:PhysicalEntity;
+	d2rq:classDefinitionLabel "PhysicalEntity";
+	.
+map:PhysicalEntity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PhysicalEntity #@@PhysicalEntity.DB_ID@@";
+	.
+map:PhysicalEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity DB_ID";
+	d2rq:column "PhysicalEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_authored;
+	d2rq:propertyDefinitionLabel "PhysicalEntity authored";
+	d2rq:column "PhysicalEntity.authored";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_authored_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_authored_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity authored_class";
+	d2rq:column "PhysicalEntity.authored_class";
+	.
+map:PhysicalEntity_cellType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_cellType;
+	d2rq:propertyDefinitionLabel "PhysicalEntity cellType";
+	d2rq:column "PhysicalEntity.cellType";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_cellType_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_cellType_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity cellType_class";
+	d2rq:column "PhysicalEntity.cellType_class";
+	.
+map:PhysicalEntity_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_definition;
+	d2rq:propertyDefinitionLabel "PhysicalEntity definition";
+	d2rq:column "PhysicalEntity.definition";
+	.
+map:PhysicalEntity_goCellularComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_goCellularComponent;
+	d2rq:propertyDefinitionLabel "PhysicalEntity goCellularComponent";
+	d2rq:column "PhysicalEntity.goCellularComponent";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_goCellularComponent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:PhysicalEntity_goCellularComponent_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity goCellularComponent_class";
+	d2rq:column "PhysicalEntity.goCellularComponent_class";
+	.
+
+# Table PhysicalEntity_2_compartment
+map:PhysicalEntity_2_compartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_compartment" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_compartment";
+	d2rq:class vocab:PhysicalEntity_2_compartment;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_compartment";
+	.
+map:PhysicalEntity_2_compartment_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_compartment;
+	d2rq:property vocab:PhysicalEntity_2_compartment_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_compartment DB_ID";
+	d2rq:column "PhysicalEntity_2_compartment.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_compartment_compartment_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_compartment;
+	d2rq:property vocab:PhysicalEntity_2_compartment_compartment_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_compartment compartment_rank";
+	d2rq:column "PhysicalEntity_2_compartment.compartment_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_compartment_compartment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_compartment;
+	d2rq:property vocab:PhysicalEntity_2_compartment_compartment;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_compartment compartment";
+	d2rq:column "PhysicalEntity_2_compartment.compartment";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_compartment_compartment_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_compartment;
+	d2rq:property vocab:PhysicalEntity_2_compartment_compartment_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_compartment compartment_class";
+	d2rq:column "PhysicalEntity_2_compartment.compartment_class";
+	.
+
+# Table PhysicalEntity_2_crossReference
+map:PhysicalEntity_2_crossReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_crossReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_crossReference";
+	d2rq:class vocab:PhysicalEntity_2_crossReference;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_crossReference";
+	.
+map:PhysicalEntity_2_crossReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_crossReference;
+	d2rq:property vocab:PhysicalEntity_2_crossReference_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_crossReference DB_ID";
+	d2rq:column "PhysicalEntity_2_crossReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_crossReference_crossReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_crossReference;
+	d2rq:property vocab:PhysicalEntity_2_crossReference_crossReference_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_crossReference crossReference_rank";
+	d2rq:column "PhysicalEntity_2_crossReference.crossReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_crossReference_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_crossReference;
+	d2rq:property vocab:PhysicalEntity_2_crossReference_crossReference;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_crossReference crossReference";
+	d2rq:column "PhysicalEntity_2_crossReference.crossReference";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_crossReference_crossReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_crossReference;
+	d2rq:property vocab:PhysicalEntity_2_crossReference_crossReference_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_crossReference crossReference_class";
+	d2rq:column "PhysicalEntity_2_crossReference.crossReference_class";
+	.
+
+# Table PhysicalEntity_2_disease
+map:PhysicalEntity_2_disease a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_disease" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_disease";
+	d2rq:class vocab:PhysicalEntity_2_disease;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_disease";
+	.
+map:PhysicalEntity_2_disease_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_disease;
+	d2rq:property vocab:PhysicalEntity_2_disease_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_disease DB_ID";
+	d2rq:column "PhysicalEntity_2_disease.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_disease_disease_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_disease;
+	d2rq:property vocab:PhysicalEntity_2_disease_disease_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_disease disease_rank";
+	d2rq:column "PhysicalEntity_2_disease.disease_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_disease_disease a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_disease;
+	d2rq:property vocab:PhysicalEntity_2_disease_disease;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_disease disease";
+	d2rq:column "PhysicalEntity_2_disease.disease";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_disease_disease_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_disease;
+	d2rq:property vocab:PhysicalEntity_2_disease_disease_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_disease disease_class";
+	d2rq:column "PhysicalEntity_2_disease.disease_class";
+	.
+
+# Table PhysicalEntity_2_edited
+map:PhysicalEntity_2_edited a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_edited" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_edited";
+	d2rq:class vocab:PhysicalEntity_2_edited;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_edited";
+	.
+map:PhysicalEntity_2_edited_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_edited;
+	d2rq:property vocab:PhysicalEntity_2_edited_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_edited DB_ID";
+	d2rq:column "PhysicalEntity_2_edited.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_edited_edited_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_edited;
+	d2rq:property vocab:PhysicalEntity_2_edited_edited_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_edited edited_rank";
+	d2rq:column "PhysicalEntity_2_edited.edited_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_edited_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_edited;
+	d2rq:property vocab:PhysicalEntity_2_edited_edited;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_edited edited";
+	d2rq:column "PhysicalEntity_2_edited.edited";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_edited_edited_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_edited;
+	d2rq:property vocab:PhysicalEntity_2_edited_edited_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_edited edited_class";
+	d2rq:column "PhysicalEntity_2_edited.edited_class";
+	.
+
+# Table PhysicalEntity_2_figure
+map:PhysicalEntity_2_figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_figure" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_figure";
+	d2rq:class vocab:PhysicalEntity_2_figure;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_figure";
+	.
+map:PhysicalEntity_2_figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_figure;
+	d2rq:property vocab:PhysicalEntity_2_figure_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_figure DB_ID";
+	d2rq:column "PhysicalEntity_2_figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_figure_figure_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_figure;
+	d2rq:property vocab:PhysicalEntity_2_figure_figure_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_figure figure_rank";
+	d2rq:column "PhysicalEntity_2_figure.figure_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_figure_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_figure;
+	d2rq:property vocab:PhysicalEntity_2_figure_figure;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_figure figure";
+	d2rq:column "PhysicalEntity_2_figure.figure";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_figure_figure_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_figure;
+	d2rq:property vocab:PhysicalEntity_2_figure_figure_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_figure figure_class";
+	d2rq:column "PhysicalEntity_2_figure.figure_class";
+	.
+
+# Table PhysicalEntity_2_hasDomain
+map:PhysicalEntity_2_hasDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_hasDomain" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_hasDomain";
+	d2rq:class vocab:PhysicalEntity_2_hasDomain;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_hasDomain";
+	.
+map:PhysicalEntity_2_hasDomain_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_hasDomain;
+	d2rq:property vocab:PhysicalEntity_2_hasDomain_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_hasDomain DB_ID";
+	d2rq:column "PhysicalEntity_2_hasDomain.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_hasDomain_hasDomain_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_hasDomain;
+	d2rq:property vocab:PhysicalEntity_2_hasDomain_hasDomain_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_hasDomain hasDomain_rank";
+	d2rq:column "PhysicalEntity_2_hasDomain.hasDomain_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_hasDomain_hasDomain a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_hasDomain;
+	d2rq:property vocab:PhysicalEntity_2_hasDomain_hasDomain;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_hasDomain hasDomain";
+	d2rq:column "PhysicalEntity_2_hasDomain.hasDomain";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_hasDomain_hasDomain_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_hasDomain;
+	d2rq:property vocab:PhysicalEntity_2_hasDomain_hasDomain_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_hasDomain hasDomain_class";
+	d2rq:column "PhysicalEntity_2_hasDomain.hasDomain_class";
+	.
+
+# Table PhysicalEntity_2_inferredFrom
+map:PhysicalEntity_2_inferredFrom a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_inferredFrom" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_inferredFrom";
+	d2rq:class vocab:PhysicalEntity_2_inferredFrom;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_inferredFrom";
+	.
+map:PhysicalEntity_2_inferredFrom_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredFrom;
+	d2rq:property vocab:PhysicalEntity_2_inferredFrom_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredFrom DB_ID";
+	d2rq:column "PhysicalEntity_2_inferredFrom.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredFrom_inferredFrom_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredFrom;
+	d2rq:property vocab:PhysicalEntity_2_inferredFrom_inferredFrom_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredFrom inferredFrom_rank";
+	d2rq:column "PhysicalEntity_2_inferredFrom.inferredFrom_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredFrom_inferredFrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredFrom;
+	d2rq:property vocab:PhysicalEntity_2_inferredFrom_inferredFrom;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredFrom inferredFrom";
+	d2rq:column "PhysicalEntity_2_inferredFrom.inferredFrom";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredFrom_inferredFrom_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredFrom;
+	d2rq:property vocab:PhysicalEntity_2_inferredFrom_inferredFrom_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredFrom inferredFrom_class";
+	d2rq:column "PhysicalEntity_2_inferredFrom.inferredFrom_class";
+	.
+
+# Table PhysicalEntity_2_inferredTo
+map:PhysicalEntity_2_inferredTo a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_inferredTo" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_inferredTo";
+	d2rq:class vocab:PhysicalEntity_2_inferredTo;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_inferredTo";
+	.
+map:PhysicalEntity_2_inferredTo_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredTo;
+	d2rq:property vocab:PhysicalEntity_2_inferredTo_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredTo DB_ID";
+	d2rq:column "PhysicalEntity_2_inferredTo.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredTo_inferredTo_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredTo;
+	d2rq:property vocab:PhysicalEntity_2_inferredTo_inferredTo_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredTo inferredTo_rank";
+	d2rq:column "PhysicalEntity_2_inferredTo.inferredTo_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredTo_inferredTo a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredTo;
+	d2rq:property vocab:PhysicalEntity_2_inferredTo_inferredTo;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredTo inferredTo";
+	d2rq:column "PhysicalEntity_2_inferredTo.inferredTo";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_inferredTo_inferredTo_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_inferredTo;
+	d2rq:property vocab:PhysicalEntity_2_inferredTo_inferredTo_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_inferredTo inferredTo_class";
+	d2rq:column "PhysicalEntity_2_inferredTo.inferredTo_class";
+	.
+
+# Table PhysicalEntity_2_literatureReference
+map:PhysicalEntity_2_literatureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_literatureReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_literatureReference";
+	d2rq:class vocab:PhysicalEntity_2_literatureReference;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_literatureReference";
+	.
+map:PhysicalEntity_2_literatureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_literatureReference;
+	d2rq:property vocab:PhysicalEntity_2_literatureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_literatureReference DB_ID";
+	d2rq:column "PhysicalEntity_2_literatureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_literatureReference_literatureReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_literatureReference;
+	d2rq:property vocab:PhysicalEntity_2_literatureReference_literatureReference_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_literatureReference literatureReference_rank";
+	d2rq:column "PhysicalEntity_2_literatureReference.literatureReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_literatureReference_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_literatureReference;
+	d2rq:property vocab:PhysicalEntity_2_literatureReference_literatureReference;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_literatureReference literatureReference";
+	d2rq:column "PhysicalEntity_2_literatureReference.literatureReference";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_literatureReference_literatureReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_literatureReference;
+	d2rq:property vocab:PhysicalEntity_2_literatureReference_literatureReference_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_literatureReference literatureReference_class";
+	d2rq:column "PhysicalEntity_2_literatureReference.literatureReference_class";
+	.
+
+# Table PhysicalEntity_2_name
+map:PhysicalEntity_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_name";
+	d2rq:class vocab:PhysicalEntity_2_name;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_name";
+	.
+map:PhysicalEntity_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_name;
+	d2rq:property vocab:PhysicalEntity_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_name DB_ID";
+	d2rq:column "PhysicalEntity_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_name;
+	d2rq:property vocab:PhysicalEntity_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_name name_rank";
+	d2rq:column "PhysicalEntity_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_name;
+	d2rq:property vocab:PhysicalEntity_2_name_name;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_name name";
+	d2rq:column "PhysicalEntity_2_name.name";
+	.
+
+# Table PhysicalEntity_2_reviewed
+map:PhysicalEntity_2_reviewed a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_reviewed" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_reviewed";
+	d2rq:class vocab:PhysicalEntity_2_reviewed;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_reviewed";
+	.
+map:PhysicalEntity_2_reviewed_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_reviewed;
+	d2rq:property vocab:PhysicalEntity_2_reviewed_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_reviewed DB_ID";
+	d2rq:column "PhysicalEntity_2_reviewed.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_reviewed_reviewed_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_reviewed;
+	d2rq:property vocab:PhysicalEntity_2_reviewed_reviewed_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_reviewed reviewed_rank";
+	d2rq:column "PhysicalEntity_2_reviewed.reviewed_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_reviewed_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_reviewed;
+	d2rq:property vocab:PhysicalEntity_2_reviewed_reviewed;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_reviewed reviewed";
+	d2rq:column "PhysicalEntity_2_reviewed.reviewed";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_reviewed_reviewed_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_reviewed;
+	d2rq:property vocab:PhysicalEntity_2_reviewed_reviewed_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_reviewed reviewed_class";
+	d2rq:column "PhysicalEntity_2_reviewed.reviewed_class";
+	.
+
+# Table PhysicalEntity_2_revised
+map:PhysicalEntity_2_revised a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_revised" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_revised";
+	d2rq:class vocab:PhysicalEntity_2_revised;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_revised";
+	.
+map:PhysicalEntity_2_revised_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_revised;
+	d2rq:property vocab:PhysicalEntity_2_revised_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_revised DB_ID";
+	d2rq:column "PhysicalEntity_2_revised.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_revised_revised_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_revised;
+	d2rq:property vocab:PhysicalEntity_2_revised_revised_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_revised revised_rank";
+	d2rq:column "PhysicalEntity_2_revised.revised_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_revised_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_revised;
+	d2rq:property vocab:PhysicalEntity_2_revised_revised;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_revised revised";
+	d2rq:column "PhysicalEntity_2_revised.revised";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_revised_revised_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_revised;
+	d2rq:property vocab:PhysicalEntity_2_revised_revised_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_revised revised_class";
+	d2rq:column "PhysicalEntity_2_revised.revised_class";
+	.
+
+# Table PhysicalEntity_2_summation
+map:PhysicalEntity_2_summation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "PhysicalEntity_2_summation" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "PhysicalEntity_2_summation";
+	d2rq:class vocab:PhysicalEntity_2_summation;
+	d2rq:classDefinitionLabel "PhysicalEntity_2_summation";
+	.
+map:PhysicalEntity_2_summation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_summation;
+	d2rq:property vocab:PhysicalEntity_2_summation_DB_ID;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_summation DB_ID";
+	d2rq:column "PhysicalEntity_2_summation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_summation_summation_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_summation;
+	d2rq:property vocab:PhysicalEntity_2_summation_summation_rank;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_summation summation_rank";
+	d2rq:column "PhysicalEntity_2_summation.summation_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_summation_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_summation;
+	d2rq:property vocab:PhysicalEntity_2_summation_summation;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_summation summation";
+	d2rq:column "PhysicalEntity_2_summation.summation";
+	d2rq:datatype xsd:integer;
+	.
+map:PhysicalEntity_2_summation_summation_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity_2_summation;
+	d2rq:property vocab:PhysicalEntity_2_summation_summation_class;
+	d2rq:propertyDefinitionLabel "PhysicalEntity_2_summation summation_class";
+	d2rq:column "PhysicalEntity_2_summation.summation_class";
+	.
+
+# Table Polymer
+map:Polymer a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Polymer/@@Polymer.DB_ID@@";
+	d2rq:class vocab:Polymer;
+	d2rq:classDefinitionLabel "Polymer";
+	.
+map:Polymer__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Polymer #@@Polymer.DB_ID@@";
+	.
+map:Polymer_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_DB_ID;
+	d2rq:propertyDefinitionLabel "Polymer DB_ID";
+	d2rq:column "Polymer.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_maxUnitCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_maxUnitCount;
+	d2rq:propertyDefinitionLabel "Polymer maxUnitCount";
+	d2rq:column "Polymer.maxUnitCount";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_minUnitCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_minUnitCount;
+	d2rq:propertyDefinitionLabel "Polymer minUnitCount";
+	d2rq:column "Polymer.minUnitCount";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_totalProt;
+	d2rq:propertyDefinitionLabel "Polymer totalProt";
+	d2rq:column "Polymer.totalProt";
+	.
+map:Polymer_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_maxHomologues;
+	d2rq:propertyDefinitionLabel "Polymer maxHomologues";
+	d2rq:column "Polymer.maxHomologues";
+	.
+map:Polymer_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:Polymer_inferredProt;
+	d2rq:propertyDefinitionLabel "Polymer inferredProt";
+	d2rq:column "Polymer.inferredProt";
+	.
+
+# Table Polymer_2_repeatedUnit
+map:Polymer_2_repeatedUnit a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Polymer_2_repeatedUnit" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Polymer_2_repeatedUnit";
+	d2rq:class vocab:Polymer_2_repeatedUnit;
+	d2rq:classDefinitionLabel "Polymer_2_repeatedUnit";
+	.
+map:Polymer_2_repeatedUnit_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_repeatedUnit;
+	d2rq:property vocab:Polymer_2_repeatedUnit_DB_ID;
+	d2rq:propertyDefinitionLabel "Polymer_2_repeatedUnit DB_ID";
+	d2rq:column "Polymer_2_repeatedUnit.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_repeatedUnit_repeatedUnit_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_repeatedUnit;
+	d2rq:property vocab:Polymer_2_repeatedUnit_repeatedUnit_rank;
+	d2rq:propertyDefinitionLabel "Polymer_2_repeatedUnit repeatedUnit_rank";
+	d2rq:column "Polymer_2_repeatedUnit.repeatedUnit_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_repeatedUnit_repeatedUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_repeatedUnit;
+	d2rq:property vocab:Polymer_2_repeatedUnit_repeatedUnit;
+	d2rq:propertyDefinitionLabel "Polymer_2_repeatedUnit repeatedUnit";
+	d2rq:column "Polymer_2_repeatedUnit.repeatedUnit";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_repeatedUnit_repeatedUnit_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_repeatedUnit;
+	d2rq:property vocab:Polymer_2_repeatedUnit_repeatedUnit_class;
+	d2rq:propertyDefinitionLabel "Polymer_2_repeatedUnit repeatedUnit_class";
+	d2rq:column "Polymer_2_repeatedUnit.repeatedUnit_class";
+	.
+
+# Table Polymer_2_species
+map:Polymer_2_species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Polymer_2_species" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Polymer_2_species";
+	d2rq:class vocab:Polymer_2_species;
+	d2rq:classDefinitionLabel "Polymer_2_species";
+	.
+map:Polymer_2_species_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_species;
+	d2rq:property vocab:Polymer_2_species_DB_ID;
+	d2rq:propertyDefinitionLabel "Polymer_2_species DB_ID";
+	d2rq:column "Polymer_2_species.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_species_species_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_species;
+	d2rq:property vocab:Polymer_2_species_species_rank;
+	d2rq:propertyDefinitionLabel "Polymer_2_species species_rank";
+	d2rq:column "Polymer_2_species.species_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_species_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_species;
+	d2rq:property vocab:Polymer_2_species_species;
+	d2rq:propertyDefinitionLabel "Polymer_2_species species";
+	d2rq:column "Polymer_2_species.species";
+	d2rq:datatype xsd:integer;
+	.
+map:Polymer_2_species_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer_2_species;
+	d2rq:property vocab:Polymer_2_species_species_class;
+	d2rq:propertyDefinitionLabel "Polymer_2_species species_class";
+	d2rq:column "Polymer_2_species.species_class";
+	.
+
+# Table Polymerisation
+map:Polymerisation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Polymerisation/@@Polymerisation.DB_ID@@";
+	d2rq:class vocab:Polymerisation;
+	d2rq:classDefinitionLabel "Polymerisation";
+	.
+map:Polymerisation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymerisation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Polymerisation #@@Polymerisation.DB_ID@@";
+	.
+map:Polymerisation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymerisation;
+	d2rq:property vocab:Polymerisation_DB_ID;
+	d2rq:propertyDefinitionLabel "Polymerisation DB_ID";
+	d2rq:column "Polymerisation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table PositiveRegulation
+map:PositiveRegulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PositiveRegulation/@@PositiveRegulation.DB_ID@@";
+	d2rq:class vocab:PositiveRegulation;
+	d2rq:classDefinitionLabel "PositiveRegulation";
+	.
+map:PositiveRegulation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PositiveRegulation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PositiveRegulation #@@PositiveRegulation.DB_ID@@";
+	.
+map:PositiveRegulation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PositiveRegulation;
+	d2rq:property vocab:PositiveRegulation_DB_ID;
+	d2rq:propertyDefinitionLabel "PositiveRegulation DB_ID";
+	d2rq:column "PositiveRegulation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table PsiMod
+map:PsiMod a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "PsiMod/@@PsiMod.DB_ID@@";
+	d2rq:class vocab:PsiMod;
+	d2rq:classDefinitionLabel "PsiMod";
+	.
+map:PsiMod__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PsiMod;
+	d2rq:property rdfs:label;
+	d2rq:pattern "PsiMod #@@PsiMod.DB_ID@@";
+	.
+map:PsiMod_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PsiMod;
+	d2rq:property vocab:PsiMod_DB_ID;
+	d2rq:propertyDefinitionLabel "PsiMod DB_ID";
+	d2rq:column "PsiMod.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Publication
+map:Publication a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Publication/@@Publication.DB_ID@@";
+	d2rq:class vocab:Publication;
+	d2rq:classDefinitionLabel "Publication";
+	.
+map:Publication__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Publication #@@Publication.DB_ID@@";
+	.
+map:Publication_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication;
+	d2rq:property vocab:Publication_DB_ID;
+	d2rq:propertyDefinitionLabel "Publication DB_ID";
+	d2rq:column "Publication.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Publication_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication;
+	d2rq:property vocab:Publication_title;
+	d2rq:propertyDefinitionLabel "Publication title";
+	d2rq:column "Publication.title";
+	.
+
+# Table Publication_2_author
+map:Publication_2_author a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Publication_2_author" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Publication_2_author";
+	d2rq:class vocab:Publication_2_author;
+	d2rq:classDefinitionLabel "Publication_2_author";
+	.
+map:Publication_2_author_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication_2_author;
+	d2rq:property vocab:Publication_2_author_DB_ID;
+	d2rq:propertyDefinitionLabel "Publication_2_author DB_ID";
+	d2rq:column "Publication_2_author.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Publication_2_author_author_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication_2_author;
+	d2rq:property vocab:Publication_2_author_author_rank;
+	d2rq:propertyDefinitionLabel "Publication_2_author author_rank";
+	d2rq:column "Publication_2_author.author_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Publication_2_author_author a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication_2_author;
+	d2rq:property vocab:Publication_2_author_author;
+	d2rq:propertyDefinitionLabel "Publication_2_author author";
+	d2rq:column "Publication_2_author.author";
+	d2rq:datatype xsd:integer;
+	.
+map:Publication_2_author_author_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Publication_2_author;
+	d2rq:property vocab:Publication_2_author_author_class;
+	d2rq:propertyDefinitionLabel "Publication_2_author author_class";
+	d2rq:column "Publication_2_author.author_class";
+	.
+
+# Table Reaction
+map:Reaction a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Reaction/@@Reaction.DB_ID@@";
+	d2rq:class vocab:Reaction;
+	d2rq:classDefinitionLabel "Reaction";
+	.
+map:Reaction__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Reaction #@@Reaction.DB_ID@@";
+	.
+map:Reaction_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_DB_ID;
+	d2rq:propertyDefinitionLabel "Reaction DB_ID";
+	d2rq:column "Reaction.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Reaction_reverseReaction a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_reverseReaction;
+	d2rq:propertyDefinitionLabel "Reaction reverseReaction";
+	d2rq:column "Reaction.reverseReaction";
+	d2rq:datatype xsd:integer;
+	.
+map:Reaction_reverseReaction_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_reverseReaction_class;
+	d2rq:propertyDefinitionLabel "Reaction reverseReaction_class";
+	d2rq:column "Reaction.reverseReaction_class";
+	.
+map:Reaction_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_totalProt;
+	d2rq:propertyDefinitionLabel "Reaction totalProt";
+	d2rq:column "Reaction.totalProt";
+	.
+map:Reaction_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_maxHomologues;
+	d2rq:propertyDefinitionLabel "Reaction maxHomologues";
+	d2rq:column "Reaction.maxHomologues";
+	.
+map:Reaction_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:Reaction_inferredProt;
+	d2rq:propertyDefinitionLabel "Reaction inferredProt";
+	d2rq:column "Reaction.inferredProt";
+	.
+
+# Table ReactionCoordinates
+map:ReactionCoordinates a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReactionCoordinates/@@ReactionCoordinates.DB_ID@@";
+	d2rq:class vocab:ReactionCoordinates;
+	d2rq:classDefinitionLabel "ReactionCoordinates";
+	.
+map:ReactionCoordinates__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReactionCoordinates #@@ReactionCoordinates.DB_ID@@";
+	.
+map:ReactionCoordinates_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates DB_ID";
+	d2rq:column "ReactionCoordinates.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_locatedEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_locatedEvent;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates locatedEvent";
+	d2rq:column "ReactionCoordinates.locatedEvent";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_locatedEvent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_locatedEvent_class;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates locatedEvent_class";
+	d2rq:column "ReactionCoordinates.locatedEvent_class";
+	.
+map:ReactionCoordinates_locationContext a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_locationContext;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates locationContext";
+	d2rq:column "ReactionCoordinates.locationContext";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_locationContext_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_locationContext_class;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates locationContext_class";
+	d2rq:column "ReactionCoordinates.locationContext_class";
+	.
+map:ReactionCoordinates_sourceX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_sourceX;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates sourceX";
+	d2rq:column "ReactionCoordinates.sourceX";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_sourceY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_sourceY;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates sourceY";
+	d2rq:column "ReactionCoordinates.sourceY";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_targetX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_targetX;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates targetX";
+	d2rq:column "ReactionCoordinates.targetX";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionCoordinates_targetY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:ReactionCoordinates_targetY;
+	d2rq:propertyDefinitionLabel "ReactionCoordinates targetY";
+	d2rq:column "ReactionCoordinates.targetY";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ReactionVertex
+map:ReactionVertex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReactionVertex/@@ReactionVertex.DB_ID@@";
+	d2rq:class vocab:ReactionVertex;
+	d2rq:classDefinitionLabel "ReactionVertex";
+	.
+map:ReactionVertex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionVertex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReactionVertex #@@ReactionVertex.DB_ID@@";
+	.
+map:ReactionVertex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionVertex;
+	d2rq:property vocab:ReactionVertex_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionVertex DB_ID";
+	d2rq:column "ReactionVertex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionVertex_pointCoordinates a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionVertex;
+	d2rq:property vocab:ReactionVertex_pointCoordinates;
+	d2rq:propertyDefinitionLabel "ReactionVertex pointCoordinates";
+	d2rq:column "ReactionVertex.pointCoordinates";
+	.
+
+# Table ReactionlikeEvent
+map:ReactionlikeEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReactionlikeEvent/@@ReactionlikeEvent.DB_ID@@";
+	d2rq:class vocab:ReactionlikeEvent;
+	d2rq:classDefinitionLabel "ReactionlikeEvent";
+	.
+map:ReactionlikeEvent__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReactionlikeEvent #@@ReactionlikeEvent.DB_ID@@";
+	.
+map:ReactionlikeEvent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:ReactionlikeEvent_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent DB_ID";
+	d2rq:column "ReactionlikeEvent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_isChimeric a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:ReactionlikeEvent_isChimeric;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent isChimeric";
+	d2rq:column "ReactionlikeEvent.isChimeric";
+	.
+
+# Table ReactionlikeEvent_2_catalystActivity
+map:ReactionlikeEvent_2_catalystActivity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_catalystActivity" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_catalystActivity";
+	d2rq:class vocab:ReactionlikeEvent_2_catalystActivity;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_catalystActivity";
+	.
+map:ReactionlikeEvent_2_catalystActivity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_catalystActivity;
+	d2rq:property vocab:ReactionlikeEvent_2_catalystActivity_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_catalystActivity DB_ID";
+	d2rq:column "ReactionlikeEvent_2_catalystActivity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_catalystActivity_catalystActivity_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_catalystActivity;
+	d2rq:property vocab:ReactionlikeEvent_2_catalystActivity_catalystActivity_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_catalystActivity catalystActivity_rank";
+	d2rq:column "ReactionlikeEvent_2_catalystActivity.catalystActivity_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_catalystActivity_catalystActivity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_catalystActivity;
+	d2rq:property vocab:ReactionlikeEvent_2_catalystActivity_catalystActivity;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_catalystActivity catalystActivity";
+	d2rq:column "ReactionlikeEvent_2_catalystActivity.catalystActivity";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_catalystActivity_catalystActivity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_catalystActivity;
+	d2rq:property vocab:ReactionlikeEvent_2_catalystActivity_catalystActivity_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_catalystActivity catalystActivity_class";
+	d2rq:column "ReactionlikeEvent_2_catalystActivity.catalystActivity_class";
+	.
+
+# Table ReactionlikeEvent_2_entityFunctionalStatus
+map:ReactionlikeEvent_2_entityFunctionalStatus a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_entityFunctionalStatus" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_entityFunctionalStatus";
+	d2rq:class vocab:ReactionlikeEvent_2_entityFunctionalStatus;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_entityFunctionalStatus";
+	.
+map:ReactionlikeEvent_2_entityFunctionalStatus_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityFunctionalStatus;
+	d2rq:property vocab:ReactionlikeEvent_2_entityFunctionalStatus_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityFunctionalStatus DB_ID";
+	d2rq:column "ReactionlikeEvent_2_entityFunctionalStatus.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityFunctionalStatus;
+	d2rq:property vocab:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityFunctionalStatus entityFunctionalStatus_rank";
+	d2rq:column "ReactionlikeEvent_2_entityFunctionalStatus.entityFunctionalStatus_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityFunctionalStatus;
+	d2rq:property vocab:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityFunctionalStatus entityFunctionalStatus";
+	d2rq:column "ReactionlikeEvent_2_entityFunctionalStatus.entityFunctionalStatus";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityFunctionalStatus;
+	d2rq:property vocab:ReactionlikeEvent_2_entityFunctionalStatus_entityFunctionalStatus_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityFunctionalStatus entityFunctionalStatus_class";
+	d2rq:column "ReactionlikeEvent_2_entityFunctionalStatus.entityFunctionalStatus_class";
+	.
+
+# Table ReactionlikeEvent_2_entityOnOtherCell
+map:ReactionlikeEvent_2_entityOnOtherCell a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_entityOnOtherCell" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_entityOnOtherCell";
+	d2rq:class vocab:ReactionlikeEvent_2_entityOnOtherCell;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_entityOnOtherCell";
+	.
+map:ReactionlikeEvent_2_entityOnOtherCell_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityOnOtherCell;
+	d2rq:property vocab:ReactionlikeEvent_2_entityOnOtherCell_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityOnOtherCell DB_ID";
+	d2rq:column "ReactionlikeEvent_2_entityOnOtherCell.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityOnOtherCell;
+	d2rq:property vocab:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityOnOtherCell entityOnOtherCell_rank";
+	d2rq:column "ReactionlikeEvent_2_entityOnOtherCell.entityOnOtherCell_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityOnOtherCell;
+	d2rq:property vocab:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityOnOtherCell entityOnOtherCell";
+	d2rq:column "ReactionlikeEvent_2_entityOnOtherCell.entityOnOtherCell";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_entityOnOtherCell;
+	d2rq:property vocab:ReactionlikeEvent_2_entityOnOtherCell_entityOnOtherCell_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_entityOnOtherCell entityOnOtherCell_class";
+	d2rq:column "ReactionlikeEvent_2_entityOnOtherCell.entityOnOtherCell_class";
+	.
+
+# Table ReactionlikeEvent_2_input
+map:ReactionlikeEvent_2_input a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_input" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_input";
+	d2rq:class vocab:ReactionlikeEvent_2_input;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_input";
+	.
+map:ReactionlikeEvent_2_input_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_input;
+	d2rq:property vocab:ReactionlikeEvent_2_input_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_input DB_ID";
+	d2rq:column "ReactionlikeEvent_2_input.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_input_input_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_input;
+	d2rq:property vocab:ReactionlikeEvent_2_input_input_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_input input_rank";
+	d2rq:column "ReactionlikeEvent_2_input.input_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_input_input a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_input;
+	d2rq:property vocab:ReactionlikeEvent_2_input_input;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_input input";
+	d2rq:column "ReactionlikeEvent_2_input.input";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_input_input_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_input;
+	d2rq:property vocab:ReactionlikeEvent_2_input_input_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_input input_class";
+	d2rq:column "ReactionlikeEvent_2_input.input_class";
+	.
+
+# Table ReactionlikeEvent_2_normalReaction
+map:ReactionlikeEvent_2_normalReaction a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_normalReaction" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_normalReaction";
+	d2rq:class vocab:ReactionlikeEvent_2_normalReaction;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_normalReaction";
+	.
+map:ReactionlikeEvent_2_normalReaction_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_normalReaction;
+	d2rq:property vocab:ReactionlikeEvent_2_normalReaction_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_normalReaction DB_ID";
+	d2rq:column "ReactionlikeEvent_2_normalReaction.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_normalReaction_normalReaction_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_normalReaction;
+	d2rq:property vocab:ReactionlikeEvent_2_normalReaction_normalReaction_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_normalReaction normalReaction_rank";
+	d2rq:column "ReactionlikeEvent_2_normalReaction.normalReaction_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_normalReaction_normalReaction a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_normalReaction;
+	d2rq:property vocab:ReactionlikeEvent_2_normalReaction_normalReaction;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_normalReaction normalReaction";
+	d2rq:column "ReactionlikeEvent_2_normalReaction.normalReaction";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_normalReaction_normalReaction_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_normalReaction;
+	d2rq:property vocab:ReactionlikeEvent_2_normalReaction_normalReaction_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_normalReaction normalReaction_class";
+	d2rq:column "ReactionlikeEvent_2_normalReaction.normalReaction_class";
+	.
+
+# Table ReactionlikeEvent_2_output
+map:ReactionlikeEvent_2_output a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_output" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_output";
+	d2rq:class vocab:ReactionlikeEvent_2_output;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_output";
+	.
+map:ReactionlikeEvent_2_output_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_output;
+	d2rq:property vocab:ReactionlikeEvent_2_output_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_output DB_ID";
+	d2rq:column "ReactionlikeEvent_2_output.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_output_output_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_output;
+	d2rq:property vocab:ReactionlikeEvent_2_output_output_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_output output_rank";
+	d2rq:column "ReactionlikeEvent_2_output.output_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_output_output a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_output;
+	d2rq:property vocab:ReactionlikeEvent_2_output_output;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_output output";
+	d2rq:column "ReactionlikeEvent_2_output.output";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_output_output_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_output;
+	d2rq:property vocab:ReactionlikeEvent_2_output_output_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_output output_class";
+	d2rq:column "ReactionlikeEvent_2_output.output_class";
+	.
+
+# Table ReactionlikeEvent_2_requiredInputComponent
+map:ReactionlikeEvent_2_requiredInputComponent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReactionlikeEvent_2_requiredInputComponent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReactionlikeEvent_2_requiredInputComponent";
+	d2rq:class vocab:ReactionlikeEvent_2_requiredInputComponent;
+	d2rq:classDefinitionLabel "ReactionlikeEvent_2_requiredInputComponent";
+	.
+map:ReactionlikeEvent_2_requiredInputComponent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_requiredInputComponent;
+	d2rq:property vocab:ReactionlikeEvent_2_requiredInputComponent_DB_ID;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_requiredInputComponent DB_ID";
+	d2rq:column "ReactionlikeEvent_2_requiredInputComponent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_requiredInputComponent;
+	d2rq:property vocab:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent_rank;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_requiredInputComponent requiredInputComponent_rank";
+	d2rq:column "ReactionlikeEvent_2_requiredInputComponent.requiredInputComponent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_requiredInputComponent;
+	d2rq:property vocab:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_requiredInputComponent requiredInputComponent";
+	d2rq:column "ReactionlikeEvent_2_requiredInputComponent.requiredInputComponent";
+	d2rq:datatype xsd:integer;
+	.
+map:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent_2_requiredInputComponent;
+	d2rq:property vocab:ReactionlikeEvent_2_requiredInputComponent_requiredInputComponent_class;
+	d2rq:propertyDefinitionLabel "ReactionlikeEvent_2_requiredInputComponent requiredInputComponent_class";
+	d2rq:column "ReactionlikeEvent_2_requiredInputComponent.requiredInputComponent_class";
+	.
+
+# Table ReferenceDNASequence
+map:ReferenceDNASequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceDNASequence/@@ReferenceDNASequence.DB_ID@@";
+	d2rq:class vocab:ReferenceDNASequence;
+	d2rq:classDefinitionLabel "ReferenceDNASequence";
+	.
+map:ReferenceDNASequence__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDNASequence;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceDNASequence #@@ReferenceDNASequence.DB_ID@@";
+	.
+map:ReferenceDNASequence_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDNASequence;
+	d2rq:property vocab:ReferenceDNASequence_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceDNASequence DB_ID";
+	d2rq:column "ReferenceDNASequence.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ReferenceDatabase
+map:ReferenceDatabase a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceDatabase/@@ReferenceDatabase.DB_ID@@";
+	d2rq:class vocab:ReferenceDatabase;
+	d2rq:classDefinitionLabel "ReferenceDatabase";
+	.
+map:ReferenceDatabase__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceDatabase #@@ReferenceDatabase.DB_ID@@";
+	.
+map:ReferenceDatabase_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:ReferenceDatabase_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase DB_ID";
+	d2rq:column "ReferenceDatabase.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceDatabase_accessUrl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:ReferenceDatabase_accessUrl;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase accessUrl";
+	d2rq:column "ReferenceDatabase.accessUrl";
+	.
+map:ReferenceDatabase_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:ReferenceDatabase_url;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase url";
+	d2rq:column "ReferenceDatabase.url";
+	.
+
+# Table ReferenceDatabase_2_name
+map:ReferenceDatabase_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceDatabase_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceDatabase_2_name";
+	d2rq:class vocab:ReferenceDatabase_2_name;
+	d2rq:classDefinitionLabel "ReferenceDatabase_2_name";
+	.
+map:ReferenceDatabase_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase_2_name;
+	d2rq:property vocab:ReferenceDatabase_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase_2_name DB_ID";
+	d2rq:column "ReferenceDatabase_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceDatabase_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase_2_name;
+	d2rq:property vocab:ReferenceDatabase_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase_2_name name_rank";
+	d2rq:column "ReferenceDatabase_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceDatabase_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase_2_name;
+	d2rq:property vocab:ReferenceDatabase_2_name_name;
+	d2rq:propertyDefinitionLabel "ReferenceDatabase_2_name name";
+	d2rq:column "ReferenceDatabase_2_name.name";
+	.
+
+# Table ReferenceEntity
+map:ReferenceEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceEntity/@@ReferenceEntity.DB_ID@@";
+	d2rq:class vocab:ReferenceEntity;
+	d2rq:classDefinitionLabel "ReferenceEntity";
+	.
+map:ReferenceEntity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceEntity #@@ReferenceEntity.DB_ID@@";
+	.
+map:ReferenceEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:ReferenceEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceEntity DB_ID";
+	d2rq:column "ReferenceEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:ReferenceEntity_identifier;
+	d2rq:propertyDefinitionLabel "ReferenceEntity identifier";
+	d2rq:column "ReferenceEntity.identifier";
+	.
+map:ReferenceEntity_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:ReferenceEntity_referenceDatabase;
+	d2rq:propertyDefinitionLabel "ReferenceEntity referenceDatabase";
+	d2rq:column "ReferenceEntity.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:ReferenceEntity_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "ReferenceEntity referenceDatabase_class";
+	d2rq:column "ReferenceEntity.referenceDatabase_class";
+	.
+
+# Table ReferenceEntity_2_crossReference
+map:ReferenceEntity_2_crossReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceEntity_2_crossReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceEntity_2_crossReference";
+	d2rq:class vocab:ReferenceEntity_2_crossReference;
+	d2rq:classDefinitionLabel "ReferenceEntity_2_crossReference";
+	.
+map:ReferenceEntity_2_crossReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_crossReference;
+	d2rq:property vocab:ReferenceEntity_2_crossReference_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_crossReference DB_ID";
+	d2rq:column "ReferenceEntity_2_crossReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_crossReference_crossReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_crossReference;
+	d2rq:property vocab:ReferenceEntity_2_crossReference_crossReference_rank;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_crossReference crossReference_rank";
+	d2rq:column "ReferenceEntity_2_crossReference.crossReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_crossReference_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_crossReference;
+	d2rq:property vocab:ReferenceEntity_2_crossReference_crossReference;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_crossReference crossReference";
+	d2rq:column "ReferenceEntity_2_crossReference.crossReference";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_crossReference_crossReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_crossReference;
+	d2rq:property vocab:ReferenceEntity_2_crossReference_crossReference_class;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_crossReference crossReference_class";
+	d2rq:column "ReferenceEntity_2_crossReference.crossReference_class";
+	.
+
+# Table ReferenceEntity_2_name
+map:ReferenceEntity_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceEntity_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceEntity_2_name";
+	d2rq:class vocab:ReferenceEntity_2_name;
+	d2rq:classDefinitionLabel "ReferenceEntity_2_name";
+	.
+map:ReferenceEntity_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_name;
+	d2rq:property vocab:ReferenceEntity_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_name DB_ID";
+	d2rq:column "ReferenceEntity_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_name;
+	d2rq:property vocab:ReferenceEntity_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_name name_rank";
+	d2rq:column "ReferenceEntity_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_name;
+	d2rq:property vocab:ReferenceEntity_2_name_name;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_name name";
+	d2rq:column "ReferenceEntity_2_name.name";
+	.
+
+# Table ReferenceEntity_2_otherIdentifier
+map:ReferenceEntity_2_otherIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceEntity_2_otherIdentifier" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceEntity_2_otherIdentifier";
+	d2rq:class vocab:ReferenceEntity_2_otherIdentifier;
+	d2rq:classDefinitionLabel "ReferenceEntity_2_otherIdentifier";
+	.
+map:ReferenceEntity_2_otherIdentifier_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_otherIdentifier;
+	d2rq:property vocab:ReferenceEntity_2_otherIdentifier_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_otherIdentifier DB_ID";
+	d2rq:column "ReferenceEntity_2_otherIdentifier.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_otherIdentifier_otherIdentifier_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_otherIdentifier;
+	d2rq:property vocab:ReferenceEntity_2_otherIdentifier_otherIdentifier_rank;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_otherIdentifier otherIdentifier_rank";
+	d2rq:column "ReferenceEntity_2_otherIdentifier.otherIdentifier_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceEntity_2_otherIdentifier_otherIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity_2_otherIdentifier;
+	d2rq:property vocab:ReferenceEntity_2_otherIdentifier_otherIdentifier;
+	d2rq:propertyDefinitionLabel "ReferenceEntity_2_otherIdentifier otherIdentifier";
+	d2rq:column "ReferenceEntity_2_otherIdentifier.otherIdentifier";
+	.
+
+# Table ReferenceGeneProduct
+map:ReferenceGeneProduct a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceGeneProduct/@@ReferenceGeneProduct.DB_ID@@";
+	d2rq:class vocab:ReferenceGeneProduct;
+	d2rq:classDefinitionLabel "ReferenceGeneProduct";
+	.
+map:ReferenceGeneProduct__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceGeneProduct #@@ReferenceGeneProduct.DB_ID@@";
+	.
+map:ReferenceGeneProduct_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct;
+	d2rq:property vocab:ReferenceGeneProduct_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct DB_ID";
+	d2rq:column "ReferenceGeneProduct.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ReferenceGeneProduct_2_referenceGene
+map:ReferenceGeneProduct_2_referenceGene a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceGeneProduct_2_referenceGene" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceGeneProduct_2_referenceGene";
+	d2rq:class vocab:ReferenceGeneProduct_2_referenceGene;
+	d2rq:classDefinitionLabel "ReferenceGeneProduct_2_referenceGene";
+	.
+map:ReferenceGeneProduct_2_referenceGene_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceGene;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceGene_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceGene DB_ID";
+	d2rq:column "ReferenceGeneProduct_2_referenceGene.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceGene_referenceGene_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceGene;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceGene_referenceGene_rank;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceGene referenceGene_rank";
+	d2rq:column "ReferenceGeneProduct_2_referenceGene.referenceGene_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceGene_referenceGene a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceGene;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceGene_referenceGene;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceGene referenceGene";
+	d2rq:column "ReferenceGeneProduct_2_referenceGene.referenceGene";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceGene_referenceGene_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceGene;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceGene_referenceGene_class;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceGene referenceGene_class";
+	d2rq:column "ReferenceGeneProduct_2_referenceGene.referenceGene_class";
+	.
+
+# Table ReferenceGeneProduct_2_referenceTranscript
+map:ReferenceGeneProduct_2_referenceTranscript a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceGeneProduct_2_referenceTranscript" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceGeneProduct_2_referenceTranscript";
+	d2rq:class vocab:ReferenceGeneProduct_2_referenceTranscript;
+	d2rq:classDefinitionLabel "ReferenceGeneProduct_2_referenceTranscript";
+	.
+map:ReferenceGeneProduct_2_referenceTranscript_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceTranscript;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceTranscript_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceTranscript DB_ID";
+	d2rq:column "ReferenceGeneProduct_2_referenceTranscript.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceTranscript;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript_rank;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceTranscript referenceTranscript_rank";
+	d2rq:column "ReferenceGeneProduct_2_referenceTranscript.referenceTranscript_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceTranscript;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceTranscript referenceTranscript";
+	d2rq:column "ReferenceGeneProduct_2_referenceTranscript.referenceTranscript";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGeneProduct_2_referenceTranscript;
+	d2rq:property vocab:ReferenceGeneProduct_2_referenceTranscript_referenceTranscript_class;
+	d2rq:propertyDefinitionLabel "ReferenceGeneProduct_2_referenceTranscript referenceTranscript_class";
+	d2rq:column "ReferenceGeneProduct_2_referenceTranscript.referenceTranscript_class";
+	.
+
+# Table ReferenceGroup
+map:ReferenceGroup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceGroup/@@ReferenceGroup.DB_ID@@";
+	d2rq:class vocab:ReferenceGroup;
+	d2rq:classDefinitionLabel "ReferenceGroup";
+	.
+map:ReferenceGroup__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroup;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceGroup #@@ReferenceGroup.DB_ID@@";
+	.
+map:ReferenceGroup_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroup;
+	d2rq:property vocab:ReferenceGroup_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceGroup DB_ID";
+	d2rq:column "ReferenceGroup.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceGroup_atomicConnectivity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroup;
+	d2rq:property vocab:ReferenceGroup_atomicConnectivity;
+	d2rq:propertyDefinitionLabel "ReferenceGroup atomicConnectivity";
+	d2rq:column "ReferenceGroup.atomicConnectivity";
+	.
+map:ReferenceGroup_formula a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroup;
+	d2rq:property vocab:ReferenceGroup_formula;
+	d2rq:propertyDefinitionLabel "ReferenceGroup formula";
+	d2rq:column "ReferenceGroup.formula";
+	.
+
+# Table ReferenceIsoform
+map:ReferenceIsoform a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceIsoform/@@ReferenceIsoform.DB_ID@@";
+	d2rq:class vocab:ReferenceIsoform;
+	d2rq:classDefinitionLabel "ReferenceIsoform";
+	.
+map:ReferenceIsoform__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceIsoform #@@ReferenceIsoform.DB_ID@@";
+	.
+map:ReferenceIsoform_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform;
+	d2rq:property vocab:ReferenceIsoform_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform DB_ID";
+	d2rq:column "ReferenceIsoform.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceIsoform_variantIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform;
+	d2rq:property vocab:ReferenceIsoform_variantIdentifier;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform variantIdentifier";
+	d2rq:column "ReferenceIsoform.variantIdentifier";
+	.
+
+# Table ReferenceIsoform_2_isoformParent
+map:ReferenceIsoform_2_isoformParent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceIsoform_2_isoformParent" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceIsoform_2_isoformParent";
+	d2rq:class vocab:ReferenceIsoform_2_isoformParent;
+	d2rq:classDefinitionLabel "ReferenceIsoform_2_isoformParent";
+	.
+map:ReferenceIsoform_2_isoformParent_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform_2_isoformParent;
+	d2rq:property vocab:ReferenceIsoform_2_isoformParent_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform_2_isoformParent DB_ID";
+	d2rq:column "ReferenceIsoform_2_isoformParent.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceIsoform_2_isoformParent_isoformParent_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform_2_isoformParent;
+	d2rq:property vocab:ReferenceIsoform_2_isoformParent_isoformParent_rank;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform_2_isoformParent isoformParent_rank";
+	d2rq:column "ReferenceIsoform_2_isoformParent.isoformParent_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceIsoform_2_isoformParent_isoformParent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform_2_isoformParent;
+	d2rq:property vocab:ReferenceIsoform_2_isoformParent_isoformParent;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform_2_isoformParent isoformParent";
+	d2rq:column "ReferenceIsoform_2_isoformParent.isoformParent";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceIsoform_2_isoformParent_isoformParent_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceIsoform_2_isoformParent;
+	d2rq:property vocab:ReferenceIsoform_2_isoformParent_isoformParent_class;
+	d2rq:propertyDefinitionLabel "ReferenceIsoform_2_isoformParent isoformParent_class";
+	d2rq:column "ReferenceIsoform_2_isoformParent.isoformParent_class";
+	.
+
+# Table ReferenceMolecule
+map:ReferenceMolecule a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceMolecule/@@ReferenceMolecule.DB_ID@@";
+	d2rq:class vocab:ReferenceMolecule;
+	d2rq:classDefinitionLabel "ReferenceMolecule";
+	.
+map:ReferenceMolecule__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceMolecule;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceMolecule #@@ReferenceMolecule.DB_ID@@";
+	.
+map:ReferenceMolecule_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceMolecule;
+	d2rq:property vocab:ReferenceMolecule_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceMolecule DB_ID";
+	d2rq:column "ReferenceMolecule.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceMolecule_atomicConnectivity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceMolecule;
+	d2rq:property vocab:ReferenceMolecule_atomicConnectivity;
+	d2rq:propertyDefinitionLabel "ReferenceMolecule atomicConnectivity";
+	d2rq:column "ReferenceMolecule.atomicConnectivity";
+	.
+map:ReferenceMolecule_formula a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceMolecule;
+	d2rq:property vocab:ReferenceMolecule_formula;
+	d2rq:propertyDefinitionLabel "ReferenceMolecule formula";
+	d2rq:column "ReferenceMolecule.formula";
+	.
+
+# Table ReferenceRNASequence
+map:ReferenceRNASequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceRNASequence/@@ReferenceRNASequence.DB_ID@@";
+	d2rq:class vocab:ReferenceRNASequence;
+	d2rq:classDefinitionLabel "ReferenceRNASequence";
+	.
+map:ReferenceRNASequence__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceRNASequence #@@ReferenceRNASequence.DB_ID@@";
+	.
+map:ReferenceRNASequence_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence;
+	d2rq:property vocab:ReferenceRNASequence_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceRNASequence DB_ID";
+	d2rq:column "ReferenceRNASequence.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ReferenceRNASequence_2_referenceGene
+map:ReferenceRNASequence_2_referenceGene a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceRNASequence_2_referenceGene" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceRNASequence_2_referenceGene";
+	d2rq:class vocab:ReferenceRNASequence_2_referenceGene;
+	d2rq:classDefinitionLabel "ReferenceRNASequence_2_referenceGene";
+	.
+map:ReferenceRNASequence_2_referenceGene_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence_2_referenceGene;
+	d2rq:property vocab:ReferenceRNASequence_2_referenceGene_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceRNASequence_2_referenceGene DB_ID";
+	d2rq:column "ReferenceRNASequence_2_referenceGene.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceRNASequence_2_referenceGene_referenceGene_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence_2_referenceGene;
+	d2rq:property vocab:ReferenceRNASequence_2_referenceGene_referenceGene_rank;
+	d2rq:propertyDefinitionLabel "ReferenceRNASequence_2_referenceGene referenceGene_rank";
+	d2rq:column "ReferenceRNASequence_2_referenceGene.referenceGene_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceRNASequence_2_referenceGene_referenceGene a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence_2_referenceGene;
+	d2rq:property vocab:ReferenceRNASequence_2_referenceGene_referenceGene;
+	d2rq:propertyDefinitionLabel "ReferenceRNASequence_2_referenceGene referenceGene";
+	d2rq:column "ReferenceRNASequence_2_referenceGene.referenceGene";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceRNASequence_2_referenceGene_referenceGene_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence_2_referenceGene;
+	d2rq:property vocab:ReferenceRNASequence_2_referenceGene_referenceGene_class;
+	d2rq:propertyDefinitionLabel "ReferenceRNASequence_2_referenceGene referenceGene_class";
+	d2rq:column "ReferenceRNASequence_2_referenceGene.referenceGene_class";
+	.
+
+# Table ReferenceSequence
+map:ReferenceSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReferenceSequence/@@ReferenceSequence.DB_ID@@";
+	d2rq:class vocab:ReferenceSequence;
+	d2rq:classDefinitionLabel "ReferenceSequence";
+	.
+map:ReferenceSequence__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReferenceSequence #@@ReferenceSequence.DB_ID@@";
+	.
+map:ReferenceSequence_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence DB_ID";
+	d2rq:column "ReferenceSequence.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_checksum a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_checksum;
+	d2rq:propertyDefinitionLabel "ReferenceSequence checksum";
+	d2rq:column "ReferenceSequence.checksum";
+	.
+map:ReferenceSequence_isSequenceChanged a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_isSequenceChanged;
+	d2rq:propertyDefinitionLabel "ReferenceSequence isSequenceChanged";
+	d2rq:column "ReferenceSequence.isSequenceChanged";
+	.
+map:ReferenceSequence_sequenceLength a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_sequenceLength;
+	d2rq:propertyDefinitionLabel "ReferenceSequence sequenceLength";
+	d2rq:column "ReferenceSequence.sequenceLength";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_species;
+	d2rq:propertyDefinitionLabel "ReferenceSequence species";
+	d2rq:column "ReferenceSequence.species";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:ReferenceSequence_species_class;
+	d2rq:propertyDefinitionLabel "ReferenceSequence species_class";
+	d2rq:column "ReferenceSequence.species_class";
+	.
+
+# Table ReferenceSequence_2_comment
+map:ReferenceSequence_2_comment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceSequence_2_comment" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceSequence_2_comment";
+	d2rq:class vocab:ReferenceSequence_2_comment;
+	d2rq:classDefinitionLabel "ReferenceSequence_2_comment";
+	.
+map:ReferenceSequence_2_comment_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_comment;
+	d2rq:property vocab:ReferenceSequence_2_comment_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_comment DB_ID";
+	d2rq:column "ReferenceSequence_2_comment.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_comment_comment_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_comment;
+	d2rq:property vocab:ReferenceSequence_2_comment_comment_rank;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_comment comment_rank";
+	d2rq:column "ReferenceSequence_2_comment.comment_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_comment_comment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_comment;
+	d2rq:property vocab:ReferenceSequence_2_comment_comment;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_comment comment";
+	d2rq:column "ReferenceSequence_2_comment.comment";
+	.
+
+# Table ReferenceSequence_2_description
+map:ReferenceSequence_2_description a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceSequence_2_description" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceSequence_2_description";
+	d2rq:class vocab:ReferenceSequence_2_description;
+	d2rq:classDefinitionLabel "ReferenceSequence_2_description";
+	.
+map:ReferenceSequence_2_description_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_description;
+	d2rq:property vocab:ReferenceSequence_2_description_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_description DB_ID";
+	d2rq:column "ReferenceSequence_2_description.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_description_description_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_description;
+	d2rq:property vocab:ReferenceSequence_2_description_description_rank;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_description description_rank";
+	d2rq:column "ReferenceSequence_2_description.description_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_description_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_description;
+	d2rq:property vocab:ReferenceSequence_2_description_description;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_description description";
+	d2rq:column "ReferenceSequence_2_description.description";
+	.
+
+# Table ReferenceSequence_2_geneName
+map:ReferenceSequence_2_geneName a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceSequence_2_geneName" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceSequence_2_geneName";
+	d2rq:class vocab:ReferenceSequence_2_geneName;
+	d2rq:classDefinitionLabel "ReferenceSequence_2_geneName";
+	.
+map:ReferenceSequence_2_geneName_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_geneName;
+	d2rq:property vocab:ReferenceSequence_2_geneName_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_geneName DB_ID";
+	d2rq:column "ReferenceSequence_2_geneName.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_geneName_geneName_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_geneName;
+	d2rq:property vocab:ReferenceSequence_2_geneName_geneName_rank;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_geneName geneName_rank";
+	d2rq:column "ReferenceSequence_2_geneName.geneName_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_geneName_geneName a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_geneName;
+	d2rq:property vocab:ReferenceSequence_2_geneName_geneName;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_geneName geneName";
+	d2rq:column "ReferenceSequence_2_geneName.geneName";
+	.
+
+# Table ReferenceSequence_2_keyword
+map:ReferenceSequence_2_keyword a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceSequence_2_keyword" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceSequence_2_keyword";
+	d2rq:class vocab:ReferenceSequence_2_keyword;
+	d2rq:classDefinitionLabel "ReferenceSequence_2_keyword";
+	.
+map:ReferenceSequence_2_keyword_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_keyword;
+	d2rq:property vocab:ReferenceSequence_2_keyword_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_keyword DB_ID";
+	d2rq:column "ReferenceSequence_2_keyword.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_keyword_keyword_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_keyword;
+	d2rq:property vocab:ReferenceSequence_2_keyword_keyword_rank;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_keyword keyword_rank";
+	d2rq:column "ReferenceSequence_2_keyword.keyword_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_keyword_keyword a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_keyword;
+	d2rq:property vocab:ReferenceSequence_2_keyword_keyword;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_keyword keyword";
+	d2rq:column "ReferenceSequence_2_keyword.keyword";
+	.
+
+# Table ReferenceSequence_2_secondaryIdentifier
+map:ReferenceSequence_2_secondaryIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReferenceSequence_2_secondaryIdentifier" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReferenceSequence_2_secondaryIdentifier";
+	d2rq:class vocab:ReferenceSequence_2_secondaryIdentifier;
+	d2rq:classDefinitionLabel "ReferenceSequence_2_secondaryIdentifier";
+	.
+map:ReferenceSequence_2_secondaryIdentifier_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_secondaryIdentifier;
+	d2rq:property vocab:ReferenceSequence_2_secondaryIdentifier_DB_ID;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_secondaryIdentifier DB_ID";
+	d2rq:column "ReferenceSequence_2_secondaryIdentifier.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_secondaryIdentifier_secondaryIdentifier_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_secondaryIdentifier;
+	d2rq:property vocab:ReferenceSequence_2_secondaryIdentifier_secondaryIdentifier_rank;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_secondaryIdentifier secondaryIdentifier_rank";
+	d2rq:column "ReferenceSequence_2_secondaryIdentifier.secondaryIdentifier_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReferenceSequence_2_secondaryIdentifier_secondaryIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence_2_secondaryIdentifier;
+	d2rq:property vocab:ReferenceSequence_2_secondaryIdentifier_secondaryIdentifier;
+	d2rq:propertyDefinitionLabel "ReferenceSequence_2_secondaryIdentifier secondaryIdentifier";
+	d2rq:column "ReferenceSequence_2_secondaryIdentifier.secondaryIdentifier";
+	.
+
+# Table Regulation
+map:Regulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Regulation/@@Regulation.DB_ID@@";
+	d2rq:class vocab:Regulation;
+	d2rq:classDefinitionLabel "Regulation";
+	.
+map:Regulation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Regulation #@@Regulation.DB_ID@@";
+	.
+map:Regulation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation DB_ID";
+	d2rq:column "Regulation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_authored;
+	d2rq:propertyDefinitionLabel "Regulation authored";
+	d2rq:column "Regulation.authored";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_authored_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_authored_class;
+	d2rq:propertyDefinitionLabel "Regulation authored_class";
+	d2rq:column "Regulation.authored_class";
+	.
+map:Regulation_regulatedEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulatedEntity;
+	d2rq:propertyDefinitionLabel "Regulation regulatedEntity";
+	d2rq:column "Regulation.regulatedEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_regulatedEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulatedEntity_class;
+	d2rq:propertyDefinitionLabel "Regulation regulatedEntity_class";
+	d2rq:column "Regulation.regulatedEntity_class";
+	.
+map:Regulation_regulationType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulationType;
+	d2rq:propertyDefinitionLabel "Regulation regulationType";
+	d2rq:column "Regulation.regulationType";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_regulationType_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulationType_class;
+	d2rq:propertyDefinitionLabel "Regulation regulationType_class";
+	d2rq:column "Regulation.regulationType_class";
+	.
+map:Regulation_regulator a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulator;
+	d2rq:propertyDefinitionLabel "Regulation regulator";
+	d2rq:column "Regulation.regulator";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_regulator_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_regulator_class;
+	d2rq:propertyDefinitionLabel "Regulation regulator_class";
+	d2rq:column "Regulation.regulator_class";
+	.
+map:Regulation_releaseDate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:Regulation_releaseDate;
+	d2rq:propertyDefinitionLabel "Regulation releaseDate";
+	d2rq:column "Regulation.releaseDate";
+	d2rq:datatype xsd:date;
+	.
+
+# Table RegulationType
+map:RegulationType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "RegulationType/@@RegulationType.DB_ID@@";
+	d2rq:class vocab:RegulationType;
+	d2rq:classDefinitionLabel "RegulationType";
+	.
+map:RegulationType__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType;
+	d2rq:property rdfs:label;
+	d2rq:pattern "RegulationType #@@RegulationType.DB_ID@@";
+	.
+map:RegulationType_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType;
+	d2rq:property vocab:RegulationType_DB_ID;
+	d2rq:propertyDefinitionLabel "RegulationType DB_ID";
+	d2rq:column "RegulationType.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table RegulationType_2_instanceOf
+map:RegulationType_2_instanceOf a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "RegulationType_2_instanceOf" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "RegulationType_2_instanceOf";
+	d2rq:class vocab:RegulationType_2_instanceOf;
+	d2rq:classDefinitionLabel "RegulationType_2_instanceOf";
+	.
+map:RegulationType_2_instanceOf_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_instanceOf;
+	d2rq:property vocab:RegulationType_2_instanceOf_DB_ID;
+	d2rq:propertyDefinitionLabel "RegulationType_2_instanceOf DB_ID";
+	d2rq:column "RegulationType_2_instanceOf.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:RegulationType_2_instanceOf_instanceOf_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_instanceOf;
+	d2rq:property vocab:RegulationType_2_instanceOf_instanceOf_rank;
+	d2rq:propertyDefinitionLabel "RegulationType_2_instanceOf instanceOf_rank";
+	d2rq:column "RegulationType_2_instanceOf.instanceOf_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:RegulationType_2_instanceOf_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_instanceOf;
+	d2rq:property vocab:RegulationType_2_instanceOf_instanceOf;
+	d2rq:propertyDefinitionLabel "RegulationType_2_instanceOf instanceOf";
+	d2rq:column "RegulationType_2_instanceOf.instanceOf";
+	d2rq:datatype xsd:integer;
+	.
+map:RegulationType_2_instanceOf_instanceOf_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_instanceOf;
+	d2rq:property vocab:RegulationType_2_instanceOf_instanceOf_class;
+	d2rq:propertyDefinitionLabel "RegulationType_2_instanceOf instanceOf_class";
+	d2rq:column "RegulationType_2_instanceOf.instanceOf_class";
+	.
+
+# Table RegulationType_2_name
+map:RegulationType_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "RegulationType_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "RegulationType_2_name";
+	d2rq:class vocab:RegulationType_2_name;
+	d2rq:classDefinitionLabel "RegulationType_2_name";
+	.
+map:RegulationType_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_name;
+	d2rq:property vocab:RegulationType_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "RegulationType_2_name DB_ID";
+	d2rq:column "RegulationType_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:RegulationType_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_name;
+	d2rq:property vocab:RegulationType_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "RegulationType_2_name name_rank";
+	d2rq:column "RegulationType_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:RegulationType_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType_2_name;
+	d2rq:property vocab:RegulationType_2_name_name;
+	d2rq:propertyDefinitionLabel "RegulationType_2_name name";
+	d2rq:column "RegulationType_2_name.name";
+	.
+
+# Table Regulation_2_edited
+map:Regulation_2_edited a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_edited" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_edited";
+	d2rq:class vocab:Regulation_2_edited;
+	d2rq:classDefinitionLabel "Regulation_2_edited";
+	.
+map:Regulation_2_edited_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_edited;
+	d2rq:property vocab:Regulation_2_edited_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_edited DB_ID";
+	d2rq:column "Regulation_2_edited.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_edited_edited_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_edited;
+	d2rq:property vocab:Regulation_2_edited_edited_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_edited edited_rank";
+	d2rq:column "Regulation_2_edited.edited_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_edited_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_edited;
+	d2rq:property vocab:Regulation_2_edited_edited;
+	d2rq:propertyDefinitionLabel "Regulation_2_edited edited";
+	d2rq:column "Regulation_2_edited.edited";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_edited_edited_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_edited;
+	d2rq:property vocab:Regulation_2_edited_edited_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_edited edited_class";
+	d2rq:column "Regulation_2_edited.edited_class";
+	.
+
+# Table Regulation_2_figure
+map:Regulation_2_figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_figure" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_figure";
+	d2rq:class vocab:Regulation_2_figure;
+	d2rq:classDefinitionLabel "Regulation_2_figure";
+	.
+map:Regulation_2_figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_figure;
+	d2rq:property vocab:Regulation_2_figure_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_figure DB_ID";
+	d2rq:column "Regulation_2_figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_figure_figure_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_figure;
+	d2rq:property vocab:Regulation_2_figure_figure_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_figure figure_rank";
+	d2rq:column "Regulation_2_figure.figure_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_figure_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_figure;
+	d2rq:property vocab:Regulation_2_figure_figure;
+	d2rq:propertyDefinitionLabel "Regulation_2_figure figure";
+	d2rq:column "Regulation_2_figure.figure";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_figure_figure_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_figure;
+	d2rq:property vocab:Regulation_2_figure_figure_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_figure figure_class";
+	d2rq:column "Regulation_2_figure.figure_class";
+	.
+
+# Table Regulation_2_literatureReference
+map:Regulation_2_literatureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_literatureReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_literatureReference";
+	d2rq:class vocab:Regulation_2_literatureReference;
+	d2rq:classDefinitionLabel "Regulation_2_literatureReference";
+	.
+map:Regulation_2_literatureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_literatureReference;
+	d2rq:property vocab:Regulation_2_literatureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_literatureReference DB_ID";
+	d2rq:column "Regulation_2_literatureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_literatureReference_literatureReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_literatureReference;
+	d2rq:property vocab:Regulation_2_literatureReference_literatureReference_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_literatureReference literatureReference_rank";
+	d2rq:column "Regulation_2_literatureReference.literatureReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_literatureReference_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_literatureReference;
+	d2rq:property vocab:Regulation_2_literatureReference_literatureReference;
+	d2rq:propertyDefinitionLabel "Regulation_2_literatureReference literatureReference";
+	d2rq:column "Regulation_2_literatureReference.literatureReference";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_literatureReference_literatureReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_literatureReference;
+	d2rq:property vocab:Regulation_2_literatureReference_literatureReference_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_literatureReference literatureReference_class";
+	d2rq:column "Regulation_2_literatureReference.literatureReference_class";
+	.
+
+# Table Regulation_2_name
+map:Regulation_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_name";
+	d2rq:class vocab:Regulation_2_name;
+	d2rq:classDefinitionLabel "Regulation_2_name";
+	.
+map:Regulation_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_name;
+	d2rq:property vocab:Regulation_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_name DB_ID";
+	d2rq:column "Regulation_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_name;
+	d2rq:property vocab:Regulation_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_name name_rank";
+	d2rq:column "Regulation_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_name;
+	d2rq:property vocab:Regulation_2_name_name;
+	d2rq:propertyDefinitionLabel "Regulation_2_name name";
+	d2rq:column "Regulation_2_name.name";
+	.
+
+# Table Regulation_2_reviewed
+map:Regulation_2_reviewed a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_reviewed" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_reviewed";
+	d2rq:class vocab:Regulation_2_reviewed;
+	d2rq:classDefinitionLabel "Regulation_2_reviewed";
+	.
+map:Regulation_2_reviewed_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_reviewed;
+	d2rq:property vocab:Regulation_2_reviewed_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_reviewed DB_ID";
+	d2rq:column "Regulation_2_reviewed.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_reviewed_reviewed_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_reviewed;
+	d2rq:property vocab:Regulation_2_reviewed_reviewed_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_reviewed reviewed_rank";
+	d2rq:column "Regulation_2_reviewed.reviewed_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_reviewed_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_reviewed;
+	d2rq:property vocab:Regulation_2_reviewed_reviewed;
+	d2rq:propertyDefinitionLabel "Regulation_2_reviewed reviewed";
+	d2rq:column "Regulation_2_reviewed.reviewed";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_reviewed_reviewed_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_reviewed;
+	d2rq:property vocab:Regulation_2_reviewed_reviewed_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_reviewed reviewed_class";
+	d2rq:column "Regulation_2_reviewed.reviewed_class";
+	.
+
+# Table Regulation_2_revised
+map:Regulation_2_revised a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_revised" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_revised";
+	d2rq:class vocab:Regulation_2_revised;
+	d2rq:classDefinitionLabel "Regulation_2_revised";
+	.
+map:Regulation_2_revised_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_revised;
+	d2rq:property vocab:Regulation_2_revised_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_revised DB_ID";
+	d2rq:column "Regulation_2_revised.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_revised_revised_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_revised;
+	d2rq:property vocab:Regulation_2_revised_revised_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_revised revised_rank";
+	d2rq:column "Regulation_2_revised.revised_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_revised_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_revised;
+	d2rq:property vocab:Regulation_2_revised_revised;
+	d2rq:propertyDefinitionLabel "Regulation_2_revised revised";
+	d2rq:column "Regulation_2_revised.revised";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_revised_revised_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_revised;
+	d2rq:property vocab:Regulation_2_revised_revised_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_revised revised_class";
+	d2rq:column "Regulation_2_revised.revised_class";
+	.
+
+# Table Regulation_2_summation
+map:Regulation_2_summation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Regulation_2_summation" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Regulation_2_summation";
+	d2rq:class vocab:Regulation_2_summation;
+	d2rq:classDefinitionLabel "Regulation_2_summation";
+	.
+map:Regulation_2_summation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_summation;
+	d2rq:property vocab:Regulation_2_summation_DB_ID;
+	d2rq:propertyDefinitionLabel "Regulation_2_summation DB_ID";
+	d2rq:column "Regulation_2_summation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_summation_summation_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_summation;
+	d2rq:property vocab:Regulation_2_summation_summation_rank;
+	d2rq:propertyDefinitionLabel "Regulation_2_summation summation_rank";
+	d2rq:column "Regulation_2_summation.summation_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_summation_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_summation;
+	d2rq:property vocab:Regulation_2_summation_summation;
+	d2rq:propertyDefinitionLabel "Regulation_2_summation summation";
+	d2rq:column "Regulation_2_summation.summation";
+	d2rq:datatype xsd:integer;
+	.
+map:Regulation_2_summation_summation_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation_2_summation;
+	d2rq:property vocab:Regulation_2_summation_summation_class;
+	d2rq:propertyDefinitionLabel "Regulation_2_summation summation_class";
+	d2rq:column "Regulation_2_summation.summation_class";
+	.
+
+# Table ReplacedResidue
+map:ReplacedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "ReplacedResidue/@@ReplacedResidue.DB_ID@@";
+	d2rq:class vocab:ReplacedResidue;
+	d2rq:classDefinitionLabel "ReplacedResidue";
+	.
+map:ReplacedResidue__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue;
+	d2rq:property rdfs:label;
+	d2rq:pattern "ReplacedResidue #@@ReplacedResidue.DB_ID@@";
+	.
+map:ReplacedResidue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue;
+	d2rq:property vocab:ReplacedResidue_DB_ID;
+	d2rq:propertyDefinitionLabel "ReplacedResidue DB_ID";
+	d2rq:column "ReplacedResidue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReplacedResidue_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue;
+	d2rq:property vocab:ReplacedResidue_coordinate;
+	d2rq:propertyDefinitionLabel "ReplacedResidue coordinate";
+	d2rq:column "ReplacedResidue.coordinate";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table ReplacedResidue_2_psiMod
+map:ReplacedResidue_2_psiMod a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "ReplacedResidue_2_psiMod" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "ReplacedResidue_2_psiMod";
+	d2rq:class vocab:ReplacedResidue_2_psiMod;
+	d2rq:classDefinitionLabel "ReplacedResidue_2_psiMod";
+	.
+map:ReplacedResidue_2_psiMod_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue_2_psiMod;
+	d2rq:property vocab:ReplacedResidue_2_psiMod_DB_ID;
+	d2rq:propertyDefinitionLabel "ReplacedResidue_2_psiMod DB_ID";
+	d2rq:column "ReplacedResidue_2_psiMod.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:ReplacedResidue_2_psiMod_psiMod_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue_2_psiMod;
+	d2rq:property vocab:ReplacedResidue_2_psiMod_psiMod_rank;
+	d2rq:propertyDefinitionLabel "ReplacedResidue_2_psiMod psiMod_rank";
+	d2rq:column "ReplacedResidue_2_psiMod.psiMod_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:ReplacedResidue_2_psiMod_psiMod a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue_2_psiMod;
+	d2rq:property vocab:ReplacedResidue_2_psiMod_psiMod;
+	d2rq:propertyDefinitionLabel "ReplacedResidue_2_psiMod psiMod";
+	d2rq:column "ReplacedResidue_2_psiMod.psiMod";
+	d2rq:datatype xsd:integer;
+	.
+map:ReplacedResidue_2_psiMod_psiMod_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReplacedResidue_2_psiMod;
+	d2rq:property vocab:ReplacedResidue_2_psiMod_psiMod_class;
+	d2rq:propertyDefinitionLabel "ReplacedResidue_2_psiMod psiMod_class";
+	d2rq:column "ReplacedResidue_2_psiMod.psiMod_class";
+	.
+
+# Table Requirement
+map:Requirement a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Requirement/@@Requirement.DB_ID@@";
+	d2rq:class vocab:Requirement;
+	d2rq:classDefinitionLabel "Requirement";
+	.
+map:Requirement__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Requirement;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Requirement #@@Requirement.DB_ID@@";
+	.
+map:Requirement_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Requirement;
+	d2rq:property vocab:Requirement_DB_ID;
+	d2rq:propertyDefinitionLabel "Requirement DB_ID";
+	d2rq:column "Requirement.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table SequenceDomain
+map:SequenceDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "SequenceDomain/@@SequenceDomain.DB_ID@@";
+	d2rq:class vocab:SequenceDomain;
+	d2rq:classDefinitionLabel "SequenceDomain";
+	.
+map:SequenceDomain__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property rdfs:label;
+	d2rq:pattern "SequenceDomain #@@SequenceDomain.DB_ID@@";
+	.
+map:SequenceDomain_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:SequenceDomain_DB_ID;
+	d2rq:propertyDefinitionLabel "SequenceDomain DB_ID";
+	d2rq:column "SequenceDomain.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:SequenceDomain_endCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:SequenceDomain_endCoordinate;
+	d2rq:propertyDefinitionLabel "SequenceDomain endCoordinate";
+	d2rq:column "SequenceDomain.endCoordinate";
+	d2rq:datatype xsd:integer;
+	.
+map:SequenceDomain_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:SequenceDomain_referenceEntity;
+	d2rq:propertyDefinitionLabel "SequenceDomain referenceEntity";
+	d2rq:column "SequenceDomain.referenceEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:SequenceDomain_referenceEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:SequenceDomain_referenceEntity_class;
+	d2rq:propertyDefinitionLabel "SequenceDomain referenceEntity_class";
+	d2rq:column "SequenceDomain.referenceEntity_class";
+	.
+map:SequenceDomain_startCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:SequenceDomain_startCoordinate;
+	d2rq:propertyDefinitionLabel "SequenceDomain startCoordinate";
+	d2rq:column "SequenceDomain.startCoordinate";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table SequenceOntology
+map:SequenceOntology a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "SequenceOntology/@@SequenceOntology.DB_ID@@";
+	d2rq:class vocab:SequenceOntology;
+	d2rq:classDefinitionLabel "SequenceOntology";
+	.
+map:SequenceOntology__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceOntology;
+	d2rq:property rdfs:label;
+	d2rq:pattern "SequenceOntology #@@SequenceOntology.DB_ID@@";
+	.
+map:SequenceOntology_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceOntology;
+	d2rq:property vocab:SequenceOntology_DB_ID;
+	d2rq:propertyDefinitionLabel "SequenceOntology DB_ID";
+	d2rq:column "SequenceOntology.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table SimpleEntity
+map:SimpleEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "SimpleEntity/@@SimpleEntity.DB_ID@@";
+	d2rq:class vocab:SimpleEntity;
+	d2rq:classDefinitionLabel "SimpleEntity";
+	.
+map:SimpleEntity__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity;
+	d2rq:property rdfs:label;
+	d2rq:pattern "SimpleEntity #@@SimpleEntity.DB_ID@@";
+	.
+map:SimpleEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity;
+	d2rq:property vocab:SimpleEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "SimpleEntity DB_ID";
+	d2rq:column "SimpleEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:SimpleEntity_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity;
+	d2rq:property vocab:SimpleEntity_species;
+	d2rq:propertyDefinitionLabel "SimpleEntity species";
+	d2rq:column "SimpleEntity.species";
+	d2rq:datatype xsd:integer;
+	.
+map:SimpleEntity_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity;
+	d2rq:property vocab:SimpleEntity_species_class;
+	d2rq:propertyDefinitionLabel "SimpleEntity species_class";
+	d2rq:column "SimpleEntity.species_class";
+	.
+
+# Table SimpleEntity_2_referenceEntity
+map:SimpleEntity_2_referenceEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "SimpleEntity_2_referenceEntity" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "SimpleEntity_2_referenceEntity";
+	d2rq:class vocab:SimpleEntity_2_referenceEntity;
+	d2rq:classDefinitionLabel "SimpleEntity_2_referenceEntity";
+	.
+map:SimpleEntity_2_referenceEntity_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity_2_referenceEntity;
+	d2rq:property vocab:SimpleEntity_2_referenceEntity_DB_ID;
+	d2rq:propertyDefinitionLabel "SimpleEntity_2_referenceEntity DB_ID";
+	d2rq:column "SimpleEntity_2_referenceEntity.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:SimpleEntity_2_referenceEntity_referenceEntity_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity_2_referenceEntity;
+	d2rq:property vocab:SimpleEntity_2_referenceEntity_referenceEntity_rank;
+	d2rq:propertyDefinitionLabel "SimpleEntity_2_referenceEntity referenceEntity_rank";
+	d2rq:column "SimpleEntity_2_referenceEntity.referenceEntity_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:SimpleEntity_2_referenceEntity_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity_2_referenceEntity;
+	d2rq:property vocab:SimpleEntity_2_referenceEntity_referenceEntity;
+	d2rq:propertyDefinitionLabel "SimpleEntity_2_referenceEntity referenceEntity";
+	d2rq:column "SimpleEntity_2_referenceEntity.referenceEntity";
+	d2rq:datatype xsd:integer;
+	.
+map:SimpleEntity_2_referenceEntity_referenceEntity_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity_2_referenceEntity;
+	d2rq:property vocab:SimpleEntity_2_referenceEntity_referenceEntity_class;
+	d2rq:propertyDefinitionLabel "SimpleEntity_2_referenceEntity referenceEntity_class";
+	d2rq:column "SimpleEntity_2_referenceEntity.referenceEntity_class";
+	.
+
+# Table Species
+map:Species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Species/@@Species.DB_ID@@";
+	d2rq:class vocab:Species;
+	d2rq:classDefinitionLabel "Species";
+	.
+map:Species__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Species #@@Species.DB_ID@@";
+	.
+map:Species_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species;
+	d2rq:property vocab:Species_DB_ID;
+	d2rq:propertyDefinitionLabel "Species DB_ID";
+	d2rq:column "Species.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table Species_2_figure
+map:Species_2_figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Species_2_figure" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Species_2_figure";
+	d2rq:class vocab:Species_2_figure;
+	d2rq:classDefinitionLabel "Species_2_figure";
+	.
+map:Species_2_figure_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species_2_figure;
+	d2rq:property vocab:Species_2_figure_DB_ID;
+	d2rq:propertyDefinitionLabel "Species_2_figure DB_ID";
+	d2rq:column "Species_2_figure.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Species_2_figure_figure_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species_2_figure;
+	d2rq:property vocab:Species_2_figure_figure_rank;
+	d2rq:propertyDefinitionLabel "Species_2_figure figure_rank";
+	d2rq:column "Species_2_figure.figure_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Species_2_figure_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species_2_figure;
+	d2rq:property vocab:Species_2_figure_figure;
+	d2rq:propertyDefinitionLabel "Species_2_figure figure";
+	d2rq:column "Species_2_figure.figure";
+	d2rq:datatype xsd:integer;
+	.
+map:Species_2_figure_figure_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species_2_figure;
+	d2rq:property vocab:Species_2_figure_figure_class;
+	d2rq:propertyDefinitionLabel "Species_2_figure figure_class";
+	d2rq:column "Species_2_figure.figure_class";
+	.
+
+# Table StableIdentifier
+map:StableIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "StableIdentifier/@@StableIdentifier.DB_ID@@";
+	d2rq:class vocab:StableIdentifier;
+	d2rq:classDefinitionLabel "StableIdentifier";
+	.
+map:StableIdentifier__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property rdfs:label;
+	d2rq:pattern "StableIdentifier #@@StableIdentifier.DB_ID@@";
+	.
+map:StableIdentifier_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:StableIdentifier_DB_ID;
+	d2rq:propertyDefinitionLabel "StableIdentifier DB_ID";
+	d2rq:column "StableIdentifier.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:StableIdentifier_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:StableIdentifier_identifier;
+	d2rq:propertyDefinitionLabel "StableIdentifier identifier";
+	d2rq:column "StableIdentifier.identifier";
+	.
+map:StableIdentifier_identifierVersion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:StableIdentifier_identifierVersion;
+	d2rq:propertyDefinitionLabel "StableIdentifier identifierVersion";
+	d2rq:column "StableIdentifier.identifierVersion";
+	.
+map:StableIdentifier_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:StableIdentifier_referenceDatabase;
+	d2rq:propertyDefinitionLabel "StableIdentifier referenceDatabase";
+	d2rq:column "StableIdentifier.referenceDatabase";
+	d2rq:datatype xsd:integer;
+	.
+map:StableIdentifier_referenceDatabase_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:StableIdentifier_referenceDatabase_class;
+	d2rq:propertyDefinitionLabel "StableIdentifier referenceDatabase_class";
+	d2rq:column "StableIdentifier.referenceDatabase_class";
+	.
+
+# Table Summation
+map:Summation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Summation/@@Summation.DB_ID@@";
+	d2rq:class vocab:Summation;
+	d2rq:classDefinitionLabel "Summation";
+	.
+map:Summation__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Summation #@@Summation.DB_ID@@";
+	.
+map:Summation_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation;
+	d2rq:property vocab:Summation_DB_ID;
+	d2rq:propertyDefinitionLabel "Summation DB_ID";
+	d2rq:column "Summation.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Summation_text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation;
+	d2rq:property vocab:Summation_text;
+	d2rq:propertyDefinitionLabel "Summation text";
+	d2rq:column "Summation.text";
+	.
+
+# Table Summation_2_literatureReference
+map:Summation_2_literatureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Summation_2_literatureReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Summation_2_literatureReference";
+	d2rq:class vocab:Summation_2_literatureReference;
+	d2rq:classDefinitionLabel "Summation_2_literatureReference";
+	.
+map:Summation_2_literatureReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation_2_literatureReference;
+	d2rq:property vocab:Summation_2_literatureReference_DB_ID;
+	d2rq:propertyDefinitionLabel "Summation_2_literatureReference DB_ID";
+	d2rq:column "Summation_2_literatureReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Summation_2_literatureReference_literatureReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation_2_literatureReference;
+	d2rq:property vocab:Summation_2_literatureReference_literatureReference_rank;
+	d2rq:propertyDefinitionLabel "Summation_2_literatureReference literatureReference_rank";
+	d2rq:column "Summation_2_literatureReference.literatureReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Summation_2_literatureReference_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation_2_literatureReference;
+	d2rq:property vocab:Summation_2_literatureReference_literatureReference;
+	d2rq:propertyDefinitionLabel "Summation_2_literatureReference literatureReference";
+	d2rq:column "Summation_2_literatureReference.literatureReference";
+	d2rq:datatype xsd:integer;
+	.
+map:Summation_2_literatureReference_literatureReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation_2_literatureReference;
+	d2rq:property vocab:Summation_2_literatureReference_literatureReference_class;
+	d2rq:propertyDefinitionLabel "Summation_2_literatureReference literatureReference_class";
+	d2rq:column "Summation_2_literatureReference.literatureReference_class";
+	.
+
+# Table Taxon
+map:Taxon a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Taxon/@@Taxon.DB_ID@@";
+	d2rq:class vocab:Taxon;
+	d2rq:classDefinitionLabel "Taxon";
+	.
+map:Taxon__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Taxon #@@Taxon.DB_ID@@";
+	.
+map:Taxon_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:Taxon_DB_ID;
+	d2rq:propertyDefinitionLabel "Taxon DB_ID";
+	d2rq:column "Taxon.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_superTaxon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:Taxon_superTaxon;
+	d2rq:propertyDefinitionLabel "Taxon superTaxon";
+	d2rq:column "Taxon.superTaxon";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_superTaxon_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:Taxon_superTaxon_class;
+	d2rq:propertyDefinitionLabel "Taxon superTaxon_class";
+	d2rq:column "Taxon.superTaxon_class";
+	.
+
+# Table Taxon_2_crossReference
+map:Taxon_2_crossReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Taxon_2_crossReference" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Taxon_2_crossReference";
+	d2rq:class vocab:Taxon_2_crossReference;
+	d2rq:classDefinitionLabel "Taxon_2_crossReference";
+	.
+map:Taxon_2_crossReference_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_crossReference;
+	d2rq:property vocab:Taxon_2_crossReference_DB_ID;
+	d2rq:propertyDefinitionLabel "Taxon_2_crossReference DB_ID";
+	d2rq:column "Taxon_2_crossReference.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_2_crossReference_crossReference_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_crossReference;
+	d2rq:property vocab:Taxon_2_crossReference_crossReference_rank;
+	d2rq:propertyDefinitionLabel "Taxon_2_crossReference crossReference_rank";
+	d2rq:column "Taxon_2_crossReference.crossReference_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_2_crossReference_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_crossReference;
+	d2rq:property vocab:Taxon_2_crossReference_crossReference;
+	d2rq:propertyDefinitionLabel "Taxon_2_crossReference crossReference";
+	d2rq:column "Taxon_2_crossReference.crossReference";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_2_crossReference_crossReference_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_crossReference;
+	d2rq:property vocab:Taxon_2_crossReference_crossReference_class;
+	d2rq:propertyDefinitionLabel "Taxon_2_crossReference crossReference_class";
+	d2rq:column "Taxon_2_crossReference.crossReference_class";
+	.
+
+# Table Taxon_2_name
+map:Taxon_2_name a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "Taxon_2_name" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "Taxon_2_name";
+	d2rq:class vocab:Taxon_2_name;
+	d2rq:classDefinitionLabel "Taxon_2_name";
+	.
+map:Taxon_2_name_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_name;
+	d2rq:property vocab:Taxon_2_name_DB_ID;
+	d2rq:propertyDefinitionLabel "Taxon_2_name DB_ID";
+	d2rq:column "Taxon_2_name.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_2_name_name_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_name;
+	d2rq:property vocab:Taxon_2_name_name_rank;
+	d2rq:propertyDefinitionLabel "Taxon_2_name name_rank";
+	d2rq:column "Taxon_2_name.name_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:Taxon_2_name_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon_2_name;
+	d2rq:property vocab:Taxon_2_name_name;
+	d2rq:propertyDefinitionLabel "Taxon_2_name name";
+	d2rq:column "Taxon_2_name.name";
+	.
+
+# Table TranslationalModification
+map:TranslationalModification a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "TranslationalModification/@@TranslationalModification.DB_ID@@";
+	d2rq:class vocab:TranslationalModification;
+	d2rq:classDefinitionLabel "TranslationalModification";
+	.
+map:TranslationalModification__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:TranslationalModification;
+	d2rq:property rdfs:label;
+	d2rq:pattern "TranslationalModification #@@TranslationalModification.DB_ID@@";
+	.
+map:TranslationalModification_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:TranslationalModification;
+	d2rq:property vocab:TranslationalModification_DB_ID;
+	d2rq:propertyDefinitionLabel "TranslationalModification DB_ID";
+	d2rq:column "TranslationalModification.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:TranslationalModification_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:TranslationalModification;
+	d2rq:property vocab:TranslationalModification_coordinate;
+	d2rq:propertyDefinitionLabel "TranslationalModification coordinate";
+	d2rq:column "TranslationalModification.coordinate";
+	d2rq:datatype xsd:integer;
+	.
+map:TranslationalModification_psiMod a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:TranslationalModification;
+	d2rq:property vocab:TranslationalModification_psiMod;
+	d2rq:propertyDefinitionLabel "TranslationalModification psiMod";
+	d2rq:column "TranslationalModification.psiMod";
+	d2rq:datatype xsd:integer;
+	.
+map:TranslationalModification_psiMod_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:TranslationalModification;
+	d2rq:property vocab:TranslationalModification_psiMod_class;
+	d2rq:propertyDefinitionLabel "TranslationalModification psiMod_class";
+	d2rq:column "TranslationalModification.psiMod_class";
+	.
+
+# Table URL
+map:URL a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "URL/@@URL.DB_ID@@";
+	d2rq:class vocab:URL;
+	d2rq:classDefinitionLabel "URL";
+	.
+map:URL__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:URL;
+	d2rq:property rdfs:label;
+	d2rq:pattern "URL #@@URL.DB_ID@@";
+	.
+map:URL_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:URL;
+	d2rq:property vocab:URL_DB_ID;
+	d2rq:propertyDefinitionLabel "URL DB_ID";
+	d2rq:column "URL.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:URL_uniformResourceLocator a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:URL;
+	d2rq:property vocab:URL_uniformResourceLocator;
+	d2rq:propertyDefinitionLabel "URL uniformResourceLocator";
+	d2rq:column "URL.uniformResourceLocator";
+	.
+
+# Table Vertex
+map:Vertex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "Vertex/@@Vertex.DB_ID@@";
+	d2rq:class vocab:Vertex;
+	d2rq:classDefinitionLabel "Vertex";
+	.
+map:Vertex__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property rdfs:label;
+	d2rq:pattern "Vertex #@@Vertex.DB_ID@@";
+	.
+map:Vertex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_DB_ID;
+	d2rq:propertyDefinitionLabel "Vertex DB_ID";
+	d2rq:column "Vertex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_height a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_height;
+	d2rq:propertyDefinitionLabel "Vertex height";
+	d2rq:column "Vertex.height";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_pathwayDiagram a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_pathwayDiagram;
+	d2rq:propertyDefinitionLabel "Vertex pathwayDiagram";
+	d2rq:column "Vertex.pathwayDiagram";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_pathwayDiagram_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_pathwayDiagram_class;
+	d2rq:propertyDefinitionLabel "Vertex pathwayDiagram_class";
+	d2rq:column "Vertex.pathwayDiagram_class";
+	.
+map:Vertex_representedInstance a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_representedInstance;
+	d2rq:propertyDefinitionLabel "Vertex representedInstance";
+	d2rq:column "Vertex.representedInstance";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_representedInstance_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_representedInstance_class;
+	d2rq:propertyDefinitionLabel "Vertex representedInstance_class";
+	d2rq:column "Vertex.representedInstance_class";
+	.
+map:Vertex_width a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_width;
+	d2rq:propertyDefinitionLabel "Vertex width";
+	d2rq:column "Vertex.width";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_x a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_x;
+	d2rq:propertyDefinitionLabel "Vertex x";
+	d2rq:column "Vertex.x";
+	d2rq:datatype xsd:integer;
+	.
+map:Vertex_y a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Vertex;
+	d2rq:property vocab:Vertex_y;
+	d2rq:propertyDefinitionLabel "Vertex y";
+	d2rq:column "Vertex.y";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table VertexSearchableTerm
+map:VertexSearchableTerm a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "VertexSearchableTerm/@@VertexSearchableTerm.DB_ID@@";
+	d2rq:class vocab:VertexSearchableTerm;
+	d2rq:classDefinitionLabel "VertexSearchableTerm";
+	.
+map:VertexSearchableTerm__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property rdfs:label;
+	d2rq:pattern "VertexSearchableTerm #@@VertexSearchableTerm.DB_ID@@";
+	.
+map:VertexSearchableTerm_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_DB_ID;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm DB_ID";
+	d2rq:column "VertexSearchableTerm.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_providerCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_providerCount;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm providerCount";
+	d2rq:column "VertexSearchableTerm.providerCount";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_searchableTerm a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_searchableTerm;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm searchableTerm";
+	d2rq:column "VertexSearchableTerm.searchableTerm";
+	.
+map:VertexSearchableTerm_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_species;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm species";
+	d2rq:column "VertexSearchableTerm.species";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_species_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_species_class;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm species_class";
+	d2rq:column "VertexSearchableTerm.species_class";
+	.
+map:VertexSearchableTerm_vertexCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm;
+	d2rq:property vocab:VertexSearchableTerm_vertexCount;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm vertexCount";
+	d2rq:column "VertexSearchableTerm.vertexCount";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table VertexSearchableTerm_2_termProvider
+map:VertexSearchableTerm_2_termProvider a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "VertexSearchableTerm_2_termProvider" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "VertexSearchableTerm_2_termProvider";
+	d2rq:class vocab:VertexSearchableTerm_2_termProvider;
+	d2rq:classDefinitionLabel "VertexSearchableTerm_2_termProvider";
+	.
+map:VertexSearchableTerm_2_termProvider_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_termProvider;
+	d2rq:property vocab:VertexSearchableTerm_2_termProvider_DB_ID;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_termProvider DB_ID";
+	d2rq:column "VertexSearchableTerm_2_termProvider.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_termProvider_termProvider_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_termProvider;
+	d2rq:property vocab:VertexSearchableTerm_2_termProvider_termProvider_rank;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_termProvider termProvider_rank";
+	d2rq:column "VertexSearchableTerm_2_termProvider.termProvider_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_termProvider_termProvider a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_termProvider;
+	d2rq:property vocab:VertexSearchableTerm_2_termProvider_termProvider;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_termProvider termProvider";
+	d2rq:column "VertexSearchableTerm_2_termProvider.termProvider";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_termProvider_termProvider_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_termProvider;
+	d2rq:property vocab:VertexSearchableTerm_2_termProvider_termProvider_class;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_termProvider termProvider_class";
+	d2rq:column "VertexSearchableTerm_2_termProvider.termProvider_class";
+	.
+
+# Table VertexSearchableTerm_2_vertex
+map:VertexSearchableTerm_2_vertex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "VertexSearchableTerm_2_vertex" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "VertexSearchableTerm_2_vertex";
+	d2rq:class vocab:VertexSearchableTerm_2_vertex;
+	d2rq:classDefinitionLabel "VertexSearchableTerm_2_vertex";
+	.
+map:VertexSearchableTerm_2_vertex_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_vertex;
+	d2rq:property vocab:VertexSearchableTerm_2_vertex_DB_ID;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_vertex DB_ID";
+	d2rq:column "VertexSearchableTerm_2_vertex.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_vertex_vertex_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_vertex;
+	d2rq:property vocab:VertexSearchableTerm_2_vertex_vertex_rank;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_vertex vertex_rank";
+	d2rq:column "VertexSearchableTerm_2_vertex.vertex_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_vertex_vertex a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_vertex;
+	d2rq:property vocab:VertexSearchableTerm_2_vertex_vertex;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_vertex vertex";
+	d2rq:column "VertexSearchableTerm_2_vertex.vertex";
+	d2rq:datatype xsd:integer;
+	.
+map:VertexSearchableTerm_2_vertex_vertex_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:VertexSearchableTerm_2_vertex;
+	d2rq:property vocab:VertexSearchableTerm_2_vertex_vertex_class;
+	d2rq:propertyDefinitionLabel "VertexSearchableTerm_2_vertex vertex_class";
+	d2rq:column "VertexSearchableTerm_2_vertex.vertex_class";
+	.
+
+# Table _AttributeValueBeforeChange
+map:_AttributeValueBeforeChange a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "_AttributeValueBeforeChange/@@_AttributeValueBeforeChange.DB_ID@@";
+	d2rq:class vocab:_AttributeValueBeforeChange;
+	d2rq:classDefinitionLabel "_AttributeValueBeforeChange";
+	.
+map:_AttributeValueBeforeChange__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
+	d2rq:property rdfs:label;
+	d2rq:pattern "_AttributeValueBeforeChange #@@_AttributeValueBeforeChange.DB_ID@@";
+	.
+map:_AttributeValueBeforeChange_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
+	d2rq:property vocab:_AttributeValueBeforeChange_DB_ID;
+	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange DB_ID";
+	d2rq:column "_AttributeValueBeforeChange.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_AttributeValueBeforeChange_changedAttribute a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
+	d2rq:property vocab:_AttributeValueBeforeChange_changedAttribute;
+	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange changedAttribute";
+	d2rq:column "_AttributeValueBeforeChange.changedAttribute";
+	.
+
+# Table _AttributeValueBeforeChange_2_previousValue
+map:_AttributeValueBeforeChange_2_previousValue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "_AttributeValueBeforeChange_2_previousValue" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "_AttributeValueBeforeChange_2_previousValue";
+	d2rq:class vocab:_AttributeValueBeforeChange_2_previousValue;
+	d2rq:classDefinitionLabel "_AttributeValueBeforeChange_2_previousValue";
+	.
+map:_AttributeValueBeforeChange_2_previousValue_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange_2_previousValue;
+	d2rq:property vocab:_AttributeValueBeforeChange_2_previousValue_DB_ID;
+	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange_2_previousValue DB_ID";
+	d2rq:column "_AttributeValueBeforeChange_2_previousValue.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_AttributeValueBeforeChange_2_previousValue_previousValue_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange_2_previousValue;
+	d2rq:property vocab:_AttributeValueBeforeChange_2_previousValue_previousValue_rank;
+	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange_2_previousValue previousValue_rank";
+	d2rq:column "_AttributeValueBeforeChange_2_previousValue.previousValue_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:_AttributeValueBeforeChange_2_previousValue_previousValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange_2_previousValue;
+	d2rq:property vocab:_AttributeValueBeforeChange_2_previousValue_previousValue;
+	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange_2_previousValue previousValue";
+	d2rq:column "_AttributeValueBeforeChange_2_previousValue.previousValue";
+	.
+
+# Table _Deleted
+map:_Deleted a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "_Deleted/@@_Deleted.DB_ID@@";
+	d2rq:class vocab:_Deleted;
+	d2rq:classDefinitionLabel "_Deleted";
+	.
+map:_Deleted__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property rdfs:label;
+	d2rq:pattern "_Deleted #@@_Deleted.DB_ID@@";
+	.
+map:_Deleted_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:_Deleted_DB_ID;
+	d2rq:propertyDefinitionLabel "_Deleted DB_ID";
+	d2rq:column "_Deleted.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_curatorComment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:_Deleted_curatorComment;
+	d2rq:propertyDefinitionLabel "_Deleted curatorComment";
+	d2rq:column "_Deleted.curatorComment";
+	.
+map:_Deleted_reason a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:_Deleted_reason;
+	d2rq:propertyDefinitionLabel "_Deleted reason";
+	d2rq:column "_Deleted.reason";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_reason_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:_Deleted_reason_class;
+	d2rq:propertyDefinitionLabel "_Deleted reason_class";
+	d2rq:column "_Deleted.reason_class";
+	.
+
+# Table _Deleted_2_deletedInstanceDB_ID
+map:_Deleted_2_deletedInstanceDB_ID a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "_Deleted_2_deletedInstanceDB_ID" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "_Deleted_2_deletedInstanceDB_ID";
+	d2rq:class vocab:_Deleted_2_deletedInstanceDB_ID;
+	d2rq:classDefinitionLabel "_Deleted_2_deletedInstanceDB_ID";
+	.
+map:_Deleted_2_deletedInstanceDB_ID_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_deletedInstanceDB_ID;
+	d2rq:property vocab:_Deleted_2_deletedInstanceDB_ID_DB_ID;
+	d2rq:propertyDefinitionLabel "_Deleted_2_deletedInstanceDB_ID DB_ID";
+	d2rq:column "_Deleted_2_deletedInstanceDB_ID.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_2_deletedInstanceDB_ID_deletedInstanceDB_ID_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_deletedInstanceDB_ID;
+	d2rq:property vocab:_Deleted_2_deletedInstanceDB_ID_deletedInstanceDB_ID_rank;
+	d2rq:propertyDefinitionLabel "_Deleted_2_deletedInstanceDB_ID deletedInstanceDB_ID_rank";
+	d2rq:column "_Deleted_2_deletedInstanceDB_ID.deletedInstanceDB_ID_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_2_deletedInstanceDB_ID_deletedInstanceDB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_deletedInstanceDB_ID;
+	d2rq:property vocab:_Deleted_2_deletedInstanceDB_ID_deletedInstanceDB_ID;
+	d2rq:propertyDefinitionLabel "_Deleted_2_deletedInstanceDB_ID deletedInstanceDB_ID";
+	d2rq:column "_Deleted_2_deletedInstanceDB_ID.deletedInstanceDB_ID";
+	d2rq:datatype xsd:integer;
+	.
+
+# Table _Deleted_2_replacementInstances
+map:_Deleted_2_replacementInstances a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "_Deleted_2_replacementInstances" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "_Deleted_2_replacementInstances";
+	d2rq:class vocab:_Deleted_2_replacementInstances;
+	d2rq:classDefinitionLabel "_Deleted_2_replacementInstances";
+	.
+map:_Deleted_2_replacementInstances_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_replacementInstances;
+	d2rq:property vocab:_Deleted_2_replacementInstances_DB_ID;
+	d2rq:propertyDefinitionLabel "_Deleted_2_replacementInstances DB_ID";
+	d2rq:column "_Deleted_2_replacementInstances.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_2_replacementInstances_replacementInstances_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_replacementInstances;
+	d2rq:property vocab:_Deleted_2_replacementInstances_replacementInstances_rank;
+	d2rq:propertyDefinitionLabel "_Deleted_2_replacementInstances replacementInstances_rank";
+	d2rq:column "_Deleted_2_replacementInstances.replacementInstances_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_2_replacementInstances_replacementInstances a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_replacementInstances;
+	d2rq:property vocab:_Deleted_2_replacementInstances_replacementInstances;
+	d2rq:propertyDefinitionLabel "_Deleted_2_replacementInstances replacementInstances";
+	d2rq:column "_Deleted_2_replacementInstances.replacementInstances";
+	d2rq:datatype xsd:integer;
+	.
+map:_Deleted_2_replacementInstances_replacementInstances_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted_2_replacementInstances;
+	d2rq:property vocab:_Deleted_2_replacementInstances_replacementInstances_class;
+	d2rq:propertyDefinitionLabel "_Deleted_2_replacementInstances replacementInstances_class";
+	d2rq:column "_Deleted_2_replacementInstances.replacementInstances_class";
+	.
+
+# Table _InstanceBeforeChange
+map:_InstanceBeforeChange a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "_InstanceBeforeChange/@@_InstanceBeforeChange.DB_ID@@";
+	d2rq:class vocab:_InstanceBeforeChange;
+	d2rq:classDefinitionLabel "_InstanceBeforeChange";
+	.
+map:_InstanceBeforeChange__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property rdfs:label;
+	d2rq:pattern "_InstanceBeforeChange #@@_InstanceBeforeChange.DB_ID@@";
+	.
+map:_InstanceBeforeChange_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_DB_ID;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange DB_ID";
+	d2rq:column "_InstanceBeforeChange.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_changedInstanceDB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_changedInstanceDB_ID;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange changedInstanceDB_ID";
+	d2rq:column "_InstanceBeforeChange.changedInstanceDB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_instanceEdit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_instanceEdit;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange instanceEdit";
+	d2rq:column "_InstanceBeforeChange.instanceEdit";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_instanceEdit_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_instanceEdit_class;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange instanceEdit_class";
+	d2rq:column "_InstanceBeforeChange.instanceEdit_class";
+	.
+
+# Table _InstanceBeforeChange_2_attributeValuesBeforeChange
+map:_InstanceBeforeChange_2_attributeValuesBeforeChange a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	#     for "_InstanceBeforeChange_2_attributeValuesBeforeChange" because the table doesn't have a primary key.
+	#     Please specify it manually.
+	d2rq:uriPattern "_InstanceBeforeChange_2_attributeValuesBeforeChange";
+	d2rq:class vocab:_InstanceBeforeChange_2_attributeValuesBeforeChange;
+	d2rq:classDefinitionLabel "_InstanceBeforeChange_2_attributeValuesBeforeChange";
+	.
+map:_InstanceBeforeChange_2_attributeValuesBeforeChange_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange_2_attributeValuesBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_2_attributeValuesBeforeChange_DB_ID;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange_2_attributeValuesBeforeChange DB_ID";
+	d2rq:column "_InstanceBeforeChange_2_attributeValuesBeforeChange.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange_rank a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange_2_attributeValuesBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange_rank;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange_2_attributeValuesBeforeChange attributeValuesBeforeChange_rank";
+	d2rq:column "_InstanceBeforeChange_2_attributeValuesBeforeChange.attributeValuesBeforeChange_rank";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange_2_attributeValuesBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange_2_attributeValuesBeforeChange attributeValuesBeforeChange";
+	d2rq:column "_InstanceBeforeChange_2_attributeValuesBeforeChange.attributeValuesBeforeChange";
+	d2rq:datatype xsd:integer;
+	.
+map:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange_class a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange_2_attributeValuesBeforeChange;
+	d2rq:property vocab:_InstanceBeforeChange_2_attributeValuesBeforeChange_attributeValuesBeforeChange_class;
+	d2rq:propertyDefinitionLabel "_InstanceBeforeChange_2_attributeValuesBeforeChange attributeValuesBeforeChange_class";
+	d2rq:column "_InstanceBeforeChange_2_attributeValuesBeforeChange.attributeValuesBeforeChange_class";
+	.
+
+# Table _Release
+map:_Release a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "_Release/@@_Release.DB_ID@@";
+	d2rq:class vocab:_Release;
+	d2rq:classDefinitionLabel "_Release";
+	.
+map:_Release__label a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Release;
+	d2rq:property rdfs:label;
+	d2rq:pattern "_Release #@@_Release.DB_ID@@";
+	.
+map:_Release_DB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Release;
+	d2rq:property vocab:_Release_DB_ID;
+	d2rq:propertyDefinitionLabel "_Release DB_ID";
+	d2rq:column "_Release.DB_ID";
+	d2rq:datatype xsd:integer;
+	.
+map:_Release_releaseDate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Release;
+	d2rq:property vocab:_Release_releaseDate;
+	d2rq:propertyDefinitionLabel "_Release releaseDate";
+	d2rq:column "_Release.releaseDate";
+	.
+map:_Release_releaseNumber a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Release;
+	d2rq:property vocab:_Release_releaseNumber;
+	d2rq:propertyDefinitionLabel "_Release releaseNumber";
+	d2rq:column "_Release.releaseNumber";
+	d2rq:datatype xsd:integer;
+	.
+

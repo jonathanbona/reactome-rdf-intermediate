@@ -1,0 +1,2018 @@
+@prefix map: <http://purl.org/science/d2rq/reactome25/> .
+@prefix vocab: <http://purl.org/science/ontology/reactome/> .
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix d2rq: <http://www.wiwiss.fu-berlin.de/suhl/bizer/D2RQ/0.1#> .
+@prefix record: <http://purl.org/science/record/reactome/> .
+map:database a d2rq:Database;
+	d2rq:jdbcDriver "com.mysql.jdbc.Driver";
+	d2rq:jdbcDSN "jdbc:mysql://127.0.0.1/reactome_25?zeroDateTimeBehavior=convertToNull";
+	d2rq:username "root";
+
+.
+map:Affiliation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Affiliation.DB_ID@@";
+	d2rq:class vocab:Affiliation;
+
+.
+map:Affiliation_property_address a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation;
+	d2rq:property vocab:address;
+	d2rq:column "Affiliation.address";
+
+.
+### Affiliation ### name ###
+map:Affiliation_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Affiliation;
+	d2rq:property vocab:name;
+	d2rq:column "Affiliation_2_name.name";
+	d2rq:join "Affiliation.DB_ID = Affiliation_2_name.DB_ID";
+
+.
+map:BlackBoxEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@BlackBoxEvent.DB_ID@@";
+	d2rq:class vocab:BlackBoxEvent;
+
+.
+map:BlackBoxEvent_property_templateEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property vocab:templateEvent;
+	d2rq:column "BlackBoxEvent.templateEvent";
+	d2rq:datatype xsd:int;
+
+.
+### BlackBoxEvent ### hasEvent ###
+map:BlackBoxEvent_property_hasEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:BlackBoxEvent;
+	d2rq:property vocab:hasEvent;
+	d2rq:uriPattern "@@BlackBoxEvent_2_hasEvent.hasEvent@@";
+	d2rq:join "BlackBoxEvent.DB_ID = BlackBoxEvent_2_hasEvent.DB_ID";
+
+.
+map:CandidateSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@CandidateSet.DB_ID@@";
+	d2rq:class vocab:CandidateSet;
+
+.
+### CandidateSet ### hasCandidate ###
+map:CandidateSet_property_hasCandidate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CandidateSet;
+	d2rq:property vocab:hasCandidate;
+	d2rq:uriPattern "@@CandidateSet_2_hasCandidate.hasCandidate@@";
+	d2rq:join "CandidateSet.DB_ID = CandidateSet_2_hasCandidate.DB_ID";
+
+.
+map:CatalystActivity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@CatalystActivity.DB_ID@@";
+	d2rq:class vocab:CatalystActivity;
+
+.
+map:CatalystActivity_property_activity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:activity;
+	d2rq:uriPattern "@@CatalystActivity.activity@@";
+
+.
+map:CatalystActivity_property_physicalEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:physicalEntity;
+	d2rq:uriPattern "@@CatalystActivity.physicalEntity@@";
+
+.
+### CatalystActivity ### activeUnit ###
+map:CatalystActivity_property_activeUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:activeUnit;
+	d2rq:uriPattern "@@CatalystActivity_2_activeUnit.activeUnit@@";
+	d2rq:join "CatalystActivity.DB_ID = CatalystActivity_2_activeUnit.DB_ID";
+
+.
+### CatalystActivity ### literatureReference ###
+map:CatalystActivity_property_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:CatalystActivity;
+	d2rq:property vocab:literatureReference;
+	d2rq:uriPattern "@@CatalystActivity_2_literatureReference.literatureReference@@";
+	d2rq:join "CatalystActivity.DB_ID = CatalystActivity_2_literatureReference.DB_ID";
+
+.
+map:Compartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Compartment.DB_ID@@";
+	d2rq:class vocab:Compartment;
+
+.
+map:Complex a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Complex.DB_ID@@";
+	d2rq:class vocab:Complex;
+
+.
+map:Complex_property_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:totalProt;
+	d2rq:column "Complex.totalProt";
+
+.
+map:Complex_property_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:maxHomologues;
+	d2rq:column "Complex.maxHomologues";
+
+.
+map:Complex_property_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:inferredProt;
+	d2rq:column "Complex.inferredProt";
+
+.
+map:ComplexDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ComplexDomain.DB_ID@@";
+	d2rq:class vocab:ComplexDomain;
+
+.
+### ComplexDomain ### hasComponent ###
+map:ComplexDomain_property_hasComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ComplexDomain;
+	d2rq:property vocab:hasComponent;
+	d2rq:uriPattern "@@ComplexDomain_2_hasComponent.hasComponent@@";
+	d2rq:join "ComplexDomain.DB_ID = ComplexDomain_2_hasComponent.DB_ID";
+
+.
+### Complex ### entityOnOtherCell ###
+map:Complex_property_entityOnOtherCell a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:entityOnOtherCell;
+	d2rq:uriPattern "@@Complex_2_entityOnOtherCell.entityOnOtherCell@@";
+	d2rq:join "Complex.DB_ID = Complex_2_entityOnOtherCell.DB_ID";
+
+.
+### Complex ### hasComponent ###
+map:Complex_property_hasComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:hasComponent;
+	d2rq:uriPattern "@@Complex_2_hasComponent.hasComponent@@";
+	d2rq:join "Complex.DB_ID = Complex_2_hasComponent.DB_ID";
+
+.
+### Complex ### hasInstance ###
+map:Complex_property_hasInstance a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:hasInstance;
+	d2rq:uriPattern "@@Complex_2_hasInstance.hasInstance@@";
+	d2rq:join "Complex.DB_ID = Complex_2_hasInstance.DB_ID";
+
+.
+### Complex ### interactionIdentifier ###
+map:Complex_property_interactionIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:interactionIdentifier;
+	d2rq:uriPattern "@@Complex_2_interactionIdentifier.interactionIdentifier@@";
+	d2rq:join "Complex.DB_ID = Complex_2_interactionIdentifier.DB_ID";
+
+.
+### Complex ### species ###
+map:Complex_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Complex;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@Complex_2_species.species@@";
+	d2rq:join "Complex.DB_ID = Complex_2_species.DB_ID";
+
+.
+map:ConcurrentEventSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ConcurrentEventSet.DB_ID@@";
+	d2rq:class vocab:ConcurrentEventSet;
+
+.
+### ConcurrentEventSet ### concurrentEvents ###
+map:ConcurrentEventSet_property_concurrentEvents a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet;
+	d2rq:property vocab:concurrentEvents;
+	d2rq:uriPattern "@@ConcurrentEventSet_2_concurrentEvents.concurrentEvents@@";
+	d2rq:join "ConcurrentEventSet.DB_ID = ConcurrentEventSet_2_concurrentEvents.DB_ID";
+
+.
+### ConcurrentEventSet ### focusEntity ###
+map:ConcurrentEventSet_property_focusEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ConcurrentEventSet;
+	d2rq:property vocab:focusEntity;
+	d2rq:uriPattern "@@ConcurrentEventSet_2_focusEntity.focusEntity@@";
+	d2rq:join "ConcurrentEventSet.DB_ID = ConcurrentEventSet_2_focusEntity.DB_ID";
+
+.
+map:ControlledVocabulary a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ControlledVocabulary.DB_ID@@";
+	d2rq:class vocab:ControlledVocabulary;
+
+.
+map:ControlledVocabulary_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary;
+	d2rq:property vocab:definition;
+	d2rq:column "ControlledVocabulary.definition";
+
+.
+### ControlledVocabulary ### name ###
+map:ControlledVocabulary_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ControlledVocabulary;
+	d2rq:property vocab:name;
+	d2rq:column "ControlledVocabulary_2_name.name";
+	d2rq:join "ControlledVocabulary.DB_ID = ControlledVocabulary_2_name.DB_ID";
+
+.
+map:DataModel a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	# because the table doesn't have a primary key
+	d2rq:uriPattern "@@DataModel.thing@@";
+	d2rq:class vocab:DataModel;
+
+.
+map:DataModel_property_thing a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:thing;
+	d2rq:column "DataModel.thing";
+
+.
+map:DataModel_property_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:property_name;
+	d2rq:column "DataModel.property_name";
+
+.
+map:DataModel_property_property_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:property_value;
+	d2rq:column "DataModel.property_value";
+
+.
+map:DataModel_property_property_value_type a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DataModel;
+	d2rq:property vocab:property_value_type;
+	d2rq:column "DataModel.property_value_type";
+
+.
+map:DatabaseIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@DatabaseIdentifier.DB_ID@@";
+	d2rq:class vocab:DatabaseIdentifier;
+
+.
+map:DatabaseIdentifier_property_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:identifier;
+	d2rq:column "DatabaseIdentifier.identifier";
+
+.
+map:DatabaseIdentifier_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@DatabaseIdentifier.referenceDatabase@@";
+
+.
+### DatabaseIdentifier ### crossReference ###
+map:DatabaseIdentifier_property_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseIdentifier;
+	d2rq:property vocab:crossReference;
+	d2rq:uriPattern "@@DatabaseIdentifier_2_crossReference.crossReference@@";
+	d2rq:join "DatabaseIdentifier.DB_ID = DatabaseIdentifier_2_crossReference.DB_ID";
+
+.
+map:DatabaseObject a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@DatabaseObject.DB_ID@@";
+	d2rq:class vocab:DatabaseObject;
+
+.
+map:DatabaseObject_property___is_ghost a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:__is_ghost;
+	d2rq:column "DatabaseObject.__is_ghost";
+
+.
+map:DatabaseObject_property__displayName a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property rdfs:label;
+	d2rq:column "DatabaseObject._displayName";
+
+.
+map:DatabaseObject_property__timestamp a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:_timestamp;
+	d2rq:column "DatabaseObject._timestamp";
+	d2rq:datatype xsd:dateTime;
+	d2rq:condition "DatabaseObject._timestamp != '0000'";
+
+.
+map:DatabaseObject_property_created a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:created;
+	d2rq:uriPattern "@@DatabaseObject.created@@";
+
+.
+map:DatabaseObject_property_stableIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:stableIdentifier;
+	d2rq:uriPattern "@@DatabaseObject.stableIdentifier@@";
+
+.
+### DatabaseObject ### modified ###
+map:DatabaseObject_property_modified a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:DatabaseObject;
+	d2rq:property vocab:modified;
+	d2rq:uriPattern "@@DatabaseObject_2_modified.modified@@";
+	d2rq:join "DatabaseObject.DB_ID = DatabaseObject_2_modified.DB_ID";
+
+.
+map:DefinedSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@DefinedSet.DB_ID@@";
+	d2rq:class vocab:DefinedSet;
+
+.
+map:DeletedControlledVocabulary a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@DeletedControlledVocabulary.DB_ID@@";
+	d2rq:class vocab:DeletedControlledVocabulary;
+
+.
+map:Depolymerisation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Depolymerisation.DB_ID@@";
+	d2rq:class vocab:Depolymerisation;
+
+.
+map:Domain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Domain.DB_ID@@";
+	d2rq:class vocab:Domain;
+
+.
+### Domain ### name ###
+map:Domain_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Domain;
+	d2rq:property vocab:name;
+	d2rq:column "Domain_2_name.name";
+	d2rq:join "Domain.DB_ID = Domain_2_name.DB_ID";
+
+.
+map:EntityCompartment a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@EntityCompartment.DB_ID@@";
+	d2rq:class vocab:EntityCompartment;
+
+.
+map:EntitySet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@EntitySet.DB_ID@@";
+	d2rq:class vocab:EntitySet;
+
+.
+map:EntitySet_property_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:totalProt;
+	d2rq:column "EntitySet.totalProt";
+
+.
+map:EntitySet_property_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:inferredProt;
+	d2rq:column "EntitySet.inferredProt";
+
+.
+map:EntitySet_property_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:maxHomologues;
+	d2rq:column "EntitySet.maxHomologues";
+
+.
+### EntitySet ### hasMember ###
+map:EntitySet_property_hasMember a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:hasMember;
+	d2rq:uriPattern "@@EntitySet_2_hasMember.hasMember@@";
+	d2rq:join "EntitySet.DB_ID = EntitySet_2_hasMember.DB_ID";
+
+.
+### EntitySet ### species ###
+map:EntitySet_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntitySet;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@EntitySet_2_species.species@@";
+	d2rq:join "EntitySet.DB_ID = EntitySet_2_species.DB_ID";
+
+.
+map:EntityWithAccessionedSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@EntityWithAccessionedSequence.DB_ID@@";
+	d2rq:class vocab:EntityWithAccessionedSequence;
+
+.
+map:EntityWithAccessionedSequence_property_endCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:endCoordinate;
+	d2rq:column "EntityWithAccessionedSequence.endCoordinate";
+	d2rq:datatype xsd:int;
+
+.
+map:EntityWithAccessionedSequence_property_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:referenceEntity;
+	d2rq:uriPattern "@@EntityWithAccessionedSequence.referenceEntity@@";
+
+.
+map:EntityWithAccessionedSequence_property_startCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:startCoordinate;
+	d2rq:column "EntityWithAccessionedSequence.startCoordinate";
+	d2rq:datatype xsd:int;
+
+.
+### EntityWithAccessionedSequence ### hasModifiedResidue ###
+map:EntityWithAccessionedSequence_property_hasModifiedResidue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
+	d2rq:property vocab:hasModifiedResidue;
+	d2rq:uriPattern "@@EntityWithAccessionedSequence_2_hasModifiedResidue.hasModifiedResidue@@";
+	d2rq:join "EntityWithAccessionedSequence.DB_ID = EntityWithAccessionedSequence_2_hasModifiedResidue.DB_ID";
+
+.
+map:Event a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Event.DB_ID@@";
+	d2rq:class vocab:Event;
+
+.
+map:Event_property__doRelease a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:_doRelease;
+	d2rq:column "Event._doRelease";
+
+.
+map:Event_property_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:authored;
+	d2rq:uriPattern "@@Event.authored@@";
+
+.
+map:Event_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:definition;
+	d2rq:column "Event.definition";
+
+.
+map:Event_property_evidenceType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:evidenceType;
+	d2rq:uriPattern "@@Event.evidenceType@@";
+
+.
+map:Event_property_goBiologicalProcess a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:goBiologicalProcess;
+	d2rq:uriPattern "@@Event.goBiologicalProcess@@";
+
+.
+map:Event_property_releaseDate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:releaseDate;
+	d2rq:column "Event.releaseDate";
+	d2rq:datatype xsd:date;
+	d2rq:condition "Event.releaseDate != '0000'";
+
+.
+### Event ### compartment ###
+map:Event_property_compartment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:compartment;
+	d2rq:uriPattern "@@Event_2_compartment.compartment@@";
+	d2rq:join "Event.DB_ID = Event_2_compartment.DB_ID";
+
+.
+### Event ### crossReference ###
+map:Event_property_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:crossReference;
+	d2rq:uriPattern "@@Event_2_crossReference.crossReference@@";
+	d2rq:join "Event.DB_ID = Event_2_crossReference.DB_ID";
+
+.
+### Event ### edited ###
+map:Event_property_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:edited;
+	d2rq:uriPattern "@@Event_2_edited.edited@@";
+	d2rq:join "Event.DB_ID = Event_2_edited.DB_ID";
+
+.
+### Event ### figure ###
+map:Event_property_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:figure;
+	d2rq:uriPattern "@@Event_2_figure.figure@@";
+	d2rq:join "Event.DB_ID = Event_2_figure.DB_ID";
+
+.
+### Event ### inferredFrom ###
+map:Event_property_inferredFrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:inferredFrom;
+	d2rq:uriPattern "@@Event_2_inferredFrom.inferredFrom@@";
+	d2rq:join "Event.DB_ID = Event_2_inferredFrom.DB_ID";
+
+.
+### Event ### literatureReference ###
+map:Event_property_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:literatureReference;
+	d2rq:uriPattern "@@Event_2_literatureReference.literatureReference@@";
+	d2rq:join "Event.DB_ID = Event_2_literatureReference.DB_ID";
+
+.
+### Event ### name ###
+map:Event_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:name;
+	d2rq:column "Event_2_name.name";
+	d2rq:join "Event.DB_ID = Event_2_name.DB_ID";
+
+.
+### Event ### orthologousEvent ###
+map:Event_property_orthologousEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:orthologousEvent;
+	d2rq:uriPattern "@@Event_2_orthologousEvent.orthologousEvent@@";
+	d2rq:join "Event.DB_ID = Event_2_orthologousEvent.DB_ID";
+
+.
+### Event ### precedingEvent ###
+map:Event_property_precedingEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:precedingEvent;
+	d2rq:uriPattern "@@Event_2_precedingEvent.precedingEvent@@";
+	d2rq:join "Event.DB_ID = Event_2_precedingEvent.DB_ID";
+
+.
+### Event ### reviewed ###
+map:Event_property_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:reviewed;
+	d2rq:uriPattern "@@Event_2_reviewed.reviewed@@";
+	d2rq:join "Event.DB_ID = Event_2_reviewed.DB_ID";
+
+.
+### Event ### revised ###
+map:Event_property_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:revised;
+	d2rq:uriPattern "@@Event_2_revised.revised@@";
+	d2rq:join "Event.DB_ID = Event_2_revised.DB_ID";
+
+.
+### Event ### species ###
+map:Event_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@Event_2_species.species@@";
+	d2rq:join "Event.DB_ID = Event_2_species.DB_ID";
+
+.
+### Event ### summation ###
+map:Event_property_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Event;
+	d2rq:property vocab:summation;
+	d2rq:uriPattern "@@Event_2_summation.summation@@";
+	d2rq:join "Event.DB_ID = Event_2_summation.DB_ID";
+
+.
+map:EvidenceType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@EvidenceType.DB_ID@@";
+	d2rq:class vocab:EvidenceType;
+
+.
+map:EvidenceType_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property vocab:definition;
+	d2rq:column "EvidenceType.definition";
+
+.
+### EvidenceType ### instanceOf ###
+map:EvidenceType_property_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property vocab:instanceOf;
+	d2rq:uriPattern "@@EvidenceType_2_instanceOf.instanceOf@@";
+	d2rq:join "EvidenceType.DB_ID = EvidenceType_2_instanceOf.DB_ID";
+
+.
+### EvidenceType ### name ###
+map:EvidenceType_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:EvidenceType;
+	d2rq:property vocab:name;
+	d2rq:column "EvidenceType_2_name.name";
+	d2rq:join "EvidenceType.DB_ID = EvidenceType_2_name.DB_ID";
+
+.
+map:Figure a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Figure.DB_ID@@";
+	d2rq:class vocab:Figure;
+
+.
+map:Figure_property_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Figure;
+	d2rq:property vocab:url;
+	d2rq:column "Figure.url";
+
+.
+map:FrontPage a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@FrontPage.DB_ID@@";
+	d2rq:class vocab:FrontPage;
+
+.
+### FrontPage ### frontPageItem ###
+map:FrontPage_property_frontPageItem a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:FrontPage;
+	d2rq:property vocab:frontPageItem;
+	d2rq:uriPattern "@@FrontPage_2_frontPageItem.frontPageItem@@";
+	d2rq:join "FrontPage.DB_ID = FrontPage_2_frontPageItem.DB_ID";
+
+.
+map:GO_BiologicalProcess a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@GO_BiologicalProcess.DB_ID@@";
+	d2rq:class vocab:GO_BiologicalProcess;
+
+.
+map:GO_BiologicalProcess_property_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:accession;
+	d2rq:column "GO_BiologicalProcess.accession";
+
+.
+map:GO_BiologicalProcess_property_uri a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:uri;
+	d2rq:uriPattern "http://purl.org/obo/owl/GO#GO_@@GO_BiologicalProcess.accession@@";
+.
+map:GO_BiologicalProcess_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:definition;
+	d2rq:column "GO_BiologicalProcess.definition";
+
+.
+map:GO_BiologicalProcess_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@GO_BiologicalProcess.referenceDatabase@@";
+
+.
+### GO_BiologicalProcess ### componentOf ###
+map:GO_BiologicalProcess_property_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:componentOf;
+	d2rq:uriPattern "@@GO_BiologicalProcess_2_componentOf.componentOf@@";
+	d2rq:join "GO_BiologicalProcess.DB_ID = GO_BiologicalProcess_2_componentOf.DB_ID";
+
+.
+### GO_BiologicalProcess ### instanceOf ###
+map:GO_BiologicalProcess_property_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:instanceOf;
+	d2rq:uriPattern "@@GO_BiologicalProcess_2_instanceOf.instanceOf@@";
+	d2rq:join "GO_BiologicalProcess.DB_ID = GO_BiologicalProcess_2_instanceOf.DB_ID";
+
+.
+### GO_BiologicalProcess ### name ###
+map:GO_BiologicalProcess_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_BiologicalProcess;
+	d2rq:property vocab:name;
+	d2rq:column "GO_BiologicalProcess_2_name.name";
+	d2rq:join "GO_BiologicalProcess.DB_ID = GO_BiologicalProcess_2_name.DB_ID";
+
+.
+map:GO_CellularComponent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@GO_CellularComponent.DB_ID@@";
+	d2rq:class vocab:GO_CellularComponent;
+
+.
+map:GO_CellularComponent_property_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:accession;
+	d2rq:column "GO_CellularComponent.accession";
+
+.
+map:GO_CellularComponent_property_uri a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:uri;
+	d2rq:uriPattern "http://purl.org/obo/owl/GO#GO_@@GO_CellularComponent.accession@@";
+.
+map:GO_CellularComponent_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:definition;
+	d2rq:column "GO_CellularComponent.definition";
+
+.
+map:GO_CellularComponent_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@GO_CellularComponent.referenceDatabase@@";
+
+.
+### GO_CellularComponent ### componentOf ###
+map:GO_CellularComponent_property_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:componentOf;
+	d2rq:uriPattern "@@GO_CellularComponent_2_componentOf.componentOf@@";
+	d2rq:join "GO_CellularComponent.DB_ID = GO_CellularComponent_2_componentOf.DB_ID";
+
+.
+### GO_CellularComponent ### instanceOf ###
+map:GO_CellularComponent_property_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:instanceOf;
+	d2rq:uriPattern "@@GO_CellularComponent_2_instanceOf.instanceOf@@";
+	d2rq:join "GO_CellularComponent.DB_ID = GO_CellularComponent_2_instanceOf.DB_ID";
+
+.
+### GO_CellularComponent ### name ###
+map:GO_CellularComponent_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_CellularComponent;
+	d2rq:property vocab:name;
+	d2rq:column "GO_CellularComponent_2_name.name";
+	d2rq:join "GO_CellularComponent.DB_ID = GO_CellularComponent_2_name.DB_ID";
+
+.
+map:GO_MolecularFunction a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@GO_MolecularFunction.DB_ID@@";
+	d2rq:class vocab:GO_MolecularFunction;
+
+.
+map:GO_MolecularFunction_property_accession a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:accession;
+	d2rq:column "GO_MolecularFunction.accession";
+
+.
+map:GO_MolecularFunction_property_uri a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:uri;
+	d2rq:uriPattern "http://purl.org/obo/owl/GO#GO_@@GO_MolecularFunction.accession@@";
+.
+map:GO_MolecularFunction_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:definition;
+	d2rq:column "GO_MolecularFunction.definition";
+
+.
+map:GO_MolecularFunction_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@GO_MolecularFunction.referenceDatabase@@";
+
+.
+### GO_MolecularFunction ### componentOf ###
+map:GO_MolecularFunction_property_componentOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:componentOf;
+	d2rq:uriPattern "@@GO_MolecularFunction_2_componentOf.componentOf@@";
+	d2rq:join "GO_MolecularFunction.DB_ID = GO_MolecularFunction_2_componentOf.DB_ID";
+
+.
+### GO_MolecularFunction ### ecNumber ###
+map:GO_MolecularFunction_property_ecNumber a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:ecNumber;
+	d2rq:column "GO_MolecularFunction_2_ecNumber.ecNumber";
+	d2rq:join "GO_MolecularFunction.DB_ID = GO_MolecularFunction_2_ecNumber.DB_ID";
+
+.
+### GO_MolecularFunction ### instanceOf ###
+map:GO_MolecularFunction_property_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:instanceOf;
+	d2rq:uriPattern "@@GO_MolecularFunction_2_instanceOf.instanceOf@@";
+	d2rq:join "GO_MolecularFunction.DB_ID = GO_MolecularFunction_2_instanceOf.DB_ID";
+
+.
+### GO_MolecularFunction ### name ###
+map:GO_MolecularFunction_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GO_MolecularFunction;
+	d2rq:property vocab:name;
+	d2rq:column "GO_MolecularFunction_2_name.name";
+	d2rq:join "GO_MolecularFunction.DB_ID = GO_MolecularFunction_2_name.DB_ID";
+
+.
+map:GenericDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@GenericDomain.DB_ID@@";
+	d2rq:class vocab:GenericDomain;
+
+.
+### GenericDomain ### hasInstance ###
+map:GenericDomain_property_hasInstance a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenericDomain;
+	d2rq:property vocab:hasInstance;
+	d2rq:uriPattern "@@GenericDomain_2_hasInstance.hasInstance@@";
+	d2rq:join "GenericDomain.DB_ID = GenericDomain_2_hasInstance.DB_ID";
+
+.
+map:GenomeEncodedEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@GenomeEncodedEntity.DB_ID@@";
+	d2rq:class vocab:GenomeEncodedEntity;
+
+.
+map:GenomeEncodedEntity_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:GenomeEncodedEntity;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@GenomeEncodedEntity.species@@";
+
+.
+map:InstanceEdit a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@InstanceEdit.DB_ID@@";
+	d2rq:class vocab:InstanceEdit;
+
+.
+map:InstanceEdit_property__applyToAllEditedInstances a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:_applyToAllEditedInstances;
+	d2rq:column "InstanceEdit._applyToAllEditedInstances";
+
+.
+map:InstanceEdit_property_dateTime a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:dateTime;
+	d2rq:column "InstanceEdit.dateTime";
+	d2rq:datatype xsd:dateTime;
+	d2rq:condition "InstanceEdit.dateTime != '0000'";
+
+.
+map:InstanceEdit_property_note a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:note;
+	d2rq:column "InstanceEdit.note";
+
+.
+### InstanceEdit ### author ###
+map:InstanceEdit_property_author a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:InstanceEdit;
+	d2rq:property vocab:author;
+	d2rq:uriPattern "@@InstanceEdit_2_author.author@@";
+	d2rq:join "InstanceEdit.DB_ID = InstanceEdit_2_author.DB_ID";
+
+.
+map:LiteratureReference a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@LiteratureReference.DB_ID@@";
+	d2rq:class vocab:LiteratureReference;
+
+.
+map:LiteratureReference_property_journal a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:journal;
+	d2rq:column "LiteratureReference.journal";
+
+.
+map:LiteratureReference_property_pages a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:pages;
+	d2rq:column "LiteratureReference.pages";
+
+.
+map:LiteratureReference_property_pubMedIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:pubMedIdentifier;
+	d2rq:column "LiteratureReference.pubMedIdentifier";
+	d2rq:datatype xsd:int;
+
+.
+map:LiteratureReference_property_title a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:title;
+	d2rq:column "LiteratureReference.title";
+
+.
+map:LiteratureReference_property_volume a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:volume;
+	d2rq:column "LiteratureReference.volume";
+	d2rq:datatype xsd:int;
+
+.
+map:LiteratureReference_property_year a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:year;
+	d2rq:column "LiteratureReference.year";
+	d2rq:datatype xsd:int;
+
+.
+### LiteratureReference ### author ###
+map:LiteratureReference_property_author a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:LiteratureReference;
+	d2rq:property vocab:author;
+	d2rq:uriPattern "@@LiteratureReference_2_author.author@@";
+	d2rq:join "LiteratureReference.DB_ID = LiteratureReference_2_author.DB_ID";
+
+.
+map:ModifiedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ModifiedResidue.DB_ID@@";
+	d2rq:class vocab:ModifiedResidue;
+
+.
+map:ModifiedResidue_property_coordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property vocab:coordinate;
+	d2rq:column "ModifiedResidue.coordinate";
+	d2rq:datatype xsd:int;
+
+.
+map:ModifiedResidue_property_modification a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property vocab:modification;
+	d2rq:column "ModifiedResidue.modification";
+	d2rq:datatype xsd:int;
+
+.
+map:ModifiedResidue_property_referenceSequence a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property vocab:referenceSequence;
+	d2rq:uriPattern "@@ModifiedResidue.referenceSequence@@";
+
+.
+map:ModifiedResidue_property_residue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ModifiedResidue;
+	d2rq:property vocab:residue;
+	d2rq:column "ModifiedResidue.residue";
+	d2rq:datatype xsd:int;
+
+.
+map:NegativeRegulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@NegativeRegulation.DB_ID@@";
+	d2rq:class vocab:NegativeRegulation;
+
+.
+map:Ontology a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	# Sorry, I don't know which columns to put into the uriPattern
+	# because the table doesn't have a primary key
+	d2rq:uriPattern "Ontology";
+	d2rq:class vocab:Ontology;
+
+.
+map:Ontology_property_ontology a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Ontology;
+	d2rq:property vocab:ontology;
+	d2rq:column "Ontology.ontology";
+
+.
+map:OpenSet a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@OpenSet.DB_ID@@";
+	d2rq:class vocab:OpenSet;
+
+.
+map:OpenSet_property_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:OpenSet;
+	d2rq:property vocab:referenceEntity;
+	d2rq:uriPattern "@@OpenSet.referenceEntity@@";
+
+.
+map:OtherEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@OtherEntity.DB_ID@@";
+	d2rq:class vocab:OtherEntity;
+
+.
+map:Parameters a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Parameters.parameter|urlify@@";
+	d2rq:class vocab:Parameters;
+
+.
+map:Parameters_property_parameter a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Parameters;
+	d2rq:property vocab:parameter;
+	d2rq:column "Parameters.parameter";
+
+.
+map:Parameters_property_value a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Parameters;
+	d2rq:property vocab:value;
+	d2rq:column "Parameters.value";
+
+.
+map:Pathway a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Pathway.DB_ID@@";
+	d2rq:class vocab:Pathway;
+
+.
+map:PathwayCoordinates a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@PathwayCoordinates.DB_ID@@";
+	d2rq:class vocab:PathwayCoordinates;
+
+.
+map:PathwayCoordinates_property_locatedEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:locatedEvent;
+	d2rq:column "PathwayCoordinates.locatedEvent";
+	d2rq:datatype xsd:int;
+
+.
+map:PathwayCoordinates_property_maxX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:maxX;
+	d2rq:column "PathwayCoordinates.maxX";
+	d2rq:datatype xsd:int;
+
+.
+map:PathwayCoordinates_property_maxY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:maxY;
+	d2rq:column "PathwayCoordinates.maxY";
+	d2rq:datatype xsd:int;
+
+.
+map:PathwayCoordinates_property_minX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:minX;
+	d2rq:column "PathwayCoordinates.minX";
+	d2rq:datatype xsd:int;
+
+.
+map:PathwayCoordinates_property_minY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PathwayCoordinates;
+	d2rq:property vocab:minY;
+	d2rq:column "PathwayCoordinates.minY";
+	d2rq:datatype xsd:int;
+
+.
+### Pathway ### hasEvent ###
+map:Pathway_property_hasEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Pathway;
+	d2rq:property vocab:hasEvent;
+	d2rq:uriPattern "@@Pathway_2_hasEvent.hasEvent@@";
+	d2rq:join "Pathway.DB_ID = Pathway_2_hasEvent.DB_ID";
+
+.
+map:Person a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Person.DB_ID@@";
+	d2rq:class vocab:Person;
+
+.
+map:Person_property_eMailAddress a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:eMailAddress;
+	d2rq:column "Person.eMailAddress";
+
+.
+map:Person_property_firstname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:firstname;
+	d2rq:column "Person.firstname";
+
+.
+map:Person_property_initial a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:initial;
+	d2rq:column "Person.initial";
+
+.
+map:Person_property_project a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:project;
+	d2rq:column "Person.project";
+
+.
+map:Person_property_surname a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:surname;
+	d2rq:column "Person.surname";
+
+.
+### Person ### affiliation ###
+map:Person_property_affiliation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:affiliation;
+	d2rq:uriPattern "@@Person_2_affiliation.affiliation@@";
+	d2rq:join "Person.DB_ID = Person_2_affiliation.DB_ID";
+
+.
+### Person ### figure ###
+map:Person_property_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Person;
+	d2rq:property vocab:figure;
+	d2rq:uriPattern "@@Person_2_figure.figure@@";
+	d2rq:join "Person.DB_ID = Person_2_figure.DB_ID";
+
+.
+map:PhysicalEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@PhysicalEntity.DB_ID@@";
+	d2rq:class vocab:PhysicalEntity;
+
+.
+map:PhysicalEntity_property_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:authored;
+	d2rq:uriPattern "@@PhysicalEntity.authored@@";
+
+.
+map:PhysicalEntity_property_definition a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:definition;
+	d2rq:column "PhysicalEntity.definition";
+
+.
+map:PhysicalEntity_property_goCellularComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:goCellularComponent;
+	d2rq:uriPattern "@@PhysicalEntity.goCellularComponent@@";
+
+.
+### PhysicalEntity ### compartment ###
+map:PhysicalEntity_property_compartment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:compartment;
+	d2rq:uriPattern "@@PhysicalEntity_2_compartment.compartment@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_compartment.DB_ID";
+
+.
+### PhysicalEntity ### crossReference ###
+map:PhysicalEntity_property_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:crossReference;
+	d2rq:uriPattern "@@PhysicalEntity_2_crossReference.crossReference@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_crossReference.DB_ID";
+
+.
+### PhysicalEntity ### edited ###
+map:PhysicalEntity_property_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:edited;
+	d2rq:uriPattern "@@PhysicalEntity_2_edited.edited@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_edited.DB_ID";
+
+.
+### PhysicalEntity ### figure ###
+map:PhysicalEntity_property_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:figure;
+	d2rq:uriPattern "@@PhysicalEntity_2_figure.figure@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_figure.DB_ID";
+
+.
+### PhysicalEntity ### hasDomain ###
+map:PhysicalEntity_property_hasDomain a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:hasDomain;
+	d2rq:uriPattern "@@PhysicalEntity_2_hasDomain.hasDomain@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_hasDomain.DB_ID";
+
+.
+### PhysicalEntity ### inferredFrom ###
+map:PhysicalEntity_property_inferredFrom a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:inferredFrom;
+	d2rq:uriPattern "@@PhysicalEntity_2_inferredFrom.inferredFrom@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_inferredFrom.DB_ID";
+
+.
+### PhysicalEntity ### literatureReference ###
+map:PhysicalEntity_property_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:literatureReference;
+	d2rq:uriPattern "@@PhysicalEntity_2_literatureReference.literatureReference@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_literatureReference.DB_ID";
+
+.
+### PhysicalEntity ### name ###
+map:PhysicalEntity_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:name;
+	d2rq:column "PhysicalEntity_2_name.name";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_name.DB_ID";
+
+.
+### PhysicalEntity ### reviewed ###
+map:PhysicalEntity_property_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:reviewed;
+	d2rq:uriPattern "@@PhysicalEntity_2_reviewed.reviewed@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_reviewed.DB_ID";
+
+.
+### PhysicalEntity ### revised ###
+map:PhysicalEntity_property_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:revised;
+	d2rq:uriPattern "@@PhysicalEntity_2_revised.revised@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_revised.DB_ID";
+
+.
+### PhysicalEntity ### summation ###
+map:PhysicalEntity_property_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:PhysicalEntity;
+	d2rq:property vocab:summation;
+	d2rq:uriPattern "@@PhysicalEntity_2_summation.summation@@";
+	d2rq:join "PhysicalEntity.DB_ID = PhysicalEntity_2_summation.DB_ID";
+
+.
+map:Polymer a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Polymer.DB_ID@@";
+	d2rq:class vocab:Polymer;
+
+.
+map:Polymer_property_maxUnitCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:maxUnitCount;
+	d2rq:column "Polymer.maxUnitCount";
+	d2rq:datatype xsd:int;
+
+.
+map:Polymer_property_minUnitCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:minUnitCount;
+	d2rq:column "Polymer.minUnitCount";
+	d2rq:datatype xsd:int;
+
+.
+map:Polymer_property_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:totalProt;
+	d2rq:column "Polymer.totalProt";
+
+.
+map:Polymer_property_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:maxHomologues;
+	d2rq:column "Polymer.maxHomologues";
+
+.
+map:Polymer_property_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:inferredProt;
+	d2rq:column "Polymer.inferredProt";
+
+.
+### Polymer ### repeatedUnit ###
+map:Polymer_property_repeatedUnit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:repeatedUnit;
+	d2rq:uriPattern "@@Polymer_2_repeatedUnit.repeatedUnit@@";
+	d2rq:join "Polymer.DB_ID = Polymer_2_repeatedUnit.DB_ID";
+
+.
+### Polymer ### species ###
+map:Polymer_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Polymer;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@Polymer_2_species.species@@";
+	d2rq:join "Polymer.DB_ID = Polymer_2_species.DB_ID";
+
+.
+map:Polymerisation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Polymerisation.DB_ID@@";
+	d2rq:class vocab:Polymerisation;
+
+.
+map:PositiveRegulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@PositiveRegulation.DB_ID@@";
+	d2rq:class vocab:PositiveRegulation;
+
+.
+map:Reaction a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Reaction.DB_ID@@";
+	d2rq:class vocab:Reaction;
+
+.
+map:Reaction_property_reverseReaction a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:reverseReaction;
+	d2rq:column "Reaction.reverseReaction";
+	d2rq:datatype xsd:int;
+
+.
+map:Reaction_property_totalProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:totalProt;
+	d2rq:column "Reaction.totalProt";
+
+.
+map:Reaction_property_maxHomologues a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:maxHomologues;
+	d2rq:column "Reaction.maxHomologues";
+
+.
+map:Reaction_property_inferredProt a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Reaction;
+	d2rq:property vocab:inferredProt;
+	d2rq:column "Reaction.inferredProt";
+
+.
+map:ReactionCoordinates a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReactionCoordinates.DB_ID@@";
+	d2rq:class vocab:ReactionCoordinates;
+
+.
+map:ReactionCoordinates_property_locatedEvent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:locatedEvent;
+	d2rq:column "ReactionCoordinates.locatedEvent";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionCoordinates_property_locationContext a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:locationContext;
+	d2rq:column "ReactionCoordinates.locationContext";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionCoordinates_property_sourceX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:sourceX;
+	d2rq:column "ReactionCoordinates.sourceX";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionCoordinates_property_sourceY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:sourceY;
+	d2rq:column "ReactionCoordinates.sourceY";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionCoordinates_property_targetX a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:targetX;
+	d2rq:column "ReactionCoordinates.targetX";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionCoordinates_property_targetY a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionCoordinates;
+	d2rq:property vocab:targetY;
+	d2rq:column "ReactionCoordinates.targetY";
+	d2rq:datatype xsd:int;
+
+.
+map:ReactionlikeEvent a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReactionlikeEvent.DB_ID@@";
+	d2rq:class vocab:ReactionlikeEvent;
+
+.
+### ReactionlikeEvent ### catalystActivity ###
+map:ReactionlikeEvent_property_catalystActivity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:catalystActivity;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_catalystActivity.catalystActivity@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_catalystActivity.DB_ID";
+
+.
+### ReactionlikeEvent ### entityOnOtherCell ###
+map:ReactionlikeEvent_property_entityOnOtherCell a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:entityOnOtherCell;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_entityOnOtherCell.entityOnOtherCell@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_entityOnOtherCell.DB_ID";
+
+.
+### ReactionlikeEvent ### hasMember ###
+map:ReactionlikeEvent_property_hasMember a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:hasMember;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_hasMember.hasMember@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_hasMember.DB_ID";
+
+.
+### ReactionlikeEvent ### input ###
+map:ReactionlikeEvent_property_input a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:input;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_input.input@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_input.DB_ID";
+
+.
+### ReactionlikeEvent ### output ###
+map:ReactionlikeEvent_property_output a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:output;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_output.output@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_output.DB_ID";
+
+.
+### ReactionlikeEvent ### requiredInputComponent ###
+map:ReactionlikeEvent_property_requiredInputComponent a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReactionlikeEvent;
+	d2rq:property vocab:requiredInputComponent;
+	d2rq:uriPattern "@@ReactionlikeEvent_2_requiredInputComponent.requiredInputComponent@@";
+	d2rq:join "ReactionlikeEvent.DB_ID = ReactionlikeEvent_2_requiredInputComponent.DB_ID";
+
+.
+map:ReferenceDNASequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceDNASequence.DB_ID@@";
+	d2rq:class vocab:ReferenceDNASequence;
+
+.
+map:ReferenceDatabase a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceDatabase.DB_ID@@";
+	d2rq:class vocab:ReferenceDatabase;
+
+.
+map:ReferenceDatabase_property_accessUrl a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:accessUrl;
+	d2rq:column "ReferenceDatabase.accessUrl";
+
+.
+map:ReferenceDatabase_property_url a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:url;
+	d2rq:column "ReferenceDatabase.url";
+
+.
+### ReferenceDatabase ### name ###
+map:ReferenceDatabase_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceDatabase;
+	d2rq:property vocab:name;
+	d2rq:column "ReferenceDatabase_2_name.name";
+	d2rq:join "ReferenceDatabase.DB_ID = ReferenceDatabase_2_name.DB_ID";
+
+.
+map:ReferenceEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceEntity.DB_ID@@";
+	d2rq:class vocab:ReferenceEntity;
+
+.
+map:ReferenceEntity_property_atomicConnectivity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:atomicConnectivity;
+	d2rq:column "ReferenceEntity.atomicConnectivity";
+
+.
+map:ReferenceEntity_property_fingerPrintString a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:fingerPrintString;
+	d2rq:column "ReferenceEntity.fingerPrintString";
+
+.
+map:ReferenceEntity_property_formula a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:formula;
+	d2rq:column "ReferenceEntity.formula";
+
+.
+map:ReferenceEntity_property_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:identifier;
+	d2rq:column "ReferenceEntity.identifier";
+
+.
+map:ReferenceEntity_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@ReferenceEntity.referenceDatabase@@";
+
+.
+### ReferenceEntity ### crossReference ###
+map:ReferenceEntity_property_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:crossReference;
+	d2rq:uriPattern "@@ReferenceEntity_2_crossReference.crossReference@@";
+	d2rq:join "ReferenceEntity.DB_ID = ReferenceEntity_2_crossReference.DB_ID";
+
+.
+### ReferenceEntity ### name ###
+map:ReferenceEntity_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:name;
+	d2rq:column "ReferenceEntity_2_name.name";
+	d2rq:join "ReferenceEntity.DB_ID = ReferenceEntity_2_name.DB_ID";
+
+.
+### ReferenceEntity ### otherIdentifier ###
+map:ReferenceEntity_property_otherIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:otherIdentifier;
+	d2rq:column "ReferenceEntity_2_otherIdentifier.otherIdentifier";
+	d2rq:join "ReferenceEntity.DB_ID = ReferenceEntity_2_otherIdentifier.DB_ID";
+
+.
+### ReferenceEntity ### referenceGroupCount ###
+map:ReferenceEntity_property_referenceGroupCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceEntity;
+	d2rq:property vocab:referenceGroupCount;
+	d2rq:uriPattern "@@ReferenceEntity_2_referenceGroupCount.referenceGroupCount@@";
+	d2rq:join "ReferenceEntity.DB_ID = ReferenceEntity_2_referenceGroupCount.DB_ID";
+
+.
+map:ReferenceGroup a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceGroup.DB_ID@@";
+	d2rq:class vocab:ReferenceGroup;
+
+.
+map:ReferenceGroupCount a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceGroupCount.DB_ID@@";
+	d2rq:class vocab:ReferenceGroupCount;
+
+.
+map:ReferenceGroupCount_property_maxCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroupCount;
+	d2rq:property vocab:maxCount;
+	d2rq:column "ReferenceGroupCount.maxCount";
+	d2rq:datatype xsd:int;
+
+.
+map:ReferenceGroupCount_property_minCount a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroupCount;
+	d2rq:property vocab:minCount;
+	d2rq:column "ReferenceGroupCount.minCount";
+	d2rq:datatype xsd:int;
+
+.
+map:ReferenceGroupCount_property_referenceGroup a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceGroupCount;
+	d2rq:property vocab:referenceGroup;
+	d2rq:uriPattern "@@ReferenceGroupCount.referenceGroup@@";
+
+.
+map:ReferenceMolecule a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceMolecule.DB_ID@@";
+	d2rq:class vocab:ReferenceMolecule;
+
+.
+map:ReferenceMoleculeClass a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceMoleculeClass.DB_ID@@";
+	d2rq:class vocab:ReferenceMoleculeClass;
+
+.
+map:ReferencePeptideSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferencePeptideSequence.DB_ID@@";
+	d2rq:class vocab:ReferencePeptideSequence;
+
+.
+map:ReferencePeptideSequence_property_variantIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferencePeptideSequence;
+	d2rq:property vocab:variantIdentifier;
+	d2rq:column "ReferencePeptideSequence.variantIdentifier";
+
+.
+### ReferencePeptideSequence ### referenceGene ###
+map:ReferencePeptideSequence_property_referenceGene a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferencePeptideSequence;
+	d2rq:property vocab:referenceGene;
+	d2rq:uriPattern "@@ReferencePeptideSequence_2_referenceGene.referenceGene@@";
+	d2rq:join "ReferencePeptideSequence.DB_ID = ReferencePeptideSequence_2_referenceGene.DB_ID";
+
+.
+### ReferencePeptideSequence ### referenceTranscript ###
+map:ReferencePeptideSequence_property_referenceTranscript a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferencePeptideSequence;
+	d2rq:property vocab:referenceTranscript;
+	d2rq:uriPattern "@@ReferencePeptideSequence_2_referenceTranscript.referenceTranscript@@";
+	d2rq:join "ReferencePeptideSequence.DB_ID = ReferencePeptideSequence_2_referenceTranscript.DB_ID";
+
+.
+map:ReferenceRNASequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceRNASequence.DB_ID@@";
+	d2rq:class vocab:ReferenceRNASequence;
+
+.
+### ReferenceRNASequence ### referenceGene ###
+map:ReferenceRNASequence_property_referenceGene a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceRNASequence;
+	d2rq:property vocab:referenceGene;
+	d2rq:uriPattern "@@ReferenceRNASequence_2_referenceGene.referenceGene@@";
+	d2rq:join "ReferenceRNASequence.DB_ID = ReferenceRNASequence_2_referenceGene.DB_ID";
+
+.
+map:ReferenceSequence a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReferenceSequence.DB_ID@@";
+	d2rq:class vocab:ReferenceSequence;
+
+.
+map:ReferenceSequence_property_sequenceLength a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:sequenceLength;
+	d2rq:column "ReferenceSequence.sequenceLength";
+	d2rq:datatype xsd:int;
+
+.
+map:ReferenceSequence_property_species a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:species;
+	d2rq:uriPattern "@@ReferenceSequence.species@@";
+
+.
+### ReferenceSequence ### comment ###
+map:ReferenceSequence_property_comment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:comment;
+	d2rq:column "ReferenceSequence_2_comment.comment";
+	d2rq:join "ReferenceSequence.DB_ID = ReferenceSequence_2_comment.DB_ID";
+
+.
+### ReferenceSequence ### description ###
+map:ReferenceSequence_property_description a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:description;
+	d2rq:column "ReferenceSequence_2_description.description";
+	d2rq:join "ReferenceSequence.DB_ID = ReferenceSequence_2_description.DB_ID";
+
+.
+### ReferenceSequence ### geneName ###
+map:ReferenceSequence_property_geneName a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:geneName;
+	d2rq:column "ReferenceSequence_2_geneName.geneName";
+	d2rq:join "ReferenceSequence.DB_ID = ReferenceSequence_2_geneName.DB_ID";
+
+.
+### ReferenceSequence ### keyword ###
+map:ReferenceSequence_property_keyword a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:keyword;
+	d2rq:column "ReferenceSequence_2_keyword.keyword";
+	d2rq:join "ReferenceSequence.DB_ID = ReferenceSequence_2_keyword.DB_ID";
+
+.
+### ReferenceSequence ### secondaryIdentifier ###
+map:ReferenceSequence_property_secondaryIdentifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:ReferenceSequence;
+	d2rq:property vocab:secondaryIdentifier;
+	d2rq:column "ReferenceSequence_2_secondaryIdentifier.secondaryIdentifier";
+	d2rq:join "ReferenceSequence.DB_ID = ReferenceSequence_2_secondaryIdentifier.DB_ID";
+
+.
+map:Regulation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Regulation.DB_ID@@";
+	d2rq:class vocab:Regulation;
+
+.
+map:Regulation_property_authored a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:authored;
+	d2rq:uriPattern "@@Regulation.authored@@";
+
+.
+map:Regulation_property_regulatedEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:regulatedEntity;
+	d2rq:column "Regulation.regulatedEntity";
+	d2rq:datatype xsd:int;
+
+.
+map:Regulation_property_regulationType a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:regulationType;
+	d2rq:uriPattern "@@Regulation.regulationType@@";
+
+.
+map:Regulation_property_regulator a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:regulator;
+	d2rq:column "Regulation.regulator";
+	d2rq:datatype xsd:int;
+
+.
+map:Regulation_property_releaseDate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:releaseDate;
+	d2rq:column "Regulation.releaseDate";
+	d2rq:datatype xsd:date;
+	d2rq:condition "Regulation.releaseDate != '0000'";
+
+.
+map:RegulationType a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@RegulationType.DB_ID@@";
+	d2rq:class vocab:RegulationType;
+
+.
+### RegulationType ### instanceOf ###
+map:RegulationType_property_instanceOf a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType;
+	d2rq:property vocab:instanceOf;
+	d2rq:uriPattern "@@RegulationType_2_instanceOf.instanceOf@@";
+	d2rq:join "RegulationType.DB_ID = RegulationType_2_instanceOf.DB_ID";
+
+.
+### RegulationType ### name ###
+map:RegulationType_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:RegulationType;
+	d2rq:property vocab:name;
+	d2rq:column "RegulationType_2_name.name";
+	d2rq:join "RegulationType.DB_ID = RegulationType_2_name.DB_ID";
+
+.
+### Regulation ### edited ###
+map:Regulation_property_edited a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:edited;
+	d2rq:uriPattern "@@Regulation_2_edited.edited@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_edited.DB_ID";
+
+.
+### Regulation ### figure ###
+map:Regulation_property_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:figure;
+	d2rq:uriPattern "@@Regulation_2_figure.figure@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_figure.DB_ID";
+
+.
+### Regulation ### literatureReference ###
+map:Regulation_property_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:literatureReference;
+	d2rq:uriPattern "@@Regulation_2_literatureReference.literatureReference@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_literatureReference.DB_ID";
+
+.
+### Regulation ### name ###
+map:Regulation_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:name;
+	d2rq:column "Regulation_2_name.name";
+	d2rq:join "Regulation.DB_ID = Regulation_2_name.DB_ID";
+
+.
+### Regulation ### reviewed ###
+map:Regulation_property_reviewed a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:reviewed;
+	d2rq:uriPattern "@@Regulation_2_reviewed.reviewed@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_reviewed.DB_ID";
+
+.
+### Regulation ### revised ###
+map:Regulation_property_revised a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:revised;
+	d2rq:uriPattern "@@Regulation_2_revised.revised@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_revised.DB_ID";
+
+.
+### Regulation ### summation ###
+map:Regulation_property_summation a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Regulation;
+	d2rq:property vocab:summation;
+	d2rq:uriPattern "@@Regulation_2_summation.summation@@";
+	d2rq:join "Regulation.DB_ID = Regulation_2_summation.DB_ID";
+
+.
+map:ReplacedResidue a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@ReplacedResidue.DB_ID@@";
+	d2rq:class vocab:ReplacedResidue;
+
+.
+map:Requirement a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Requirement.DB_ID@@";
+	d2rq:class vocab:Requirement;
+
+.
+map:SequenceDomain a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@SequenceDomain.DB_ID@@";
+	d2rq:class vocab:SequenceDomain;
+
+.
+map:SequenceDomain_property_endCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:endCoordinate;
+	d2rq:column "SequenceDomain.endCoordinate";
+	d2rq:datatype xsd:int;
+
+.
+map:SequenceDomain_property_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:referenceEntity;
+	d2rq:uriPattern "@@SequenceDomain.referenceEntity@@";
+
+.
+map:SequenceDomain_property_startCoordinate a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SequenceDomain;
+	d2rq:property vocab:startCoordinate;
+	d2rq:column "SequenceDomain.startCoordinate";
+	d2rq:datatype xsd:int;
+
+.
+map:SimpleEntity a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@SimpleEntity.DB_ID@@";
+	d2rq:class vocab:SimpleEntity;
+
+.
+### SimpleEntity ### referenceEntity ###
+map:SimpleEntity_property_referenceEntity a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:SimpleEntity;
+	d2rq:property vocab:referenceEntity;
+	d2rq:uriPattern "@@SimpleEntity_2_referenceEntity.referenceEntity@@";
+	d2rq:join "SimpleEntity.DB_ID = SimpleEntity_2_referenceEntity.DB_ID";
+
+.
+map:Species a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Species.DB_ID@@";
+	d2rq:class vocab:Species;
+
+.
+### Species ### figure ###
+map:Species_property_figure a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Species;
+	d2rq:property vocab:figure;
+	d2rq:uriPattern "@@Species_2_figure.figure@@";
+	d2rq:join "Species.DB_ID = Species_2_figure.DB_ID";
+
+.
+map:StableIdentifier a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@StableIdentifier.DB_ID@@";
+	d2rq:class vocab:StableIdentifier;
+
+.
+map:StableIdentifier_property_identifier a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:identifier;
+	d2rq:column "StableIdentifier.identifier";
+
+.
+map:StableIdentifier_property_identifierVersion a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:identifierVersion;
+	d2rq:column "StableIdentifier.identifierVersion";
+
+.
+map:StableIdentifier_property_referenceDatabase a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:StableIdentifier;
+	d2rq:property vocab:referenceDatabase;
+	d2rq:uriPattern "@@StableIdentifier.referenceDatabase@@";
+
+.
+map:Summation a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Summation.DB_ID@@";
+	d2rq:class vocab:Summation;
+
+.
+map:Summation_property_text a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation;
+	d2rq:property vocab:text;
+	d2rq:column "Summation.text";
+
+.
+### Summation ### literatureReference ###
+map:Summation_property_literatureReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Summation;
+	d2rq:property vocab:literatureReference;
+	d2rq:uriPattern "@@Summation_2_literatureReference.literatureReference@@";
+	d2rq:join "Summation.DB_ID = Summation_2_literatureReference.DB_ID";
+
+.
+map:Taxon a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@Taxon.DB_ID@@";
+	d2rq:class vocab:Taxon;
+
+.
+map:Taxon_property_superTaxon a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:superTaxon;
+	d2rq:column "Taxon.superTaxon";
+	d2rq:datatype xsd:int;
+
+.
+### Taxon ### crossReference ###
+map:Taxon_property_crossReference a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:crossReference;
+	d2rq:uriPattern "@@Taxon_2_crossReference.crossReference@@";
+	d2rq:join "Taxon.DB_ID = Taxon_2_crossReference.DB_ID";
+
+.
+### Taxon ### name ###
+map:Taxon_property_name a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:Taxon;
+	d2rq:property vocab:name;
+	d2rq:column "Taxon_2_name.name";
+	d2rq:join "Taxon.DB_ID = Taxon_2_name.DB_ID";
+
+.
+map:_AttributeValueBeforeChange a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@_AttributeValueBeforeChange.DB_ID@@";
+	d2rq:class vocab:_AttributeValueBeforeChange;
+
+.
+map:_property_AttributeValueBeforeChange_changedAttribute a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
+	d2rq:property vocab:AttributeValueBeforeChange_changedAttribute;
+	d2rq:column "_AttributeValueBeforeChange.changedAttribute";
+
+.
+### _AttributeValueBeforeChange ### previousValue ###
+map:_AttributeValueBeforeChange_property_previousValue a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
+	d2rq:property vocab:previousValue;
+	d2rq:column "_AttributeValueBeforeChange_2_previousValue.previousValue";
+	d2rq:join "_AttributeValueBeforeChange.DB_ID = _AttributeValueBeforeChange_2_previousValue.DB_ID";
+
+.
+map:_Deleted a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@_Deleted.DB_ID@@";
+	d2rq:class vocab:_Deleted;
+
+.
+map:_property_Deleted_curatorComment a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:Deleted_curatorComment;
+	d2rq:column "_Deleted.curatorComment";
+
+.
+map:_property_Deleted_reason a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:Deleted_reason;
+	d2rq:column "_Deleted.reason";
+	d2rq:datatype xsd:int;
+
+.
+### _Deleted ### deletedInstanceDB_ID ###
+map:_Deleted_property_deletedInstanceDB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:deletedInstanceDB_ID;
+	d2rq:uriPattern "@@_Deleted_2_deletedInstanceDB_ID.deletedInstanceDB_ID@@";
+	d2rq:join "_Deleted.DB_ID = _Deleted_2_deletedInstanceDB_ID.DB_ID";
+
+.
+### _Deleted ### replacementInstances ###
+map:_Deleted_property_replacementInstances a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_Deleted;
+	d2rq:property vocab:replacementInstances;
+	d2rq:uriPattern "@@_Deleted_2_replacementInstances.replacementInstances@@";
+	d2rq:join "_Deleted.DB_ID = _Deleted_2_replacementInstances.DB_ID";
+
+.
+map:_InstanceBeforeChange a d2rq:ClassMap;
+	d2rq:dataStorage map:database;
+	d2rq:uriPattern "@@_InstanceBeforeChange.DB_ID@@";
+	d2rq:class vocab:_InstanceBeforeChange;
+
+.
+map:_property_InstanceBeforeChange_changedInstanceDB_ID a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:InstanceBeforeChange_changedInstanceDB_ID;
+	d2rq:column "_InstanceBeforeChange.changedInstanceDB_ID";
+	d2rq:datatype xsd:int;
+
+.
+map:_property_InstanceBeforeChange_instanceEdit a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:InstanceBeforeChange_instanceEdit;
+	d2rq:column "_InstanceBeforeChange.instanceEdit";
+	d2rq:datatype xsd:int;
+
+.
+### _InstanceBeforeChange ### attributeValuesBeforeChange ###
+map:_InstanceBeforeChange_property_attributeValuesBeforeChange a d2rq:PropertyBridge;
+	d2rq:belongsToClassMap map:_InstanceBeforeChange;
+	d2rq:property vocab:attributeValuesBeforeChange;
+	d2rq:uriPattern "@@_InstanceBeforeChange_2_attributeValuesBeforeChange.attributeValuesBeforeChange@@";
+	d2rq:join "_InstanceBeforeChange.DB_ID = _InstanceBeforeChange_2_attributeValuesBeforeChange.DB_ID";
+
+.

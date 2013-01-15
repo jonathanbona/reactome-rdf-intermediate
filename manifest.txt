@@ -1,0 +1,48 @@
+Release folders
+_______________
+
+A folder is created for all the files that are associated with a
+single release. At the time of writing these were:
+
+release-some-early-version - I did not record the version for this.
+release25 - Reactome release 25
+release43 - Reactome release 43
+
+Contents of a release folder
+_______________
+
+As of this writing a release folder contains: (release number 'NN')
+
+dist - files downloaded from Reactome or extracted from same
+  object-relation-map.txt - contents of http://banon.cshl.edu/object_relational_mapping.html
+  reactome-NN-schema.sql  - schema extracted from dump: wget -O - http://www.reactome.org/download/current/sql.gz | zcat | grep -v 'INSERT INTO'  
+  reactome_data_model.pins - http://www.reactome.org/download/current/reactome_data_model.pins - part of protege frames 'ontology'
+  reactome_data_model.pont - http://www.reactome.org/download/current/reactome_data_model.pont - part of protege frames 'ontology'
+  reactome_data_model.pprj - http://www.reactome.org/download/current/reactome_data_model.pprj - part of protege frames 'ontology'
+
+reactome-frames-NN.lisp - A massaged version of  reactome_data_model.pont. ";+" are removed from lines, "%3A" .-> ":" 
+				 and some macrology at the top to put the contents into a hash table by class name.
+reactomeNN-d2rq-generated-mapping.n3 - created with d2rq/generate-mapping 
+reactomeNN-properties-from-map.txt   
+  - perl ../extract-properties-mentioned-by-map.pl reactomeNN-transformed-mapping.n3 > reactomeNN-properties-from-map.lisp
+reactomeNN-transformed-mapping.n3    
+  - perl ../rewrite-reactome-default-d2rq.pl dist/reactome_data_model.pont reactomeNN-d2rq-generated-mapping.n3 > reactomeNN-transformed-mapping.n3
+reactome-records-NN.owl  - OWL version of schema creates by frames-to-owl2.lisp from reactome-frames-NN.lisp
+
+Code
+____
+
+rewrite-reactome-default-d2rq.pl - rewrites the mapping created by d2rq, removing gunk
+extract-properties-mentioned-by-map.pl - get a list of properties used according to the mapping
+frames-to-owl.lisp - convert to OWL1 using LSW1 (obsolete) 
+frames-to-owl2.lisp - convert to OWL2 using LSW2 
+shrink-reactome-ttl.sh - take the rdf dump from d2rq (17G in 43) and use prefixs to reduce, then compress it.
+virtuoso/load-reactome-into-virtuoso.sql - load the rdf into virtuoso
+
+prefixes.ttl - the prefixes used. added as the first part of the shrunk rdf.
+
+Not in repository
+_________________
+
+The reactome SQL: wget -O - http://www.reactome.org/download/current/sql.gz
+The generated RDF: output of shrink-reactome-ttl.sh

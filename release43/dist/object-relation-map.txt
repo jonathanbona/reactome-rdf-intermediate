@@ -1,0 +1,40 @@
+from http://banon.cshl.edu/object_relational_mapping.html accessed 2013-01-15 00:41:00
+
+Object/Relational mapping in Reactome
+
+The Reactome core database structure follows from the Reactome data model. We use Protege (http://protege.stanford.edu/) to define the data model i.e. classes, their hierarchy, attributes and constraints on them. The tables in the relational database are created on the basis of the data model as defined in Protege. In principle it is actually very simple.
+
+There is a table per each class and the table name is the same as the class name. This table contains columns for each *single value* attribute which has been attached to *this* class (this is important to keep in mind, if the attribute is inherited it is of course found in the table of the ancestor class).
+
+The column names are the same as attribute names. If the attribute value is of type instance there is also a column '_class' in the table which contains the class name of the instance.
+
+There is also a table per each multi-value attribute. Those table are names as '_2_'. The column naming in those tables are similar to the one described above, i.e. there is column '', if the attribute value is of type instance there is also a column '_class'. There is also a column named '_rank' which indicates the rank of the value of this attribute (starting from 0).
+
+Each table (i.e both and tables) also contains a column named 'DB_ID' which is the internal unique identifier for this instance in the db.
+
+A typical class table would have columns such as:
+
+Table name: Class1
+------------------
+DB_ID
+single_value_attribute1
+single_value_attribute1_class
+single_value_attribute2
+single_value_attribute3
+single_value_attribute3_class
+Mutivalue attribute tables look like:
+
+Table name: Class1_2_mutivalue_attribute4
+------------------
+DB_ID
+mutivalue_attribute4
+mutivalue_attribute4_rank
+mutivalue_attribute4_class
+or (if the attribute value s not of type instance):
+
+Table name: Class1_2_mutivalue_attribute5
+------------------
+DB_ID
+mutivalue_attribute5
+mutivalue_attribute5_rank
+Date: 2013-01-15 00:41:00

@@ -1,7 +1,8 @@
+## generated with  perl ../rewrite-reactome-default-d2rq.pl dist/reactome_data_model.pont reactome43-d2rq-generated-mapping.n3 > reactome43-transformed-mapping.n3 
 @prefix map: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmap/> .
+@prefix vocab: <http://purl.obolibrary.org/obo/reactome/record/> .
+@prefix record: <http://purl.obolibrary.org/obo/reactome/record/> .
 @prefix db: <> .
-@prefix vocab: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmodel/> .
-@prefix record: <http://purl.org/commons/record/reactome/> .
 @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
@@ -19,7 +20,6 @@ map:AbstractModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@AbstractModifiedResidue.DB_ID@@";
 	d2rq:class vocab:AbstractModifiedResidue;
-	d2rq:classDefinitionLabel "AbstractModifiedResidue";
 
 .
 map:AbstractModifiedResidue_property_referenceSequence a d2rq:PropertyBridge;
@@ -32,13 +32,11 @@ map:Affiliation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Affiliation.DB_ID@@";
 	d2rq:class vocab:Affiliation;
-	d2rq:classDefinitionLabel "Affiliation";
 
 .
 map:Affiliation_property_address a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Affiliation;
 	d2rq:property vocab:address;
-	d2rq:propertyDefinitionLabel "Affiliation address";
 	d2rq:column "Affiliation.address";
 
 .
@@ -54,13 +52,11 @@ map:BlackBoxEvent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@BlackBoxEvent.DB_ID@@";
 	d2rq:class vocab:BlackBoxEvent;
-	d2rq:classDefinitionLabel "BlackBoxEvent";
 
 .
 map:BlackBoxEvent_property_templateEvent a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:BlackBoxEvent;
 	d2rq:property vocab:templateEvent;
-	d2rq:propertyDefinitionLabel "BlackBoxEvent templateEvent";
 	d2rq:column "BlackBoxEvent.templateEvent";
 	d2rq:datatype xsd:integer;
 
@@ -77,34 +73,29 @@ map:Book a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Book.DB_ID@@";
 	d2rq:class vocab:Book;
-	d2rq:classDefinitionLabel "Book";
 
 .
 map:Book_property_ISBN a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Book;
 	d2rq:property vocab:ISBN;
-	d2rq:propertyDefinitionLabel "Book ISBN";
 	d2rq:column "Book.ISBN";
 
 .
 map:Book_property_chapterTitle a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Book;
 	d2rq:property vocab:chapterTitle;
-	d2rq:propertyDefinitionLabel "Book chapterTitle";
 	d2rq:column "Book.chapterTitle";
 
 .
 map:Book_property_pages a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Book;
 	d2rq:property vocab:pages;
-	d2rq:propertyDefinitionLabel "Book pages";
 	d2rq:column "Book.pages";
 
 .
 map:Book_property_publisher a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Book;
 	d2rq:property vocab:publisher;
-	d2rq:propertyDefinitionLabel "Book publisher";
 	d2rq:column "Book.publisher";
 	d2rq:datatype xsd:integer;
 
@@ -112,7 +103,6 @@ map:Book_property_publisher a d2rq:PropertyBridge;
 map:Book_property_year a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Book;
 	d2rq:property vocab:year;
-	d2rq:propertyDefinitionLabel "Book year";
 	d2rq:column "Book.year";
 	d2rq:datatype xsd:integer;
 
@@ -129,7 +119,6 @@ map:CandidateSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@CandidateSet.DB_ID@@";
 	d2rq:class vocab:CandidateSet;
-	d2rq:classDefinitionLabel "CandidateSet";
 
 .
 ### CandidateSet ### hasCandidate ###
@@ -144,7 +133,6 @@ map:CatalystActivity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@CatalystActivity.DB_ID@@";
 	d2rq:class vocab:CatalystActivity;
-	d2rq:classDefinitionLabel "CatalystActivity";
 
 .
 map:CatalystActivity_property_activity a d2rq:PropertyBridge;
@@ -179,48 +167,41 @@ map:CellType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@CellType.DB_ID@@";
 	d2rq:class vocab:CellType;
-	d2rq:classDefinitionLabel "CellType";
 
 .
 map:Compartment a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Compartment.DB_ID@@";
 	d2rq:class vocab:Compartment;
-	d2rq:classDefinitionLabel "Compartment";
 
 .
 map:Complex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Complex.DB_ID@@";
 	d2rq:class vocab:Complex;
-	d2rq:classDefinitionLabel "Complex";
 
 .
 map:Complex_property_isChimeric a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Complex;
 	d2rq:property vocab:isChimeric;
-	d2rq:propertyDefinitionLabel "Complex isChimeric";
 	d2rq:column "Complex.isChimeric";
 
 .
 map:Complex_property_totalProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Complex;
 	d2rq:property vocab:totalProt;
-	d2rq:propertyDefinitionLabel "Complex totalProt";
 	d2rq:column "Complex.totalProt";
 
 .
 map:Complex_property_maxHomologues a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Complex;
 	d2rq:property vocab:maxHomologues;
-	d2rq:propertyDefinitionLabel "Complex maxHomologues";
 	d2rq:column "Complex.maxHomologues";
 
 .
 map:Complex_property_inferredProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Complex;
 	d2rq:property vocab:inferredProt;
-	d2rq:propertyDefinitionLabel "Complex inferredProt";
 	d2rq:column "Complex.inferredProt";
 
 .
@@ -228,7 +209,6 @@ map:ComplexDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ComplexDomain.DB_ID@@";
 	d2rq:class vocab:ComplexDomain;
-	d2rq:classDefinitionLabel "ComplexDomain";
 
 .
 ### ComplexDomain ### hasComponent ###
@@ -275,7 +255,6 @@ map:ConcurrentEventSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ConcurrentEventSet.DB_ID@@";
 	d2rq:class vocab:ConcurrentEventSet;
-	d2rq:classDefinitionLabel "ConcurrentEventSet";
 
 .
 ### ConcurrentEventSet ### concurrentEvents ###
@@ -298,13 +277,11 @@ map:ControlledVocabulary a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ControlledVocabulary.DB_ID@@";
 	d2rq:class vocab:ControlledVocabulary;
-	d2rq:classDefinitionLabel "ControlledVocabulary";
 
 .
 map:ControlledVocabulary_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ControlledVocabulary;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "ControlledVocabulary definition";
 	d2rq:column "ControlledVocabulary.definition";
 
 .
@@ -320,13 +297,11 @@ map:CrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@CrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:CrosslinkedResidue;
-	d2rq:classDefinitionLabel "CrosslinkedResidue";
 
 .
 map:CrosslinkedResidue_property_modification a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:CrosslinkedResidue;
 	d2rq:property vocab:modification;
-	d2rq:propertyDefinitionLabel "CrosslinkedResidue modification";
 	d2rq:column "CrosslinkedResidue.modification";
 	d2rq:datatype xsd:integer;
 
@@ -346,34 +321,29 @@ map:DataModel a d2rq:ClassMap;
 	#     Please specify it manually.
 	d2rq:uriPattern "@@DataModel.thing@@";
 	d2rq:class vocab:DataModel;
-	d2rq:classDefinitionLabel "DataModel";
 
 .
 map:DataModel_property_thing a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DataModel;
 	d2rq:property vocab:thing;
-	d2rq:propertyDefinitionLabel "DataModel thing";
 	d2rq:column "DataModel.thing";
 
 .
 map:DataModel_property_property_name a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DataModel;
 	d2rq:property vocab:property_name;
-	d2rq:propertyDefinitionLabel "DataModel property_name";
 	d2rq:column "DataModel.property_name";
 
 .
 map:DataModel_property_property_value a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DataModel;
 	d2rq:property vocab:property_value;
-	d2rq:propertyDefinitionLabel "DataModel property_value";
 	d2rq:column "DataModel.property_value";
 
 .
 map:DataModel_property_property_value_type a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DataModel;
 	d2rq:property vocab:property_value_type;
-	d2rq:propertyDefinitionLabel "DataModel property_value_type";
 	d2rq:column "DataModel.property_value_type";
 
 .
@@ -381,13 +351,11 @@ map:DatabaseIdentifier a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@DatabaseIdentifier.DB_ID@@";
 	d2rq:class vocab:DatabaseIdentifier;
-	d2rq:classDefinitionLabel "DatabaseIdentifier";
 
 .
 map:DatabaseIdentifier_property_identifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DatabaseIdentifier;
 	d2rq:property vocab:identifier;
-	d2rq:propertyDefinitionLabel "DatabaseIdentifier identifier";
 	d2rq:column "DatabaseIdentifier.identifier";
 
 .
@@ -409,27 +377,23 @@ map:DatabaseObject a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@DatabaseObject.DB_ID@@";
 	d2rq:class vocab:DatabaseObject;
-	d2rq:classDefinitionLabel "DatabaseObject";
 
 .
 map:DatabaseObject_property___is_ghost a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DatabaseObject;
 	d2rq:property vocab:__is_ghost;
-	d2rq:propertyDefinitionLabel "DatabaseObject __is_ghost";
 	d2rq:column "DatabaseObject.__is_ghost";
 
 .
 map:DatabaseObject_property__displayName a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DatabaseObject;
 	d2rq:property rdfs:label;
-	d2rq:propertyDefinitionLabel "DatabaseObject _displayName";
 	d2rq:column "DatabaseObject._displayName";
 
 .
 map:DatabaseObject_property__timestamp a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:DatabaseObject;
 	d2rq:property vocab:_timestamp;
-	d2rq:propertyDefinitionLabel "DatabaseObject _timestamp";
 	d2rq:column "DatabaseObject._timestamp";
 	d2rq:datatype xsd:dateTime;
 
@@ -458,35 +422,30 @@ map:DefinedSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@DefinedSet.DB_ID@@";
 	d2rq:class vocab:DefinedSet;
-	d2rq:classDefinitionLabel "DefinedSet";
 
 .
 map:DeletedControlledVocabulary a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@DeletedControlledVocabulary.DB_ID@@";
 	d2rq:class vocab:DeletedControlledVocabulary;
-	d2rq:classDefinitionLabel "DeletedControlledVocabulary";
 
 .
 map:Depolymerisation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Depolymerisation.DB_ID@@";
 	d2rq:class vocab:Depolymerisation;
-	d2rq:classDefinitionLabel "Depolymerisation";
 
 .
 map:Disease a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Disease.DB_ID@@";
 	d2rq:class vocab:Disease;
-	d2rq:classDefinitionLabel "Disease";
 
 .
 map:Domain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Domain.DB_ID@@";
 	d2rq:class vocab:Domain;
-	d2rq:classDefinitionLabel "Domain";
 
 .
 ### Domain ### name ###
@@ -501,13 +460,11 @@ map:Edge a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Edge.DB_ID@@";
 	d2rq:class vocab:Edge;
-	d2rq:classDefinitionLabel "Edge";
 
 .
 map:Edge_property_edgeType a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Edge;
 	d2rq:property vocab:edgeType;
-	d2rq:propertyDefinitionLabel "Edge edgeType";
 	d2rq:column "Edge.edgeType";
 	d2rq:datatype xsd:integer;
 
@@ -521,14 +478,12 @@ map:Edge_property_pathwayDiagram a d2rq:PropertyBridge;
 map:Edge_property_pointCoordinates a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Edge;
 	d2rq:property vocab:pointCoordinates;
-	d2rq:propertyDefinitionLabel "Edge pointCoordinates";
 	d2rq:column "Edge.pointCoordinates";
 
 .
 map:Edge_property_sourceVertex a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Edge;
 	d2rq:property vocab:sourceVertex;
-	d2rq:propertyDefinitionLabel "Edge sourceVertex";
 	d2rq:column "Edge.sourceVertex";
 	d2rq:datatype xsd:integer;
 
@@ -536,7 +491,6 @@ map:Edge_property_sourceVertex a d2rq:PropertyBridge;
 map:Edge_property_targetVertex a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Edge;
 	d2rq:property vocab:targetVertex;
-	d2rq:propertyDefinitionLabel "Edge targetVertex";
 	d2rq:column "Edge.targetVertex";
 	d2rq:datatype xsd:integer;
 
@@ -545,14 +499,12 @@ map:EntityCompartment a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EntityCompartment.DB_ID@@";
 	d2rq:class vocab:EntityCompartment;
-	d2rq:classDefinitionLabel "EntityCompartment";
 
 .
 map:EntityFunctionalStatus a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EntityFunctionalStatus.DB_ID@@";
 	d2rq:class vocab:EntityFunctionalStatus;
-	d2rq:classDefinitionLabel "EntityFunctionalStatus";
 
 .
 map:EntityFunctionalStatus_property_physicalEntity a d2rq:PropertyBridge;
@@ -573,27 +525,23 @@ map:EntitySet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EntitySet.DB_ID@@";
 	d2rq:class vocab:EntitySet;
-	d2rq:classDefinitionLabel "EntitySet";
 
 .
 map:EntitySet_property_totalProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntitySet;
 	d2rq:property vocab:totalProt;
-	d2rq:propertyDefinitionLabel "EntitySet totalProt";
 	d2rq:column "EntitySet.totalProt";
 
 .
 map:EntitySet_property_inferredProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntitySet;
 	d2rq:property vocab:inferredProt;
-	d2rq:propertyDefinitionLabel "EntitySet inferredProt";
 	d2rq:column "EntitySet.inferredProt";
 
 .
 map:EntitySet_property_maxHomologues a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntitySet;
 	d2rq:property vocab:maxHomologues;
-	d2rq:propertyDefinitionLabel "EntitySet maxHomologues";
 	d2rq:column "EntitySet.maxHomologues";
 
 .
@@ -617,13 +565,11 @@ map:EntityVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EntityVertex.DB_ID@@";
 	d2rq:class vocab:EntityVertex;
-	d2rq:classDefinitionLabel "EntityVertex";
 
 .
 map:EntityVertex_property_containedInEntityVertex a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntityVertex;
 	d2rq:property vocab:containedInEntityVertex;
-	d2rq:propertyDefinitionLabel "EntityVertex containedInEntityVertex";
 	d2rq:column "EntityVertex.containedInEntityVertex";
 	d2rq:datatype xsd:integer;
 
@@ -632,13 +578,11 @@ map:EntityWithAccessionedSequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EntityWithAccessionedSequence.DB_ID@@";
 	d2rq:class vocab:EntityWithAccessionedSequence;
-	d2rq:classDefinitionLabel "EntityWithAccessionedSequence";
 
 .
 map:EntityWithAccessionedSequence_property_endCoordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
 	d2rq:property vocab:endCoordinate;
-	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence endCoordinate";
 	d2rq:column "EntityWithAccessionedSequence.endCoordinate";
 	d2rq:datatype xsd:integer;
 
@@ -652,7 +596,6 @@ map:EntityWithAccessionedSequence_property_referenceEntity a d2rq:PropertyBridge
 map:EntityWithAccessionedSequence_property_startCoordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EntityWithAccessionedSequence;
 	d2rq:property vocab:startCoordinate;
-	d2rq:propertyDefinitionLabel "EntityWithAccessionedSequence startCoordinate";
 	d2rq:column "EntityWithAccessionedSequence.startCoordinate";
 	d2rq:datatype xsd:integer;
 
@@ -669,20 +612,17 @@ map:Event a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Event.DB_ID@@";
 	d2rq:class vocab:Event;
-	d2rq:classDefinitionLabel "Event";
 
 .
 map:Event_property__doRelease a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Event;
 	d2rq:property vocab:_doRelease;
-	d2rq:propertyDefinitionLabel "Event _doRelease";
 	d2rq:column "Event._doRelease";
 
 .
 map:Event_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Event;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "Event definition";
 	d2rq:column "Event.definition";
 
 .
@@ -701,7 +641,6 @@ map:Event_property_goBiologicalProcess a d2rq:PropertyBridge;
 map:Event_property_releaseDate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Event;
 	d2rq:property vocab:releaseDate;
-	d2rq:propertyDefinitionLabel "Event releaseDate";
 	d2rq:column "Event.releaseDate";
 	d2rq:datatype xsd:date;
 
@@ -709,7 +648,6 @@ map:Event_property_releaseDate a d2rq:PropertyBridge;
 map:Event_property_releaseStatus a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Event;
 	d2rq:property vocab:releaseStatus;
-	d2rq:propertyDefinitionLabel "Event releaseStatus";
 	d2rq:column "Event.releaseStatus";
 
 .
@@ -837,13 +775,11 @@ map:EvidenceType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@EvidenceType.DB_ID@@";
 	d2rq:class vocab:EvidenceType;
-	d2rq:classDefinitionLabel "EvidenceType";
 
 .
 map:EvidenceType_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:EvidenceType;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "EvidenceType definition";
 	d2rq:column "EvidenceType.definition";
 
 .
@@ -867,20 +803,17 @@ map:ExternalOntology a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ExternalOntology.DB_ID@@";
 	d2rq:class vocab:ExternalOntology;
-	d2rq:classDefinitionLabel "ExternalOntology";
 
 .
 map:ExternalOntology_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ExternalOntology;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "ExternalOntology definition";
 	d2rq:column "ExternalOntology.definition";
 
 .
 map:ExternalOntology_property_identifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ExternalOntology;
 	d2rq:property vocab:identifier;
-	d2rq:propertyDefinitionLabel "ExternalOntology identifier";
 	d2rq:column "ExternalOntology.identifier";
 
 .
@@ -918,13 +851,11 @@ map:Figure a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Figure.DB_ID@@";
 	d2rq:class vocab:Figure;
-	d2rq:classDefinitionLabel "Figure";
 
 .
 map:Figure_property_url a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Figure;
 	d2rq:property vocab:url;
-	d2rq:propertyDefinitionLabel "Figure url";
 	d2rq:column "Figure.url";
 
 .
@@ -932,20 +863,17 @@ map:FragmentDeletionModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FragmentDeletionModification.DB_ID@@";
 	d2rq:class vocab:FragmentDeletionModification;
-	d2rq:classDefinitionLabel "FragmentDeletionModification";
 
 .
 map:FragmentInsertionModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FragmentInsertionModification.DB_ID@@";
 	d2rq:class vocab:FragmentInsertionModification;
-	d2rq:classDefinitionLabel "FragmentInsertionModification";
 
 .
 map:FragmentInsertionModification_property_coordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:FragmentInsertionModification;
 	d2rq:property vocab:coordinate;
-	d2rq:propertyDefinitionLabel "FragmentInsertionModification coordinate";
 	d2rq:column "FragmentInsertionModification.coordinate";
 	d2rq:datatype xsd:integer;
 
@@ -954,13 +882,11 @@ map:FragmentModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FragmentModification.DB_ID@@";
 	d2rq:class vocab:FragmentModification;
-	d2rq:classDefinitionLabel "FragmentModification";
 
 .
 map:FragmentModification_property_endPositionInReferenceSequence a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:FragmentModification;
 	d2rq:property vocab:endPositionInReferenceSequence;
-	d2rq:propertyDefinitionLabel "FragmentModification endPositionInReferenceSequence";
 	d2rq:column "FragmentModification.endPositionInReferenceSequence";
 	d2rq:datatype xsd:integer;
 
@@ -968,7 +894,6 @@ map:FragmentModification_property_endPositionInReferenceSequence a d2rq:Property
 map:FragmentModification_property_startPositionInReferenceSequence a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:FragmentModification;
 	d2rq:property vocab:startPositionInReferenceSequence;
-	d2rq:propertyDefinitionLabel "FragmentModification startPositionInReferenceSequence";
 	d2rq:column "FragmentModification.startPositionInReferenceSequence";
 	d2rq:datatype xsd:integer;
 
@@ -977,7 +902,6 @@ map:FrontPage a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FrontPage.DB_ID@@";
 	d2rq:class vocab:FrontPage;
-	d2rq:classDefinitionLabel "FrontPage";
 
 .
 ### FrontPage ### frontPageItem ###
@@ -992,7 +916,6 @@ map:FunctionalStatus a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FunctionalStatus.DB_ID@@";
 	d2rq:class vocab:FunctionalStatus;
-	d2rq:classDefinitionLabel "FunctionalStatus";
 
 .
 map:FunctionalStatus_property_functionalStatusType a d2rq:PropertyBridge;
@@ -1004,7 +927,6 @@ map:FunctionalStatus_property_functionalStatusType a d2rq:PropertyBridge;
 map:FunctionalStatus_property_structuralVariant a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:FunctionalStatus;
 	d2rq:property vocab:structuralVariant;
-	d2rq:propertyDefinitionLabel "FunctionalStatus structuralVariant";
 	d2rq:column "FunctionalStatus.structuralVariant";
 	d2rq:datatype xsd:integer;
 
@@ -1013,13 +935,11 @@ map:FunctionalStatusType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@FunctionalStatusType.DB_ID@@";
 	d2rq:class vocab:FunctionalStatusType;
-	d2rq:classDefinitionLabel "FunctionalStatusType";
 
 .
 map:FunctionalStatusType_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:FunctionalStatusType;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "FunctionalStatusType definition";
 	d2rq:column "FunctionalStatusType.definition";
 
 .
@@ -1035,20 +955,17 @@ map:GO_BiologicalProcess a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GO_BiologicalProcess.DB_ID@@";
 	d2rq:class vocab:GO_BiologicalProcess;
-	d2rq:classDefinitionLabel "GO_BiologicalProcess";
 
 .
 map:GO_BiologicalProcess_property_accession a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_BiologicalProcess;
 	d2rq:property vocab:accession;
-	d2rq:propertyDefinitionLabel "GO_BiologicalProcess accession";
 	d2rq:column "GO_BiologicalProcess.accession";
 
 .
 map:GO_BiologicalProcess_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_BiologicalProcess;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "GO_BiologicalProcess definition";
 	d2rq:column "GO_BiologicalProcess.definition";
 
 .
@@ -1118,20 +1035,17 @@ map:GO_CellularComponent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GO_CellularComponent.DB_ID@@";
 	d2rq:class vocab:GO_CellularComponent;
-	d2rq:classDefinitionLabel "GO_CellularComponent";
 
 .
 map:GO_CellularComponent_property_accession a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_CellularComponent;
 	d2rq:property vocab:accession;
-	d2rq:propertyDefinitionLabel "GO_CellularComponent accession";
 	d2rq:column "GO_CellularComponent.accession";
 
 .
 map:GO_CellularComponent_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_CellularComponent;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "GO_CellularComponent definition";
 	d2rq:column "GO_CellularComponent.definition";
 
 .
@@ -1177,20 +1091,17 @@ map:GO_MolecularFunction a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GO_MolecularFunction.DB_ID@@";
 	d2rq:class vocab:GO_MolecularFunction;
-	d2rq:classDefinitionLabel "GO_MolecularFunction";
 
 .
 map:GO_MolecularFunction_property_accession a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_MolecularFunction;
 	d2rq:property vocab:accession;
-	d2rq:propertyDefinitionLabel "GO_MolecularFunction accession";
 	d2rq:column "GO_MolecularFunction.accession";
 
 .
 map:GO_MolecularFunction_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GO_MolecularFunction;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "GO_MolecularFunction definition";
 	d2rq:column "GO_MolecularFunction.definition";
 
 .
@@ -1268,7 +1179,6 @@ map:GenericDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GenericDomain.DB_ID@@";
 	d2rq:class vocab:GenericDomain;
-	d2rq:classDefinitionLabel "GenericDomain";
 
 .
 ### GenericDomain ### hasInstance ###
@@ -1283,14 +1193,12 @@ map:GeneticallyModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GeneticallyModifiedResidue.DB_ID@@";
 	d2rq:class vocab:GeneticallyModifiedResidue;
-	d2rq:classDefinitionLabel "GeneticallyModifiedResidue";
 
 .
 map:GenomeEncodedEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GenomeEncodedEntity.DB_ID@@";
 	d2rq:class vocab:GenomeEncodedEntity;
-	d2rq:classDefinitionLabel "GenomeEncodedEntity";
 
 .
 map:GenomeEncodedEntity_property_species a d2rq:PropertyBridge;
@@ -1303,13 +1211,11 @@ map:GroupModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@GroupModifiedResidue.DB_ID@@";
 	d2rq:class vocab:GroupModifiedResidue;
-	d2rq:classDefinitionLabel "GroupModifiedResidue";
 
 .
 map:GroupModifiedResidue_property_modification a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:GroupModifiedResidue;
 	d2rq:property vocab:modification;
-	d2rq:propertyDefinitionLabel "GroupModifiedResidue modification";
 	d2rq:column "GroupModifiedResidue.modification";
 	d2rq:datatype xsd:integer;
 
@@ -1318,20 +1224,17 @@ map:InstanceEdit a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@InstanceEdit.DB_ID@@";
 	d2rq:class vocab:InstanceEdit;
-	d2rq:classDefinitionLabel "InstanceEdit";
 
 .
 map:InstanceEdit_property__applyToAllEditedInstances a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:InstanceEdit;
 	d2rq:property vocab:_applyToAllEditedInstances;
-	d2rq:propertyDefinitionLabel "InstanceEdit _applyToAllEditedInstances";
 	d2rq:column "InstanceEdit._applyToAllEditedInstances";
 
 .
 map:InstanceEdit_property_dateTime a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:InstanceEdit;
 	d2rq:property vocab:dateTime;
-	d2rq:propertyDefinitionLabel "InstanceEdit dateTime";
 	d2rq:column "InstanceEdit.dateTime";
 	d2rq:datatype xsd:dateTime;
 
@@ -1339,7 +1242,6 @@ map:InstanceEdit_property_dateTime a d2rq:PropertyBridge;
 map:InstanceEdit_property_note a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:InstanceEdit;
 	d2rq:property vocab:note;
-	d2rq:propertyDefinitionLabel "InstanceEdit note";
 	d2rq:column "InstanceEdit.note";
 
 .
@@ -1355,7 +1257,6 @@ map:InterChainCrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@InterChainCrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:InterChainCrosslinkedResidue;
-	d2rq:classDefinitionLabel "InterChainCrosslinkedResidue";
 
 .
 ### InterChainCrosslinkedResidue ### equivalentTo ###
@@ -1378,34 +1279,29 @@ map:IntraChainCrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@IntraChainCrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:IntraChainCrosslinkedResidue;
-	d2rq:classDefinitionLabel "IntraChainCrosslinkedResidue";
 
 .
 map:LiteratureReference a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@LiteratureReference.DB_ID@@";
 	d2rq:class vocab:LiteratureReference;
-	d2rq:classDefinitionLabel "LiteratureReference";
 
 .
 map:LiteratureReference_property_journal a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:LiteratureReference;
 	d2rq:property vocab:journal;
-	d2rq:propertyDefinitionLabel "LiteratureReference journal";
 	d2rq:column "LiteratureReference.journal";
 
 .
 map:LiteratureReference_property_pages a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:LiteratureReference;
 	d2rq:property vocab:pages;
-	d2rq:propertyDefinitionLabel "LiteratureReference pages";
 	d2rq:column "LiteratureReference.pages";
 
 .
 map:LiteratureReference_property_pubMedIdentifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:LiteratureReference;
 	d2rq:property vocab:pubMedIdentifier;
-	d2rq:propertyDefinitionLabel "LiteratureReference pubMedIdentifier";
 	d2rq:column "LiteratureReference.pubMedIdentifier";
 	d2rq:datatype xsd:integer;
 
@@ -1413,7 +1309,6 @@ map:LiteratureReference_property_pubMedIdentifier a d2rq:PropertyBridge;
 map:LiteratureReference_property_volume a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:LiteratureReference;
 	d2rq:property vocab:volume;
-	d2rq:propertyDefinitionLabel "LiteratureReference volume";
 	d2rq:column "LiteratureReference.volume";
 	d2rq:datatype xsd:integer;
 
@@ -1421,7 +1316,6 @@ map:LiteratureReference_property_volume a d2rq:PropertyBridge;
 map:LiteratureReference_property_year a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:LiteratureReference;
 	d2rq:property vocab:year;
-	d2rq:propertyDefinitionLabel "LiteratureReference year";
 	d2rq:column "LiteratureReference.year";
 	d2rq:datatype xsd:integer;
 
@@ -1430,14 +1324,12 @@ map:ModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ModifiedResidue.DB_ID@@";
 	d2rq:class vocab:ModifiedResidue;
-	d2rq:classDefinitionLabel "ModifiedResidue";
 
 .
 map:NegativeRegulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@NegativeRegulation.DB_ID@@";
 	d2rq:class vocab:NegativeRegulation;
-	d2rq:classDefinitionLabel "NegativeRegulation";
 
 .
 map:Ontology a d2rq:ClassMap;
@@ -1447,13 +1339,11 @@ map:Ontology a d2rq:ClassMap;
 	#     Please specify it manually.
 	d2rq:uriPattern "Ontology";
 	d2rq:class vocab:Ontology;
-	d2rq:classDefinitionLabel "Ontology";
 
 .
 map:Ontology_property_ontology a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Ontology;
 	d2rq:property vocab:ontology;
-	d2rq:propertyDefinitionLabel "Ontology ontology";
 	d2rq:column "Ontology.ontology";
 	d2rq:datatype xsd:hexBinary;
 
@@ -1462,7 +1352,6 @@ map:OpenSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@OpenSet.DB_ID@@";
 	d2rq:class vocab:OpenSet;
-	d2rq:classDefinitionLabel "OpenSet";
 
 .
 map:OpenSet_property_referenceEntity a d2rq:PropertyBridge;
@@ -1475,27 +1364,23 @@ map:OtherEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@OtherEntity.DB_ID@@";
 	d2rq:class vocab:OtherEntity;
-	d2rq:classDefinitionLabel "OtherEntity";
 
 .
 map:Parameters a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Parameters.parameter|urlify@@";
 	d2rq:class vocab:Parameters;
-	d2rq:classDefinitionLabel "Parameters";
 
 .
 map:Parameters_property_parameter a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Parameters;
 	d2rq:property vocab:parameter;
-	d2rq:propertyDefinitionLabel "Parameters parameter";
 	d2rq:column "Parameters.parameter";
 
 .
 map:Parameters_property_value a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Parameters;
 	d2rq:property vocab:value;
-	d2rq:propertyDefinitionLabel "Parameters value";
 	d2rq:column "Parameters.value";
 	d2rq:datatype xsd:hexBinary;
 
@@ -1504,20 +1389,17 @@ map:Pathway a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Pathway.DB_ID@@";
 	d2rq:class vocab:Pathway;
-	d2rq:classDefinitionLabel "Pathway";
 
 .
 map:Pathway_property_doi a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Pathway;
 	d2rq:property vocab:doi;
-	d2rq:propertyDefinitionLabel "Pathway doi";
 	d2rq:column "Pathway.doi";
 
 .
 map:Pathway_property_isCanonical a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Pathway;
 	d2rq:property vocab:isCanonical;
-	d2rq:propertyDefinitionLabel "Pathway isCanonical";
 	d2rq:column "Pathway.isCanonical";
 
 .
@@ -1525,13 +1407,11 @@ map:PathwayCoordinates a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PathwayCoordinates.DB_ID@@";
 	d2rq:class vocab:PathwayCoordinates;
-	d2rq:classDefinitionLabel "PathwayCoordinates";
 
 .
 map:PathwayCoordinates_property_locatedEvent a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayCoordinates;
 	d2rq:property vocab:locatedEvent;
-	d2rq:propertyDefinitionLabel "PathwayCoordinates locatedEvent";
 	d2rq:column "PathwayCoordinates.locatedEvent";
 	d2rq:datatype xsd:integer;
 
@@ -1539,7 +1419,6 @@ map:PathwayCoordinates_property_locatedEvent a d2rq:PropertyBridge;
 map:PathwayCoordinates_property_maxX a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayCoordinates;
 	d2rq:property vocab:maxX;
-	d2rq:propertyDefinitionLabel "PathwayCoordinates maxX";
 	d2rq:column "PathwayCoordinates.maxX";
 	d2rq:datatype xsd:integer;
 
@@ -1547,7 +1426,6 @@ map:PathwayCoordinates_property_maxX a d2rq:PropertyBridge;
 map:PathwayCoordinates_property_maxY a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayCoordinates;
 	d2rq:property vocab:maxY;
-	d2rq:propertyDefinitionLabel "PathwayCoordinates maxY";
 	d2rq:column "PathwayCoordinates.maxY";
 	d2rq:datatype xsd:integer;
 
@@ -1555,7 +1433,6 @@ map:PathwayCoordinates_property_maxY a d2rq:PropertyBridge;
 map:PathwayCoordinates_property_minX a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayCoordinates;
 	d2rq:property vocab:minX;
-	d2rq:propertyDefinitionLabel "PathwayCoordinates minX";
 	d2rq:column "PathwayCoordinates.minX";
 	d2rq:datatype xsd:integer;
 
@@ -1563,7 +1440,6 @@ map:PathwayCoordinates_property_minX a d2rq:PropertyBridge;
 map:PathwayCoordinates_property_minY a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayCoordinates;
 	d2rq:property vocab:minY;
-	d2rq:propertyDefinitionLabel "PathwayCoordinates minY";
 	d2rq:column "PathwayCoordinates.minY";
 	d2rq:datatype xsd:integer;
 
@@ -1572,13 +1448,11 @@ map:PathwayDiagram a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PathwayDiagram.DB_ID@@";
 	d2rq:class vocab:PathwayDiagram;
-	d2rq:classDefinitionLabel "PathwayDiagram";
 
 .
 map:PathwayDiagram_property_height a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayDiagram;
 	d2rq:property vocab:height;
-	d2rq:propertyDefinitionLabel "PathwayDiagram height";
 	d2rq:column "PathwayDiagram.height";
 	d2rq:datatype xsd:integer;
 
@@ -1586,7 +1460,6 @@ map:PathwayDiagram_property_height a d2rq:PropertyBridge;
 map:PathwayDiagram_property_storedATXML a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayDiagram;
 	d2rq:property vocab:storedATXML;
-	d2rq:propertyDefinitionLabel "PathwayDiagram storedATXML";
 	d2rq:column "PathwayDiagram.storedATXML";
 	d2rq:datatype xsd:hexBinary;
 
@@ -1594,7 +1467,6 @@ map:PathwayDiagram_property_storedATXML a d2rq:PropertyBridge;
 map:PathwayDiagram_property_width a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PathwayDiagram;
 	d2rq:property vocab:width;
-	d2rq:propertyDefinitionLabel "PathwayDiagram width";
 	d2rq:column "PathwayDiagram.width";
 	d2rq:datatype xsd:integer;
 
@@ -1603,7 +1475,6 @@ map:PathwayDiagramItem a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PathwayDiagramItem.DB_ID@@";
 	d2rq:class vocab:PathwayDiagramItem;
-	d2rq:classDefinitionLabel "PathwayDiagramItem";
 
 .
 ### PathwayDiagram ### representedPathway ###
@@ -1618,7 +1489,6 @@ map:PathwayVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PathwayVertex.DB_ID@@";
 	d2rq:class vocab:PathwayVertex;
-	d2rq:classDefinitionLabel "PathwayVertex";
 
 .
 ### Pathway ### hasEvent ###
@@ -1633,41 +1503,35 @@ map:Person a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Person.DB_ID@@";
 	d2rq:class vocab:Person;
-	d2rq:classDefinitionLabel "Person";
 
 .
 map:Person_property_eMailAddress a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Person;
 	d2rq:property vocab:eMailAddress;
-	d2rq:propertyDefinitionLabel "Person eMailAddress";
 	d2rq:column "Person.eMailAddress";
 
 .
 map:Person_property_firstname a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Person;
 	d2rq:property vocab:firstname;
-	d2rq:propertyDefinitionLabel "Person firstname";
 	d2rq:column "Person.firstname";
 
 .
 map:Person_property_initial a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Person;
 	d2rq:property vocab:initial;
-	d2rq:propertyDefinitionLabel "Person initial";
 	d2rq:column "Person.initial";
 
 .
 map:Person_property_project a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Person;
 	d2rq:property vocab:project;
-	d2rq:propertyDefinitionLabel "Person project";
 	d2rq:column "Person.project";
 
 .
 map:Person_property_surname a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Person;
 	d2rq:property vocab:surname;
-	d2rq:propertyDefinitionLabel "Person surname";
 	d2rq:column "Person.surname";
 
 .
@@ -1691,7 +1555,6 @@ map:PhysicalEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PhysicalEntity.DB_ID@@";
 	d2rq:class vocab:PhysicalEntity;
-	d2rq:classDefinitionLabel "PhysicalEntity";
 
 .
 map:PhysicalEntity_property_authored a d2rq:PropertyBridge;
@@ -1709,7 +1572,6 @@ map:PhysicalEntity_property_cellType a d2rq:PropertyBridge;
 map:PhysicalEntity_property_definition a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:PhysicalEntity;
 	d2rq:property vocab:definition;
-	d2rq:propertyDefinitionLabel "PhysicalEntity definition";
 	d2rq:column "PhysicalEntity.definition";
 
 .
@@ -1827,13 +1689,11 @@ map:Polymer a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Polymer.DB_ID@@";
 	d2rq:class vocab:Polymer;
-	d2rq:classDefinitionLabel "Polymer";
 
 .
 map:Polymer_property_maxUnitCount a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Polymer;
 	d2rq:property vocab:maxUnitCount;
-	d2rq:propertyDefinitionLabel "Polymer maxUnitCount";
 	d2rq:column "Polymer.maxUnitCount";
 	d2rq:datatype xsd:integer;
 
@@ -1841,7 +1701,6 @@ map:Polymer_property_maxUnitCount a d2rq:PropertyBridge;
 map:Polymer_property_minUnitCount a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Polymer;
 	d2rq:property vocab:minUnitCount;
-	d2rq:propertyDefinitionLabel "Polymer minUnitCount";
 	d2rq:column "Polymer.minUnitCount";
 	d2rq:datatype xsd:integer;
 
@@ -1849,21 +1708,18 @@ map:Polymer_property_minUnitCount a d2rq:PropertyBridge;
 map:Polymer_property_totalProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Polymer;
 	d2rq:property vocab:totalProt;
-	d2rq:propertyDefinitionLabel "Polymer totalProt";
 	d2rq:column "Polymer.totalProt";
 
 .
 map:Polymer_property_maxHomologues a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Polymer;
 	d2rq:property vocab:maxHomologues;
-	d2rq:propertyDefinitionLabel "Polymer maxHomologues";
 	d2rq:column "Polymer.maxHomologues";
 
 .
 map:Polymer_property_inferredProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Polymer;
 	d2rq:property vocab:inferredProt;
-	d2rq:propertyDefinitionLabel "Polymer inferredProt";
 	d2rq:column "Polymer.inferredProt";
 
 .
@@ -1887,34 +1743,29 @@ map:Polymerisation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Polymerisation.DB_ID@@";
 	d2rq:class vocab:Polymerisation;
-	d2rq:classDefinitionLabel "Polymerisation";
 
 .
 map:PositiveRegulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PositiveRegulation.DB_ID@@";
 	d2rq:class vocab:PositiveRegulation;
-	d2rq:classDefinitionLabel "PositiveRegulation";
 
 .
 map:PsiMod a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@PsiMod.DB_ID@@";
 	d2rq:class vocab:PsiMod;
-	d2rq:classDefinitionLabel "PsiMod";
 
 .
 map:Publication a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Publication.DB_ID@@";
 	d2rq:class vocab:Publication;
-	d2rq:classDefinitionLabel "Publication";
 
 .
 map:Publication_property_title a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Publication;
 	d2rq:property vocab:title;
-	d2rq:propertyDefinitionLabel "Publication title";
 	d2rq:column "Publication.title";
 
 .
@@ -1930,13 +1781,11 @@ map:Reaction a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Reaction.DB_ID@@";
 	d2rq:class vocab:Reaction;
-	d2rq:classDefinitionLabel "Reaction";
 
 .
 map:Reaction_property_reverseReaction a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Reaction;
 	d2rq:property vocab:reverseReaction;
-	d2rq:propertyDefinitionLabel "Reaction reverseReaction";
 	d2rq:column "Reaction.reverseReaction";
 	d2rq:datatype xsd:integer;
 
@@ -1944,21 +1793,18 @@ map:Reaction_property_reverseReaction a d2rq:PropertyBridge;
 map:Reaction_property_totalProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Reaction;
 	d2rq:property vocab:totalProt;
-	d2rq:propertyDefinitionLabel "Reaction totalProt";
 	d2rq:column "Reaction.totalProt";
 
 .
 map:Reaction_property_maxHomologues a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Reaction;
 	d2rq:property vocab:maxHomologues;
-	d2rq:propertyDefinitionLabel "Reaction maxHomologues";
 	d2rq:column "Reaction.maxHomologues";
 
 .
 map:Reaction_property_inferredProt a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Reaction;
 	d2rq:property vocab:inferredProt;
-	d2rq:propertyDefinitionLabel "Reaction inferredProt";
 	d2rq:column "Reaction.inferredProt";
 
 .
@@ -1966,13 +1812,11 @@ map:ReactionCoordinates a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReactionCoordinates.DB_ID@@";
 	d2rq:class vocab:ReactionCoordinates;
-	d2rq:classDefinitionLabel "ReactionCoordinates";
 
 .
 map:ReactionCoordinates_property_locatedEvent a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:locatedEvent;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates locatedEvent";
 	d2rq:column "ReactionCoordinates.locatedEvent";
 	d2rq:datatype xsd:integer;
 
@@ -1980,7 +1824,6 @@ map:ReactionCoordinates_property_locatedEvent a d2rq:PropertyBridge;
 map:ReactionCoordinates_property_locationContext a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:locationContext;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates locationContext";
 	d2rq:column "ReactionCoordinates.locationContext";
 	d2rq:datatype xsd:integer;
 
@@ -1988,7 +1831,6 @@ map:ReactionCoordinates_property_locationContext a d2rq:PropertyBridge;
 map:ReactionCoordinates_property_sourceX a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:sourceX;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates sourceX";
 	d2rq:column "ReactionCoordinates.sourceX";
 	d2rq:datatype xsd:integer;
 
@@ -1996,7 +1838,6 @@ map:ReactionCoordinates_property_sourceX a d2rq:PropertyBridge;
 map:ReactionCoordinates_property_sourceY a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:sourceY;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates sourceY";
 	d2rq:column "ReactionCoordinates.sourceY";
 	d2rq:datatype xsd:integer;
 
@@ -2004,7 +1845,6 @@ map:ReactionCoordinates_property_sourceY a d2rq:PropertyBridge;
 map:ReactionCoordinates_property_targetX a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:targetX;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates targetX";
 	d2rq:column "ReactionCoordinates.targetX";
 	d2rq:datatype xsd:integer;
 
@@ -2012,7 +1852,6 @@ map:ReactionCoordinates_property_targetX a d2rq:PropertyBridge;
 map:ReactionCoordinates_property_targetY a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionCoordinates;
 	d2rq:property vocab:targetY;
-	d2rq:propertyDefinitionLabel "ReactionCoordinates targetY";
 	d2rq:column "ReactionCoordinates.targetY";
 	d2rq:datatype xsd:integer;
 
@@ -2021,13 +1860,11 @@ map:ReactionVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReactionVertex.DB_ID@@";
 	d2rq:class vocab:ReactionVertex;
-	d2rq:classDefinitionLabel "ReactionVertex";
 
 .
 map:ReactionVertex_property_pointCoordinates a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionVertex;
 	d2rq:property vocab:pointCoordinates;
-	d2rq:propertyDefinitionLabel "ReactionVertex pointCoordinates";
 	d2rq:column "ReactionVertex.pointCoordinates";
 
 .
@@ -2035,13 +1872,11 @@ map:ReactionlikeEvent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReactionlikeEvent.DB_ID@@";
 	d2rq:class vocab:ReactionlikeEvent;
-	d2rq:classDefinitionLabel "ReactionlikeEvent";
 
 .
 map:ReactionlikeEvent_property_isChimeric a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReactionlikeEvent;
 	d2rq:property vocab:isChimeric;
-	d2rq:propertyDefinitionLabel "ReactionlikeEvent isChimeric";
 	d2rq:column "ReactionlikeEvent.isChimeric";
 
 .
@@ -2105,27 +1940,23 @@ map:ReferenceDNASequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceDNASequence.DB_ID@@";
 	d2rq:class vocab:ReferenceDNASequence;
-	d2rq:classDefinitionLabel "ReferenceDNASequence";
 
 .
 map:ReferenceDatabase a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceDatabase.DB_ID@@";
 	d2rq:class vocab:ReferenceDatabase;
-	d2rq:classDefinitionLabel "ReferenceDatabase";
 
 .
 map:ReferenceDatabase_property_accessUrl a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceDatabase;
 	d2rq:property vocab:accessUrl;
-	d2rq:propertyDefinitionLabel "ReferenceDatabase accessUrl";
 	d2rq:column "ReferenceDatabase.accessUrl";
 
 .
 map:ReferenceDatabase_property_url a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceDatabase;
 	d2rq:property vocab:url;
-	d2rq:propertyDefinitionLabel "ReferenceDatabase url";
 	d2rq:column "ReferenceDatabase.url";
 
 .
@@ -2141,13 +1972,11 @@ map:ReferenceEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceEntity.DB_ID@@";
 	d2rq:class vocab:ReferenceEntity;
-	d2rq:classDefinitionLabel "ReferenceEntity";
 
 .
 map:ReferenceEntity_property_identifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceEntity;
 	d2rq:property vocab:identifier;
-	d2rq:propertyDefinitionLabel "ReferenceEntity identifier";
 	d2rq:column "ReferenceEntity.identifier";
 
 .
@@ -2185,7 +2014,6 @@ map:ReferenceGeneProduct a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceGeneProduct.DB_ID@@";
 	d2rq:class vocab:ReferenceGeneProduct;
-	d2rq:classDefinitionLabel "ReferenceGeneProduct";
 
 .
 ### ReferenceGeneProduct ### referenceGene ###
@@ -2208,20 +2036,17 @@ map:ReferenceGroup a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceGroup.DB_ID@@";
 	d2rq:class vocab:ReferenceGroup;
-	d2rq:classDefinitionLabel "ReferenceGroup";
 
 .
 map:ReferenceGroup_property_atomicConnectivity a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceGroup;
 	d2rq:property vocab:atomicConnectivity;
-	d2rq:propertyDefinitionLabel "ReferenceGroup atomicConnectivity";
 	d2rq:column "ReferenceGroup.atomicConnectivity";
 
 .
 map:ReferenceGroup_property_formula a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceGroup;
 	d2rq:property vocab:formula;
-	d2rq:propertyDefinitionLabel "ReferenceGroup formula";
 	d2rq:column "ReferenceGroup.formula";
 
 .
@@ -2229,13 +2054,11 @@ map:ReferenceIsoform a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceIsoform.DB_ID@@";
 	d2rq:class vocab:ReferenceIsoform;
-	d2rq:classDefinitionLabel "ReferenceIsoform";
 
 .
 map:ReferenceIsoform_property_variantIdentifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceIsoform;
 	d2rq:property vocab:variantIdentifier;
-	d2rq:propertyDefinitionLabel "ReferenceIsoform variantIdentifier";
 	d2rq:column "ReferenceIsoform.variantIdentifier";
 
 .
@@ -2251,20 +2074,17 @@ map:ReferenceMolecule a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceMolecule.DB_ID@@";
 	d2rq:class vocab:ReferenceMolecule;
-	d2rq:classDefinitionLabel "ReferenceMolecule";
 
 .
 map:ReferenceMolecule_property_atomicConnectivity a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceMolecule;
 	d2rq:property vocab:atomicConnectivity;
-	d2rq:propertyDefinitionLabel "ReferenceMolecule atomicConnectivity";
 	d2rq:column "ReferenceMolecule.atomicConnectivity";
 
 .
 map:ReferenceMolecule_property_formula a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceMolecule;
 	d2rq:property vocab:formula;
-	d2rq:propertyDefinitionLabel "ReferenceMolecule formula";
 	d2rq:column "ReferenceMolecule.formula";
 
 .
@@ -2272,7 +2092,6 @@ map:ReferenceRNASequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceRNASequence.DB_ID@@";
 	d2rq:class vocab:ReferenceRNASequence;
-	d2rq:classDefinitionLabel "ReferenceRNASequence";
 
 .
 ### ReferenceRNASequence ### referenceGene ###
@@ -2287,27 +2106,23 @@ map:ReferenceSequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReferenceSequence.DB_ID@@";
 	d2rq:class vocab:ReferenceSequence;
-	d2rq:classDefinitionLabel "ReferenceSequence";
 
 .
 map:ReferenceSequence_property_checksum a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceSequence;
 	d2rq:property vocab:checksum;
-	d2rq:propertyDefinitionLabel "ReferenceSequence checksum";
 	d2rq:column "ReferenceSequence.checksum";
 
 .
 map:ReferenceSequence_property_isSequenceChanged a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceSequence;
 	d2rq:property vocab:isSequenceChanged;
-	d2rq:propertyDefinitionLabel "ReferenceSequence isSequenceChanged";
 	d2rq:column "ReferenceSequence.isSequenceChanged";
 
 .
 map:ReferenceSequence_property_sequenceLength a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReferenceSequence;
 	d2rq:property vocab:sequenceLength;
-	d2rq:propertyDefinitionLabel "ReferenceSequence sequenceLength";
 	d2rq:column "ReferenceSequence.sequenceLength";
 	d2rq:datatype xsd:integer;
 
@@ -2362,7 +2177,6 @@ map:Regulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Regulation.DB_ID@@";
 	d2rq:class vocab:Regulation;
-	d2rq:classDefinitionLabel "Regulation";
 
 .
 map:Regulation_property_authored a d2rq:PropertyBridge;
@@ -2374,7 +2188,6 @@ map:Regulation_property_authored a d2rq:PropertyBridge;
 map:Regulation_property_regulatedEntity a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Regulation;
 	d2rq:property vocab:regulatedEntity;
-	d2rq:propertyDefinitionLabel "Regulation regulatedEntity";
 	d2rq:column "Regulation.regulatedEntity";
 	d2rq:datatype xsd:integer;
 
@@ -2388,7 +2201,6 @@ map:Regulation_property_regulationType a d2rq:PropertyBridge;
 map:Regulation_property_regulator a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Regulation;
 	d2rq:property vocab:regulator;
-	d2rq:propertyDefinitionLabel "Regulation regulator";
 	d2rq:column "Regulation.regulator";
 	d2rq:datatype xsd:integer;
 
@@ -2396,7 +2208,6 @@ map:Regulation_property_regulator a d2rq:PropertyBridge;
 map:Regulation_property_releaseDate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Regulation;
 	d2rq:property vocab:releaseDate;
-	d2rq:propertyDefinitionLabel "Regulation releaseDate";
 	d2rq:column "Regulation.releaseDate";
 	d2rq:datatype xsd:date;
 
@@ -2405,7 +2216,6 @@ map:RegulationType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@RegulationType.DB_ID@@";
 	d2rq:class vocab:RegulationType;
-	d2rq:classDefinitionLabel "RegulationType";
 
 .
 ### RegulationType ### instanceOf ###
@@ -2484,13 +2294,11 @@ map:ReplacedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@ReplacedResidue.DB_ID@@";
 	d2rq:class vocab:ReplacedResidue;
-	d2rq:classDefinitionLabel "ReplacedResidue";
 
 .
 map:ReplacedResidue_property_coordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:ReplacedResidue;
 	d2rq:property vocab:coordinate;
-	d2rq:propertyDefinitionLabel "ReplacedResidue coordinate";
 	d2rq:column "ReplacedResidue.coordinate";
 	d2rq:datatype xsd:integer;
 
@@ -2507,20 +2315,17 @@ map:Requirement a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Requirement.DB_ID@@";
 	d2rq:class vocab:Requirement;
-	d2rq:classDefinitionLabel "Requirement";
 
 .
 map:SequenceDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@SequenceDomain.DB_ID@@";
 	d2rq:class vocab:SequenceDomain;
-	d2rq:classDefinitionLabel "SequenceDomain";
 
 .
 map:SequenceDomain_property_endCoordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:SequenceDomain;
 	d2rq:property vocab:endCoordinate;
-	d2rq:propertyDefinitionLabel "SequenceDomain endCoordinate";
 	d2rq:column "SequenceDomain.endCoordinate";
 	d2rq:datatype xsd:integer;
 
@@ -2534,7 +2339,6 @@ map:SequenceDomain_property_referenceEntity a d2rq:PropertyBridge;
 map:SequenceDomain_property_startCoordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:SequenceDomain;
 	d2rq:property vocab:startCoordinate;
-	d2rq:propertyDefinitionLabel "SequenceDomain startCoordinate";
 	d2rq:column "SequenceDomain.startCoordinate";
 	d2rq:datatype xsd:integer;
 
@@ -2543,14 +2347,12 @@ map:SequenceOntology a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@SequenceOntology.DB_ID@@";
 	d2rq:class vocab:SequenceOntology;
-	d2rq:classDefinitionLabel "SequenceOntology";
 
 .
 map:SimpleEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@SimpleEntity.DB_ID@@";
 	d2rq:class vocab:SimpleEntity;
-	d2rq:classDefinitionLabel "SimpleEntity";
 
 .
 map:SimpleEntity_property_species a d2rq:PropertyBridge;
@@ -2571,7 +2373,6 @@ map:Species a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Species.DB_ID@@";
 	d2rq:class vocab:Species;
-	d2rq:classDefinitionLabel "Species";
 
 .
 ### Species ### figure ###
@@ -2586,20 +2387,17 @@ map:StableIdentifier a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@StableIdentifier.DB_ID@@";
 	d2rq:class vocab:StableIdentifier;
-	d2rq:classDefinitionLabel "StableIdentifier";
 
 .
 map:StableIdentifier_property_identifier a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:StableIdentifier;
 	d2rq:property vocab:identifier;
-	d2rq:propertyDefinitionLabel "StableIdentifier identifier";
 	d2rq:column "StableIdentifier.identifier";
 
 .
 map:StableIdentifier_property_identifierVersion a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:StableIdentifier;
 	d2rq:property vocab:identifierVersion;
-	d2rq:propertyDefinitionLabel "StableIdentifier identifierVersion";
 	d2rq:column "StableIdentifier.identifierVersion";
 
 .
@@ -2613,13 +2411,11 @@ map:Summation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Summation.DB_ID@@";
 	d2rq:class vocab:Summation;
-	d2rq:classDefinitionLabel "Summation";
 
 .
 map:Summation_property_text a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Summation;
 	d2rq:property vocab:text;
-	d2rq:propertyDefinitionLabel "Summation text";
 	d2rq:column "Summation.text";
 
 .
@@ -2635,13 +2431,11 @@ map:Taxon a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Taxon.DB_ID@@";
 	d2rq:class vocab:Taxon;
-	d2rq:classDefinitionLabel "Taxon";
 
 .
 map:Taxon_property_superTaxon a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Taxon;
 	d2rq:property vocab:superTaxon;
-	d2rq:propertyDefinitionLabel "Taxon superTaxon";
 	d2rq:column "Taxon.superTaxon";
 	d2rq:datatype xsd:integer;
 
@@ -2666,13 +2460,11 @@ map:TranslationalModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@TranslationalModification.DB_ID@@";
 	d2rq:class vocab:TranslationalModification;
-	d2rq:classDefinitionLabel "TranslationalModification";
 
 .
 map:TranslationalModification_property_coordinate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:TranslationalModification;
 	d2rq:property vocab:coordinate;
-	d2rq:propertyDefinitionLabel "TranslationalModification coordinate";
 	d2rq:column "TranslationalModification.coordinate";
 	d2rq:datatype xsd:integer;
 
@@ -2687,13 +2479,11 @@ map:URL a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@URL.DB_ID@@";
 	d2rq:class vocab:URL;
-	d2rq:classDefinitionLabel "URL";
 
 .
 map:URL_property_uniformResourceLocator a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:URL;
 	d2rq:property vocab:uniformResourceLocator;
-	d2rq:propertyDefinitionLabel "URL uniformResourceLocator";
 	d2rq:column "URL.uniformResourceLocator";
 
 .
@@ -2701,13 +2491,11 @@ map:Vertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@Vertex.DB_ID@@";
 	d2rq:class vocab:Vertex;
-	d2rq:classDefinitionLabel "Vertex";
 
 .
 map:Vertex_property_height a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Vertex;
 	d2rq:property vocab:height;
-	d2rq:propertyDefinitionLabel "Vertex height";
 	d2rq:column "Vertex.height";
 	d2rq:datatype xsd:integer;
 
@@ -2721,7 +2509,6 @@ map:Vertex_property_pathwayDiagram a d2rq:PropertyBridge;
 map:Vertex_property_representedInstance a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Vertex;
 	d2rq:property vocab:representedInstance;
-	d2rq:propertyDefinitionLabel "Vertex representedInstance";
 	d2rq:column "Vertex.representedInstance";
 	d2rq:datatype xsd:integer;
 
@@ -2729,7 +2516,6 @@ map:Vertex_property_representedInstance a d2rq:PropertyBridge;
 map:Vertex_property_width a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Vertex;
 	d2rq:property vocab:width;
-	d2rq:propertyDefinitionLabel "Vertex width";
 	d2rq:column "Vertex.width";
 	d2rq:datatype xsd:integer;
 
@@ -2737,7 +2523,6 @@ map:Vertex_property_width a d2rq:PropertyBridge;
 map:Vertex_property_x a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Vertex;
 	d2rq:property vocab:x;
-	d2rq:propertyDefinitionLabel "Vertex x";
 	d2rq:column "Vertex.x";
 	d2rq:datatype xsd:integer;
 
@@ -2745,7 +2530,6 @@ map:Vertex_property_x a d2rq:PropertyBridge;
 map:Vertex_property_y a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:Vertex;
 	d2rq:property vocab:y;
-	d2rq:propertyDefinitionLabel "Vertex y";
 	d2rq:column "Vertex.y";
 	d2rq:datatype xsd:integer;
 
@@ -2754,13 +2538,11 @@ map:VertexSearchableTerm a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@VertexSearchableTerm.DB_ID@@";
 	d2rq:class vocab:VertexSearchableTerm;
-	d2rq:classDefinitionLabel "VertexSearchableTerm";
 
 .
 map:VertexSearchableTerm_property_providerCount a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:VertexSearchableTerm;
 	d2rq:property vocab:providerCount;
-	d2rq:propertyDefinitionLabel "VertexSearchableTerm providerCount";
 	d2rq:column "VertexSearchableTerm.providerCount";
 	d2rq:datatype xsd:integer;
 
@@ -2768,7 +2550,6 @@ map:VertexSearchableTerm_property_providerCount a d2rq:PropertyBridge;
 map:VertexSearchableTerm_property_searchableTerm a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:VertexSearchableTerm;
 	d2rq:property vocab:searchableTerm;
-	d2rq:propertyDefinitionLabel "VertexSearchableTerm searchableTerm";
 	d2rq:column "VertexSearchableTerm.searchableTerm";
 
 .
@@ -2781,7 +2562,6 @@ map:VertexSearchableTerm_property_species a d2rq:PropertyBridge;
 map:VertexSearchableTerm_property_vertexCount a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:VertexSearchableTerm;
 	d2rq:property vocab:vertexCount;
-	d2rq:propertyDefinitionLabel "VertexSearchableTerm vertexCount";
 	d2rq:column "VertexSearchableTerm.vertexCount";
 	d2rq:datatype xsd:integer;
 
@@ -2806,13 +2586,11 @@ map:_AttributeValueBeforeChange a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@_AttributeValueBeforeChange.DB_ID@@";
 	d2rq:class vocab:_AttributeValueBeforeChange;
-	d2rq:classDefinitionLabel "_AttributeValueBeforeChange";
 
 .
 map:_AttributeValueBeforeChange_property_changedAttribute a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_AttributeValueBeforeChange;
 	d2rq:property vocab:changedAttribute;
-	d2rq:propertyDefinitionLabel "_AttributeValueBeforeChange changedAttribute";
 	d2rq:column "_AttributeValueBeforeChange.changedAttribute";
 
 .
@@ -2828,20 +2606,17 @@ map:_Deleted a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@_Deleted.DB_ID@@";
 	d2rq:class vocab:_Deleted;
-	d2rq:classDefinitionLabel "_Deleted";
 
 .
 map:_Deleted_property_curatorComment a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_Deleted;
 	d2rq:property vocab:curatorComment;
-	d2rq:propertyDefinitionLabel "_Deleted curatorComment";
 	d2rq:column "_Deleted.curatorComment";
 
 .
 map:_Deleted_property_reason a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_Deleted;
 	d2rq:property vocab:reason;
-	d2rq:propertyDefinitionLabel "_Deleted reason";
 	d2rq:column "_Deleted.reason";
 	d2rq:datatype xsd:integer;
 
@@ -2866,13 +2641,11 @@ map:_InstanceBeforeChange a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@_InstanceBeforeChange.DB_ID@@";
 	d2rq:class vocab:_InstanceBeforeChange;
-	d2rq:classDefinitionLabel "_InstanceBeforeChange";
 
 .
 map:_InstanceBeforeChange_property_changedInstanceDB_ID a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_InstanceBeforeChange;
 	d2rq:property vocab:changedInstanceDB_ID;
-	d2rq:propertyDefinitionLabel "_InstanceBeforeChange changedInstanceDB_ID";
 	d2rq:column "_InstanceBeforeChange.changedInstanceDB_ID";
 	d2rq:datatype xsd:integer;
 
@@ -2895,20 +2668,17 @@ map:_Release a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
 	d2rq:uriPattern "@@_Release.DB_ID@@";
 	d2rq:class vocab:_Release;
-	d2rq:classDefinitionLabel "_Release";
 
 .
 map:_Release_property_releaseDate a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_Release;
 	d2rq:property vocab:releaseDate;
-	d2rq:propertyDefinitionLabel "_Release releaseDate";
 	d2rq:column "_Release.releaseDate";
 
 .
 map:_Release_property_releaseNumber a d2rq:PropertyBridge;
 	d2rq:belongsToClassMap map:_Release;
 	d2rq:property vocab:releaseNumber;
-	d2rq:propertyDefinitionLabel "_Release releaseNumber";
 	d2rq:column "_Release.releaseNumber";
 	d2rq:datatype xsd:integer;
 

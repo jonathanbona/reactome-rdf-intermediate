@@ -1,5 +1,5 @@
-;; note this is also http://www.reactome.org/download/current/reactome_data_model.pins
-
+; Wed Sep 12 11:24:58 PDT 2012
+; 
 ;+ (version "2.1.2")
 ;+ (build "Build 246")
 
@@ -3727,7 +3727,373 @@
 	(text "At the beginning of this reaction, 1 molecule of 'TRAIL receptor-2', and 1 molecule of 'TRAIL' are present. At the end of this reaction, 1 molecule of 'TRAIL receptor-2:TRAIL complex' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
 
 ([GK_179244] of Summation
-	(_displayName "At the beginning of this reaction, 1 molecule of 'TRAIL:TRAIes arising mainly in the mandible and commonly associated with an unerupted or embedded tooth. They are characterized by the presence of squamous-cell proliferation, calcification, and, notably, amyloid deposits.SIMILARITY Belongs to the ODAM family.")
+	(_displayName "At the beginning of this reaction, 1 molecule of 'TRAIL:TRAI...")
+	(DB_ID 179244)
+	(text "At the beginning of this reaction, 1 molecule of 'TRAIL:TRAIL receptor-2 Trimer:FADD:Caspase-8 precursor complex' is present. At the end of this reaction, 1 molecule of 'p10 subunit of Caspase 8', 1 molecule of 'TRAIL:TRAIL receptor-2:FADD complex', and 1 molecule of 'p18 subunit of Caspase 8' are present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_179245] of Summation
+	(_displayName "At the beginning of this reaction, 1 molecule of 'FADD', and...")
+	(DB_ID 179245)
+	(text "At the beginning of this reaction, 1 molecule of 'FADD', and 1 molecule of 'TRAIL receptor-2:TRAIL Trimer' are present. At the end of this reaction, 1 molecule of 'TRAIL:TRAIL receptor-2:FADD complex' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_179246] of Summation
+	(_displayName "At the beginning of this reaction, 1 molecule of 'Caspase-10...")
+	(DB_ID 179246)
+	(text "At the beginning of this reaction, 1 molecule of 'Caspase-10 precursor ', and 1 molecule of 'TRAIL:TRAIL receptor-2:FADD complex' are present. At the end of this reaction, 1 molecule of 'TRAIL:TRAIL receptor-2 Trimer:FADD:Caspase-10 precursor complex' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_179247] of Summation
+	(_displayName "At the beginning of this reaction, 1 molecule of 'Caspase-8 ...")
+	(DB_ID 179247)
+	(text "At the beginning of this reaction, 1 molecule of 'Caspase-8 precursor ', and 1 molecule of 'TRAIL:TRAIL receptor-2:FADD complex' are present. At the end of this reaction, 1 molecule of 'TRAIL:TRAIL receptor-2 Trimer:FADD:Caspase-8 precursor complex' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_179272] of Summation
+	(_displayName "At the beginning of this reaction, 3 molecules of 'FASL:FAS ...")
+	(DB_ID 179272)
+	(text "At the beginning of this reaction, 3 molecules of 'FASL:FAS Receptor monomer' is present. At the end of this reaction, 1 molecule of 'FASL:FAS Receptor Trimer' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_179273] of Summation
+	(_displayName "At the beginning of this reaction, 3 molecules of 'TRAIL rec...")
+	(DB_ID 179273)
+	(text "At the beginning of this reaction, 3 molecules of 'TRAIL receptor-2:TRAIL complex' is present. At the end of this reaction, 1 molecule of 'TRAIL receptor-2:TRAIL Trimer' is present.<br><br> This reaction takes place in the 'cell'.<br>"))
+
+([GK_1793] of GO_MolecularFunction
+	(_displayName "endopeptidase activity")
+	(accession "0004175")
+	(DB_ID 1793)
+	(definition "Catalysis of the hydrolysis of internal, alpha-peptide bonds in a polypeptide chain.")
+	(instanceOf [GK_376448])
+	(name "endopeptidase activity")
+	(referenceDatabase [GK_1]))
+
+([GK_183154] of ReferenceDatabase
+	(_displayName "PubChem Substance")
+	(accessUrl "http://pubchem.ncbi.nlm.nih.gov/summary/summary.cgi?sid=###ID###")
+	(DB_ID 183154)
+	(name "PubChem Substance")
+	(url "http://www.ncbi.nlm.nih.gov/entrez/query.fcgi?db=pcsubstance"))
+
+([GK_183728] of DatabaseIdentifier
+	(_displayName "PubChem Substance:8145461")
+	(DB_ID 183728)
+	(identifier "8145461")
+	(referenceDatabase [GK_183154]))
+
+([GK_186930] of Person
+	(_displayName "Yamaguchi, I")
+	(DB_ID 186930)
+	(firstname "Isomaro")
+	(initial "I")
+	(surname "Yamaguchi"))
+
+([GK_189563] of Person
+	(_displayName "Hasegawa, K")
+	(DB_ID 189563)
+	(initial "K")
+	(surname "Hasegawa"))
+
+([GK_193525] of Person
+	(_displayName "Suzuki, Y")
+	(DB_ID 193525)
+	(firstname "Yasuyuki")
+	(initial "Y")
+	(surname "Suzuki"))
+
+([GK_194488] of Person
+	(_displayName "Yamashita, T")
+	(DB_ID 194488)
+	(initial "T")
+	(surname "Yamashita"))
+
+([GK_1996045] of GO_BiologicalProcess
+	(_displayName "positive regulation of cysteine-type endopeptidase activity")
+	(accession "2001056")
+	(DB_ID 1996045)
+	(definition "Any process that activates or increases the frequency, rate or extent of cysteine-type endopeptidase activity.")
+	(instanceOf
+		[GK_423068]
+		[GK_1043016])
+	(name "positive regulation of cysteine-type endopeptidase activity")
+	(positivelyRegulate [GK_4344])
+	(referenceDatabase [GK_1]))
+
+([GK_2] of ReferenceDatabase
+	(_displayName "UniProt")
+	(accessUrl "http://www.uniprot.org/entry/###ID###")
+	(DB_ID 2)
+	(name
+		"UniProt"
+		"SWALL"
+		"SPTR"
+		"SwissProt"
+		"SPTREMBL")
+	(url "http://www.uniprot.org"))
+
+([GK_202881] of Person
+	(_displayName "Wang, S")
+	(DB_ID 202881)
+	(initial "S")
+	(surname "Wang"))
+
+([GK_203163] of Person
+	(_displayName "Yang, W")
+	(DB_ID 203163)
+	(initial "W")
+	(surname "Yang"))
+
+([GK_204598] of Person
+	(_displayName "Yamamoto, S")
+	(DB_ID 204598)
+	(initial "S")
+	(surname "Yamamoto"))
+
+([GK_204605] of EntityWithAccessionedSequence
+	(_displayName "[Hsa] Kerato-epithelin [plasma membrane]")
+	(compartment [GK_876])
+	(DB_ID 204605)
+	(endCoordinate 683)
+	(name
+		"Kerato-epithelin"
+		"Transforming growth factor-beta induced protein IG-H3 precursor"
+		"BGH3_HUMAN"
+		"TGFBI")
+	(referenceEntity [GK_50810])
+	(species [GK_48887])
+	(stableIdentifier [GK_1358063])
+	(startCoordinate 24))
+
+([GK_205591] of Person
+	(_displayName "Williams, MG")
+	(DB_ID 205591)
+	(initial "MG")
+	(project "FlyBase")
+	(surname "Williams"))
+
+([GK_207144] of Person
+	(_displayName "Lemaitre, B")
+	(DB_ID 207144)
+	(initial "B")
+	(surname "Lemaitre"))
+
+([GK_207287] of Person
+	(_displayName "Eulitz, M")
+	(DB_ID 207287)
+	(initial "M")
+	(surname "Eulitz"))
+
+([GK_207482] of Person
+	(_displayName "Ikeda, S")
+	(DB_ID 207482)
+	(initial "S")
+	(surname "Ikeda"))
+
+([GK_207642] of Person
+	(_displayName "Sawaya, MR")
+	(DB_ID 207642)
+	(initial "MR")
+	(surname "Sawaya"))
+
+([GK_207774] of Person
+	(_displayName "Silverman, N")
+	(DB_ID 207774)
+	(initial "N")
+	(surname "Silverman"))
+
+([GK_212143] of Person
+	(_displayName "Szyf, M")
+	(DB_ID 212143)
+	(initial "M")
+	(surname "Szyf"))
+
+([GK_213088] of Summation
+	(_displayName "Caspase-8 is formed from the precursor protein pro-Caspase-8...")
+	(DB_ID 213088)
+	(text "Caspase-8 is formed from the precursor protein pro-Caspase-8 as a cleavage product."))
+
+([GK_213104] of Summation
+	(_displayName "Pro-caspase-8 is known to be activated by various factors in...")
+	(DB_ID 213104)
+	(text "Pro-caspase-8 is known to be activated by various factors in response to a variety of external and internal stimuli. These include FAS, TRAIL, and TNF."))
+
+([GK_2133509] of GO_BiologicalProcess
+	(_displayName "activation of cysteine-type endopeptidase activity")
+	(accession "0097202")
+	(DB_ID 2133509)
+	(definition "Any process that initiates the activity of the inactive enzyme cysteine-type endopeptidase.")
+	(instanceOf [GK_1996045])
+	(name "activation of cysteine-type endopeptidase activity")
+	(referenceDatabase [GK_1]))
+
+([GK_216603] of Person
+	(_displayName "Munier, FL")
+	(DB_ID 216603)
+	(initial "FL")
+	(surname "Munier"))
+
+([GK_216645] of Person
+	(_displayName "Schorderet, DF")
+	(DB_ID 216645)
+	(initial "DF")
+	(surname "Schorderet"))
+
+([GK_217036] of Person
+	(_displayName "Lee, M")
+	(DB_ID 217036)
+	(initial "M")
+	(surname "Lee"))
+
+([GK_217173] of Person
+	(_displayName "Seki, M")
+	(DB_ID 217173)
+	(initial "M")
+	(surname "Seki"))
+
+([GK_2273] of GO_BiologicalProcess
+	(_displayName "apoptotic process")
+	(accession "0006915")
+	(DB_ID 2273)
+	(definition "A programmed cell death process which begins when a cell receives an internal (e.g. DNA damage) or external signal (e.g. an extracellular death ligand), and proceeds through a series of biochemical events (signaling pathways) which typically lead to rounding-up of the cell, retraction of pseudopodes, reduction of cellular volume (pyknosis), chromatin condensation, nuclear fragmentation (karyorrhexis), plasma membrane blebbing and fragmentation of the cell into apoptotic bodies. The process ends when the cell has died. The process is divided into a signaling pathway phase and into an execution phase, which is triggered by the former.")
+	(instanceOf [GK_2274])
+	(name "apoptotic process")
+	(referenceDatabase [GK_1]))
+
+([GK_2274] of GO_BiologicalProcess
+	(_displayName "programmed cell death")
+	(accession "0012501")
+	(DB_ID 2274)
+	(definition "A process which begins when a cell receives an internal or external signal and activates a series of biochemical events (signaling pathway). The process ends with the death of the cell.")
+	(instanceOf [GK_2275])
+	(name "programmed cell death")
+	(referenceDatabase [GK_1]))
+
+([GK_2275] of GO_BiologicalProcess
+	(_displayName "cell death")
+	(accession "0008219")
+	(DB_ID 2275)
+	(definition "Any biological process that results in permanent cessation of all vital functions of a cell. A cell should be considered dead when any one of the following molecular or morphological criteria is met: (1) the cell has lost the integrity of its plasma membrane; (2) the cell, including its nucleus, has undergone complete fragmentation into discrete bodies (frequently referred to as \"apoptotic bodies\"); and/or (3) its corpse (or its fragments) have been engulfed by an adjacent cell in vivo.")
+	(instanceOf
+		[GK_143]
+		[GK_2276])
+	(name "cell death")
+	(referenceDatabase [GK_1]))
+
+([GK_2276] of GO_BiologicalProcess
+	(_displayName "death")
+	(accession "0016265")
+	(DB_ID 2276)
+	(definition "A permanent cessation of all vital functions: the end of life; can be applied to a whole organism or to a part of an organism.")
+	(instanceOf [GK_106])
+	(name "death")
+	(referenceDatabase [GK_1]))
+
+([GK_231418] of ReferenceGeneProduct
+	(_displayName "[Hsa] UniProt:Q6FI13 HIST2H2AA3 recommendedName: Histone H2A type 2-A  alternativeName: Histone H2A.2  alternativeName: Histone H2A/o ")
+	(checksum "1")
+	(comment "FUNCTION Core component of nucleosome. Nucleosomes wrap and compact DNA into chromatin, limiting DNA accessibility to the cellular machineries which require DNA as a template. Histones thereby play a central role in transcription regulation, DNA repair, DNA replication and chromosomal stability. DNA accessibility is regulated via a complex set of post-translational modifications of histones, also called histone code, and nucleosome remodeling.SUBUNIT The nucleosome is a histone octamer containing two molecules each of H2A, H2B, H3 and H4 assembled in one H3-H4 heterotetramer and two H2A-H2B heterodimers. The octamer wraps approximately 147 bp of DNA.PTM Deiminated on Arg-4 in granulocytes upon calcium entry.PTM Phosphorylation on Ser-2 is enhanced during mitosis. Phosphorylation on Ser-2 by RPS6KA5/MSK1 directly represses transcription. Acetylation of H3 inhibits Ser-2 phosphorylation by RPS6KA5/MSK1.SIMILARITY Belongs to the histone H2A family.")
+	(DB_ID 231418)
+	(description "recommendedName: Histone H2A type 2-A  alternativeName: Histone H2A.2  alternativeName: Histone H2A/o ")
+	(geneName
+		"HIST2H2AA3"
+		"H2AFO"
+		"HIST2H2AA"
+		"</gene>"
+		"<gene>"
+		"HIST2H2AA4")
+	(identifier "Q6FI13")
+	(isSequenceChanged TRUE)
+	(keyword
+		"Acetylation"
+		"Chromosome"
+		"Citrullination"
+		"Complete proteome"
+		"DNA-binding"
+		"Isopeptide bond"
+		"Methylation"
+		"Nucleosome core"
+		"Nucleus"
+		"Phosphoprotein"
+		"Ubl conjugation")
+	(name "HIST2H2AA3")
+	(referenceDatabase [GK_2])
+	(secondaryIdentifier
+		"H2A2A_HUMAN"
+		"B2R5F0"
+		"P20670")
+	(sequenceLength 130)
+	(species [GK_48887]))
+
+([GK_231427] of ReferenceGeneProduct
+	(_displayName "[Hsa] UniProt:P0C5Y9 H2AFB1 recommendedName: Histone H2A-Bbd type 1  alternativeName: H2A Barr body-deficient shortName:H2A.Bbd  alternativeName: H2A Barr body-deficient shortName:H2A.Bbd ")
+	(checksum "1")
+	(comment "SUBUNIT The nucleosome is a histone octamer containing two molecules each of H2A, H2B, H3 and H4 assembled in one H3-H4 heterotetramer and two H2A-H2B heterodimers. May be incorporated into a proportion of nucleosomes, replacing one or more H2A molecules.MISCELLANEOUS In contrast to other H2A histones, it does not contain the conserved residues that are the target of post-translational modifications.SIMILARITY Belongs to the histone H2A family.")
+	(DB_ID 231427)
+	(description "recommendedName: Histone H2A-Bbd type 1  alternativeName: H2A Barr body-deficient shortName:H2A.Bbd  alternativeName: H2A Barr body-deficient shortName:H2A.Bbd ")
+	(geneName "H2AFB1")
+	(identifier "P0C5Y9")
+	(isSequenceChanged TRUE)
+	(keyword
+		"Chromosome"
+		"Complete proteome"
+		"DNA-binding"
+		"Nucleosome core"
+		"Nucleus")
+	(name "H2AFB1")
+	(referenceDatabase [GK_2])
+	(secondaryIdentifier
+		"H2AB1_HUMAN"
+		"P98176"
+		"Q5TZB2"
+		"Q6FG78"
+		"Q96PR7")
+	(sequenceLength 115)
+	(species [GK_48887]))
+
+([GK_231437] of ReferenceGeneProduct
+	(_displayName "[Hsa] UniProt:P0C0S5 H2AFZ recommendedName: Histone H2A.Z shortName:H2A/z ")
+	(checksum "1")
+	(comment "PTM Monoubiquitination of Lys-122 gives a specific tag for epigenetic transcriptional repression.SIMILARITY Belongs to the histone H2A family.")
+	(DB_ID 231437)
+	(description "recommendedName: Histone H2A.Z shortName:H2A/z ")
+	(geneName
+		"H2AFZ"
+		"H2AZ")
+	(identifier "P0C0S5")
+	(isSequenceChanged TRUE)
+	(keyword
+		"3D-structure"
+		"Acetylation"
+		"Chromosome"
+		"Complete proteome"
+		"DNA-binding"
+		"Isopeptide bond"
+		"Nucleosome core"
+		"Nucleus"
+		"Ubl conjugation")
+	(name "H2AFZ")
+	(referenceDatabase [GK_2])
+	(secondaryIdentifier
+		"H2AZ_HUMAN"
+		"B2RD56"
+		"P17317"
+		"Q6I9U0")
+	(sequenceLength 128)
+	(species [GK_48887]))
+
+([GK_23175] of GO_BiologicalProcess
+	(_displayName "activation of cysteine-type endopeptidase activity involved in apoptotic process")
+	(accession "0006919")
+	(componentOf [GK_2273])
+	(DB_ID 23175)
+	(definition "Any process that initiates the activity of the inactive enzyme cysteine-type endopeptidase in the context of an apoptotic process.")
+	(instanceOf
+		[GK_160294]
+		[GK_2133509])
+	(name "activation of cysteine-type endopeptidase activity involved in apoptotic process")
+	(referenceDatabase [GK_1]))
+
+([GK_240941] of ReferenceGeneProduct
+	(_displayName "[Hsa] UniProt:A1E959 ODAM recommendedName: Odontogenic ameloblast-associated protein  alternativeName: Apin ")
+	(checksum "1")
+	(comment "FUNCTION Tooth-associated epithelia protein that probably plays a role in odontogenesis, the complex process that results in the initiation and generation of the tooth. May be incorporated in the enamel matrix at the end of mineralization process.MISCELLANEOUS ODAM protein is the unique constituent of calcifying epithelial odontogenic tumors (CEOTs), also known as Pindborg tumors. CEOTs are benign but locally aggressive pathologic entities arising mainly in the mandible and commonly associated with an unerupted or embedded tooth. They are characterized by the presence of squamous-cell proliferation, calcification, and, notably, amyloid deposits.SIMILARITY Belongs to the ODAM family.")
 	(DB_ID 240941)
 	(description "recommendedName: Odontogenic ameloblast-associated protein  alternativeName: Apin ")
 	(geneName
@@ -12110,4 +12476,407 @@
 	(instanceOf [GK_357])
 	(name "extracellular region")
 	(referenceDatabase [GK_1]))
+
+([GKB_core_00388] of %3ASTANDARD-FACET)
+
+([GO_BiologicalProcess] of %3AEXTENDED-CLASS)
+
+([GO_CellularComponent] of %3AEXTENDED-CLASS)
+
+([GO_MolecularFunction] of %3AEXTENDED-CLASS)
+
+([goBiologicalProcess] of %3AEXTENDED-SLOT)
+
+([goCellularComponent] of %3AEXTENDED-SLOT)
+
+([GroupModifiedResidue] of %3AEXTENDED-CLASS)
+
+([hasCandidate] of %3AEXTENDED-SLOT)
+
+([hasComponent] of %3AEXTENDED-SLOT)
+
+([hasDomain] of %3AEXTENDED-SLOT)
+
+([hasEvent] of %3AEXTENDED-SLOT)
+
+([hasFunctionalVariants] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([hasInstance] of %3AEXTENDED-SLOT)
+
+([hasMember] of %3AEXTENDED-SLOT)
+
+([hasModifiedResidue] of %3AEXTENDED-SLOT)
+
+([hasPart] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([hasSpecialisedForm] of %3AEXTENDED-SLOT)
+
+([height] of %3AEXTENDED-SLOT)
+
+([identifier] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY))
+
+([identifierVersion] of %3AEXTENDED-SLOT)
+
+([identify] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY))
+
+([identityDefinedBy] of %3AEXTENDED-SLOT
+	(%3AASSOCIATED-FACET [_identityDefinedBy]))
+
+([includedLocation] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([inferredFrom] of %3AEXTENDED-SLOT)
+
+([inferredTo] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([initial] of %3AEXTENDED-SLOT)
+
+([input] of %3AEXTENDED-SLOT)
+
+([InstanceEdit] of %3AEXTENDED-CLASS)
+
+([instanceEdit] of %3AEXTENDED-SLOT)
+
+([instanceOf] of %3AEXTENDED-SLOT)
+
+([InterChainCrosslinkedResidue] of %3AEXTENDED-CLASS)
+
+([IntraChainCrosslinkedResidue] of %3AEXTENDED-CLASS)
+
+([ISBN] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL)
+	(identityDefinedBy ANY))
+
+([isCanonical] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([isChimeric] of %3AEXTENDED-SLOT)
+
+([isoformParent] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY))
+
+([isSequenceChanged] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([journal] of %3AEXTENDED-SLOT)
+
+([keyword] of %3AEXTENDED-SLOT)
+
+([LiteratureReference] of %3AEXTENDED-CLASS)
+
+([literatureReference] of %3AEXTENDED-SLOT)
+
+([locatedEvent] of %3AEXTENDED-SLOT
+	(identityDefinedBy ALL))
+
+([locationContext] of %3AEXTENDED-SLOT)
+
+([maxCount] of %3AEXTENDED-SLOT)
+
+([maxUnitCount] of %3AEXTENDED-SLOT)
+
+([maxX] of %3AEXTENDED-SLOT)
+
+([maxY] of %3AEXTENDED-SLOT)
+
+([minCount] of %3AEXTENDED-SLOT)
+
+([minUnitCount] of %3AEXTENDED-SLOT)
+
+([minX] of %3AEXTENDED-SLOT)
+
+([minY] of %3AEXTENDED-SLOT)
+
+([modification] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY)
+	(identityDefinedBy ALL))
+
+([modified] of %3AEXTENDED-SLOT)
+
+([ModifiedResidue] of %3AEXTENDED-CLASS)
+
+([name] of %3AEXTENDED-SLOT)
+
+([negativelyRegulate] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([NegativeRegulation] of %3AEXTENDED-CLASS)
+
+([normalEntity] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([normalReaction] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([note] of %3AEXTENDED-SLOT)
+
+([OpenSet] of %3AEXTENDED-CLASS)
+
+([orthologousEvent] of %3AEXTENDED-SLOT)
+
+([OtherEntity] of %3AEXTENDED-CLASS)
+
+([otherIdentifier] of %3AEXTENDED-SLOT)
+
+([output] of %3AEXTENDED-SLOT)
+
+([pages] of %3AEXTENDED-SLOT)
+
+([Pathway] of %3AEXTENDED-CLASS)
+
+([PathwayCoordinates] of %3AEXTENDED-CLASS)
+
+([PathwayDiagram] of %3AEXTENDED-CLASS)
+
+([pathwayDiagram] of %3AEXTENDED-SLOT)
+
+([PathwayDiagramItem] of %3AEXTENDED-CLASS)
+
+([PathwayVertex] of %3AEXTENDED-CLASS)
+
+([Person] of %3AEXTENDED-CLASS)
+
+([PhysicalEntity] of %3AEXTENDED-CLASS)
+
+([physicalEntity] of %3AEXTENDED-SLOT)
+
+([pointCoordinates] of %3AEXTENDED-SLOT)
+
+([Polymer] of %3AEXTENDED-CLASS)
+
+([Polymerisation] of %3AEXTENDED-CLASS)
+
+([positivelyRegulate] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([PositiveRegulation] of %3AEXTENDED-CLASS)
+
+([precedingEvent] of %3AEXTENDED-SLOT)
+
+([previousValue] of %3AEXTENDED-SLOT
+	(databaseColumnSpecification "TEXT"))
+
+([project] of %3AEXTENDED-SLOT)
+
+([providerCount] of %3AEXTENDED-SLOT)
+
+([PsiMod] of %3AEXTENDED-CLASS)
+
+([psiMod] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY)
+	(identityDefinedBy ALL))
+
+([Publication] of %3AEXTENDED-CLASS)
+
+([publisher] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([pubMedIdentifier] of %3AEXTENDED-SLOT)
+
+([Reaction] of %3AEXTENDED-CLASS)
+
+([ReactionCoordinates] of %3AEXTENDED-CLASS)
+
+([ReactionlikeEvent] of %3AEXTENDED-CLASS)
+
+([Reactome_109607_14914_Slot_1] of %3AEXTENDED-SLOT)
+
+([reason] of %3AEXTENDED-SLOT
+	(attributeCategory REQUIRED))
+
+([ReferenceDatabase] of %3AEXTENDED-CLASS)
+
+([referenceDatabase] of %3AEXTENDED-SLOT)
+
+([ReferenceDNASequence] of %3AEXTENDED-CLASS)
+
+([ReferenceEntity] of %3AEXTENDED-CLASS)
+
+([referenceEntity] of %3AEXTENDED-SLOT)
+
+([referenceGene] of %3AEXTENDED-SLOT)
+
+([ReferenceGeneProduct] of %3AEXTENDED-CLASS)
+
+([ReferenceGroup] of %3AEXTENDED-CLASS)
+
+([referenceGroup] of %3AEXTENDED-SLOT)
+
+([referenceGroupCount] of %3AEXTENDED-SLOT)
+
+([ReferenceIsoform] of %3AEXTENDED-CLASS)
+
+([ReferenceMolecule] of %3AEXTENDED-CLASS)
+
+([ReferenceRNASequence] of %3AEXTENDED-CLASS)
+
+([ReferenceSequence] of %3AEXTENDED-CLASS)
+
+([referenceSequence] of %3AEXTENDED-SLOT)
+
+([referenceTranscript] of %3AEXTENDED-SLOT)
+
+([regulate] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([regulatedEntity] of %3AEXTENDED-SLOT)
+
+([Regulation] of %3AEXTENDED-CLASS)
+
+([RegulationType] of %3AEXTENDED-CLASS)
+
+([regulationType] of %3AEXTENDED-SLOT)
+
+([regulator] of %3AEXTENDED-SLOT)
+
+([releaseDate] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([releaseNumber] of %3AEXTENDED-SLOT
+	(attributeCategory REQUIRED))
+
+([releaseStatus] of %3AEXTENDED-SLOT
+	(attributeCategory NOMANUALEDIT))
+
+([removingActivity] of %3AEXTENDED-SLOT)
+
+([repeatedUnit] of %3AEXTENDED-SLOT)
+
+([ReplacedResidue] of %3AEXTENDED-CLASS)
+
+([replacementInstances] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([representedInstance] of %3AEXTENDED-SLOT)
+
+([representedPathway] of %3AEXTENDED-SLOT)
+
+([requiredInputComponent] of %3AEXTENDED-SLOT)
+
+([Requirement] of %3AEXTENDED-CLASS)
+
+([residue] of %3AEXTENDED-SLOT)
+
+([reverseReaction] of %3AEXTENDED-SLOT)
+
+([reviewed] of %3AEXTENDED-SLOT)
+
+([reviewer] of %3AEXTENDED-SLOT)
+
+([revised] of %3AEXTENDED-SLOT)
+
+([searchableTerm] of %3AEXTENDED-SLOT)
+
+([secondaryIdentifier] of %3AEXTENDED-SLOT)
+
+([secondCoordinate] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([secondReferenceSequence] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY))
+
+([SequenceDomain] of %3AEXTENDED-CLASS)
+
+([sequenceLength] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([SequenceOntology] of %3AEXTENDED-CLASS)
+
+([shortName] of %3AEXTENDED-SLOT)
+
+([SimpleEntity] of %3AEXTENDED-CLASS)
+
+([slotDisplayName] of %3AEXTENDED-SLOT
+	(%3AASSOCIATED-FACET [_slotDisplayName]))
+
+([sourceVertex] of %3AEXTENDED-SLOT)
+
+([sourceX] of %3AEXTENDED-SLOT)
+
+([sourceY] of %3AEXTENDED-SLOT)
+
+([Species] of %3AEXTENDED-CLASS)
+
+([species] of %3AEXTENDED-SLOT)
+
+([StableIdentifier] of %3AEXTENDED-CLASS)
+
+([stableIdentifier] of %3AEXTENDED-SLOT)
+
+([startCoordinate] of %3AEXTENDED-SLOT)
+
+([startPositionInReferenceSequence] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY))
+
+([storedATXML] of %3AEXTENDED-SLOT)
+
+([structuralVariant] of %3AEXTENDED-SLOT)
+
+([Summation] of %3AEXTENDED-CLASS)
+
+([summation] of %3AEXTENDED-SLOT)
+
+([superTaxon] of %3AEXTENDED-SLOT)
+
+([surname] of %3AEXTENDED-SLOT)
+
+([synonym] of %3AEXTENDED-SLOT
+	(attributeCategory OPTIONAL))
+
+([targetVertex] of %3AEXTENDED-SLOT)
+
+([targetX] of %3AEXTENDED-SLOT)
+
+([targetY] of %3AEXTENDED-SLOT)
+
+([Taxon] of %3AEXTENDED-CLASS)
+
+([taxon] of %3AEXTENDED-SLOT)
+
+([templateEvent] of %3AEXTENDED-SLOT)
+
+([termProvider] of %3AEXTENDED-SLOT)
+
+([text] of %3AEXTENDED-SLOT)
+
+([title] of %3AEXTENDED-SLOT)
+
+([TranslationalModification] of %3AEXTENDED-CLASS)
+
+([uniformResourceLocator] of %3AEXTENDED-SLOT
+	(attributeCategory MANDATORY)
+	(identityDefinedBy ANY))
+
+([update_200405_intermediate_Instance_7] of %3APAL-CONSTRAINT)
+
+([URL] of %3AEXTENDED-CLASS)
+
+([url] of %3AEXTENDED-SLOT)
+
+([variantIdentifier] of %3AEXTENDED-SLOT)
+
+([Vertex] of %3AEXTENDED-CLASS)
+
+([vertex] of %3AEXTENDED-SLOT)
+
+([vertexCount] of %3AEXTENDED-SLOT)
+
+([VertexSearchableTerm] of %3AEXTENDED-CLASS)
+
+([volume] of %3AEXTENDED-SLOT)
+
+([width] of %3AEXTENDED-SLOT)
+
+([wrappedLabel] of %3AEXTENDED-SLOT)
+
+([x] of %3AEXTENDED-SLOT)
+
+([y] of %3AEXTENDED-SLOT)
+
+([year] of %3AEXTENDED-SLOT)
 

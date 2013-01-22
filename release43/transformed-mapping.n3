@@ -1,4 +1,3 @@
-## generated with  perl ../rewrite-reactome-default-d2rq.pl dist/reactome_data_model.pont reactome43-d2rq-generated-mapping.n3 > reactome43-transformed-mapping.n3 
 @prefix map: <http://purl.obolibrary.org/obo/reactome/release43sql/dbmap/> .
 @prefix vocab: <http://purl.obolibrary.org/obo/reactome/record/> .
 @prefix record: <http://purl.obolibrary.org/obo/reactome/record/> .

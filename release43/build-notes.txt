@@ -1,0 +1,58 @@
+There are properties in the schema that are not in the frames:
+
+(set-difference *properties-from-map* (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames-43*))))
+
+(
+|value|
+|totalProt|
+|thing|
+|property_value_type|
+|property_value|
+|property_name|
+|parameter|
+|ontology|
+|name|
+|maxHomologues|
+|inferredProt|
+|_timestamp|
+)
+
+
+There are properties in the frames that aren't in the schema
+
+(set-difference (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames-43*))) *properties-from-map*)
+
+(
+|wrappedLabel|
+|taxon|
+|slotDisplayName|
+|shortName|
+|reviewer|
+|residue|
+|removingActivity|
+|referenceGroupCount|
+|referenceGroup|
+|Reactome_109607_14914_Slot_1|
+|normalEntity|
+|name_|
+|minCount|
+|maxCount|
+|identityDefinedBy|
+|identify|
+|hasSpecialisedForm|
+|hasFunctionalVariants|
+|fingerPrintString|
+|eventLocationContext|
+|editor| DB_ID |dateSubmitted|
+|dateRevised|
+|dateAccepted|
+|databaseIdentifier|
+|databaseColumnSpecification|
+|creatingActivity|
+|classDisplayName|
+|changedInstance|
+|attributeCategory|
+|_Protege_id|
+|_doNotRelease|
+|_displayName|
+)

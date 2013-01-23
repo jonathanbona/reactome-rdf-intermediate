@@ -1,12 +1,14 @@
 (in-package :cl-user)
-(defparameter *reactome-frames-43* (make-hash-table))
+(defparameter *reactome-frames* (make-hash-table))
 
-(defvar *this-readtable* (copy-readtable))
-(setf (readtable-case *this-readtable*) :preserve)
-(setq *readtable* *this-readtable*)
+(eval-when (:compile-toplevel :execute :load-toplevel)
 
-(DEFMACRO |defclass-frames| (name &BODY entries)
-  `(SETF (GETHASH ',name *REACTOME-FRAMES-43*) ',entries))
+  (defvar *this-readtable* (copy-readtable))
+  (setf (readtable-case *this-readtable*) :preserve)
+  (setq *readtable* *this-readtable*)
+
+  (DEFMACRO |defclass-frames| (name &BODY entries)
+    `(SETF (GETHASH ',name *REACTOME-FRAMES*) ',entries)))
 
 ; Note this is also: http://www.reactome.org/download/current/reactome_data_model.pont
 

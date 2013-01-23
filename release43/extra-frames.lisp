@@ -9,17 +9,19 @@
 ;; analysis for our web site.
 
 
-(defvar *reactome-frames-43* (make-hash-table))
+(defvar *reactome-frames** (make-hash-table))
 
-(defvar *this-readtable* (copy-readtable))
-(setf (readtable-case *this-readtable*) :preserve)
-(setq *readtable* *this-readtable*)
+(eval-when (:compile-toplevel :execute :load-toplevel)
+
+  (defvar *this-readtable* (copy-readtable))
+  (setf (readtable-case *this-readtable*) :preserve)
+  (setq *readtable* *this-readtable*)
 
 (DEFMACRO |defclass-frames| (name &BODY entries)
   `(PROGN
-     (SETF (GETHASH ',name *REACTOME-FRAMES-43*) ',entries)
+     (SETF (GETHASH ',name *REACTOME-FRAMES*) ',entries)
      ;; note that below is in addtion to what is done in the main file, since property definitions are generated from the defs on :CLIPS_TOP_LEVEL_SLOT_CLASS
-     (SETF (GETHASH :CLIPS_TOP_LEVEL_SLOT_CLASS *REACTOME-FRAMES-43*) (APPEND (GETHASH :CLIPS_TOP_LEVEL_SLOT_CLASS *REACTOME-FRAMES-43*) (CDR ',entries)))))
+     (SETF (GETHASH :CLIPS_TOP_LEVEL_SLOT_CLASS *REACTOME-FRAMES*) (APPEND (GETHASH :CLIPS_TOP_LEVEL_SLOT_CLASS *REACTOME-FRAMES*) (CDR ',entries))))))
 
 
 ;; DROP TABLE IF EXISTS `DataModel`;

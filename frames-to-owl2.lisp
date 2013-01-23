@@ -1,11 +1,21 @@
 ;; The essential ideas are here: http://helix-web.stanford.edu/psb06/zhang_s.pdf
 
+(def-uri-alias "definition" !obi:IAO_0000115)
+(def-uri-alias "definition-source" !obi:IAO_0000119)
+(def-uri-alias "definition-editor" !obi:IAO_0000117)
+(def-uri-alias "preferred-term" !obi:IAO_0000111)
+(def-uri-alias "alternative-term" !obi:IAO_0000118)
+(def-uri-alias "example-of-usage" !obi:IAO_0000112)
+(def-uri-alias "curation-status" !obi:IAO_0000078)
+(def-uri-alias "editor-note" !obo:IAO_0000116)
+(def-uri-alias "curator-note" !obo:IAO_0000232)
+
 (defun reactome-term-uri (label)
   (make-uri (concatenate 'string "http://purl.obolibrary.org/obo/reactome/record/" (string label))))
 
 (defun generate-class-axioms (frames)
   (let ((all-classes frames)
-	(all-properties (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames-43*)))))
+	(all-properties (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames*)))))
     (collecting-axioms
      (maphash (lambda(class list)
 		(unless (or (keywordp class) (eq class 'user))
@@ -43,7 +53,8 @@
 	    (append
 	     (if cardinality
 		 (progn
-		   (as `(sub-class-of ,(reactome-term-uri class) (,(if object-property? 'object-min-cardinality 'data-min-cardinality) ,(first cardinality) ,(reactome-term-uri (second item)))))
+		   (unless (eql 0 (first cardinality))
+		     (as `(sub-class-of ,(reactome-term-uri class) (,(if object-property? 'object-min-cardinality 'data-min-cardinality) ,(first cardinality) ,(reactome-term-uri (second item))))))
 		   (unless (eq (second cardinality) '?variable)
 		     (as `(sub-class-of ,(reactome-term-uri class) (,(if object-property? 'object-max-cardinality 'data-max-cardinality) ,(second cardinality) ,(reactome-term-uri (second item)))))))
 		 (when object-property-range
@@ -58,7 +69,7 @@
 (defun generate-property-axioms (frames)
   (collecting-axioms
    (let ((all-classes frames)
-	 (all-properties (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames-43*)))))
+	 (all-properties (mapcar 'second (cdddr (gethash :clips_top_level_slot_class *reactome-frames*)))))
      (let ((top (gethash :clips_top_level_slot_class all-classes))
 	   (slot2class (generate-slot2class all-classes all-properties)))
        (loop for def in (remove '|role| (remove '|is-a| (cdr top) :key 'car) :key 'car) 
@@ -135,21 +146,33 @@
 	until (null queue)
 	))))
 
+
 (defun generate-reactome-records-ontology (frames)
   (with-ontology reactome-records (:collecting t
-					       :base "http://purl.obolibrary.org/obo/reactome/records/"
-					       :about "http://purl.obolibrary.org/obo/reactome/records.owl")
-      ((as (generate-property-axioms frames) 
+					       :base (uri-full (reactome-term-uri ""))
+					       :about (#"replaceFirst" (uri-full (reactome-term-uri ".owl")) "/.owl" "s.owl"))
+      ((asq (declaration (annotation-property !definition))
+	    (annotation-assertion !rdfs:label !definition  "definition")
+	    (declaration (annotation-property !definition-source))
+	    (annotation-assertion !rdfs:label !definition-source  "definition source")
+	    (declaration (annotation-property !editor-note))
+	    (declaration (annotation-property !dc:creator))
+	    (declaration (annotation-property !definition-editor))
+	    (declaration (annotation-property !dc:contributor))
+	    (annotation-assertion !rdfs:label !editor-note  "editor note")
+	    (annotation-assertion !rdfs:label !definition-editor  "definition editor"))
+       (as (generate-property-axioms frames) 
 	   (generate-class-axioms frames)
 	   (generate-disjoints frames)
 	   `(declaration (annotation-property ,(reactome-term-uri "uri")))
 	   `(annotation-assertion !rdfs:comment ,(reactome-term-uri "uri")
-					   "to connect GO Records to the actual GO term URI")
-	   ))
+				  "to connect GO Records to the actual GO term URI")
+	   )
+       (loop for a in (get '*reactome-frames* 'additional-assertions) do
+	    (as (with-open-file (f a)
+		  (loop for form = (read f nil :eof) until (eq form :eof) collect form)))))
     reactome-records))
 
-(defun generate-reactome-records-ontology-43 ()
-  (generate-reactome-records-ontology *reactome-frames-43*))
 
 #|
 http://helix-web.stanford.edu/psb06/zhang_s.pdf

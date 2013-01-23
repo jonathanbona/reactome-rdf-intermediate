@@ -22,6 +22,8 @@ Move in to the d2rq installation directory then execute the following to generat
 
 ./generate-mapping -u root -d com.mysql.jdbc.Driver -o reactome_43_auto.n3 jdbc:mysql://127.0.0.1/reactome_43
 
+
+
 Create a new version of reactomemapping43.pl by copying the previous version of the mapping perl program and replace the mapping with the current contents of the  __DATA__ section
 
 Edit the jdbc line:

@@ -115,8 +115,11 @@
 
 open(my $pont,"<",$ARGV[0]) or die("expected first argument to be path to .pons");
 open(my $mapping,"<",$ARGV[1]) or die("expected first argument to be path to d2rq mapping");
+my $extras;
+if ($ARGV[2]) { open( $extras,"<",$ARGV[2])  or die("expected third argument to be path to extra defclass definitions");}
 
 my @classes = map {/defclass\s+(\S+)/;$1} (grep /defclass\s+[^%]/, <$pont>);
+if ($ARGV[2]) { @classes = (@classes, map {/defclass\s+(\S+)/;$1} (grep /defclass\s+[^%]/, <$extras>));}
 
 my $map;
 my @lines;

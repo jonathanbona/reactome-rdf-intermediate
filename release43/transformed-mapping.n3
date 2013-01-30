@@ -17,7 +17,7 @@ map:database a d2rq:Database;
 .
 map:AbstractModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@AbstractModifiedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@AbstractModifiedResidue.DB_ID@@";
 	d2rq:class vocab:AbstractModifiedResidue;
 
 .
@@ -29,7 +29,7 @@ map:AbstractModifiedResidue_property_referenceSequence a d2rq:PropertyBridge;
 .
 map:Affiliation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Affiliation.DB_ID@@";
+	d2rq:uriPattern "i@@Affiliation.DB_ID@@";
 	d2rq:class vocab:Affiliation;
 
 .
@@ -49,7 +49,7 @@ map:Affiliation_property_name a d2rq:PropertyBridge;
 .
 map:BlackBoxEvent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@BlackBoxEvent.DB_ID@@";
+	d2rq:uriPattern "i@@BlackBoxEvent.DB_ID@@";
 	d2rq:class vocab:BlackBoxEvent;
 
 .
@@ -70,7 +70,7 @@ map:BlackBoxEvent_property_hasEvent a d2rq:PropertyBridge;
 .
 map:Book a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Book.DB_ID@@";
+	d2rq:uriPattern "i@@Book.DB_ID@@";
 	d2rq:class vocab:Book;
 
 .
@@ -116,7 +116,7 @@ map:Book_property_chapterAuthors a d2rq:PropertyBridge;
 .
 map:CandidateSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@CandidateSet.DB_ID@@";
+	d2rq:uriPattern "i@@CandidateSet.DB_ID@@";
 	d2rq:class vocab:CandidateSet;
 
 .
@@ -130,7 +130,7 @@ map:CandidateSet_property_hasCandidate a d2rq:PropertyBridge;
 .
 map:CatalystActivity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@CatalystActivity.DB_ID@@";
+	d2rq:uriPattern "i@@CatalystActivity.DB_ID@@";
 	d2rq:class vocab:CatalystActivity;
 
 .
@@ -164,19 +164,19 @@ map:CatalystActivity_property_literatureReference a d2rq:PropertyBridge;
 .
 map:CellType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@CellType.DB_ID@@";
+	d2rq:uriPattern "i@@CellType.DB_ID@@";
 	d2rq:class vocab:CellType;
 
 .
 map:Compartment a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Compartment.DB_ID@@";
+	d2rq:uriPattern "i@@Compartment.DB_ID@@";
 	d2rq:class vocab:Compartment;
 
 .
 map:Complex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Complex.DB_ID@@";
+	d2rq:uriPattern "i@@Complex.DB_ID@@";
 	d2rq:class vocab:Complex;
 
 .
@@ -206,7 +206,7 @@ map:Complex_property_inferredProt a d2rq:PropertyBridge;
 .
 map:ComplexDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ComplexDomain.DB_ID@@";
+	d2rq:uriPattern "i@@ComplexDomain.DB_ID@@";
 	d2rq:class vocab:ComplexDomain;
 
 .
@@ -252,7 +252,7 @@ map:Complex_property_species a d2rq:PropertyBridge;
 .
 map:ConcurrentEventSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ConcurrentEventSet.DB_ID@@";
+	d2rq:uriPattern "i@@ConcurrentEventSet.DB_ID@@";
 	d2rq:class vocab:ConcurrentEventSet;
 
 .
@@ -274,7 +274,7 @@ map:ConcurrentEventSet_property_focusEntity a d2rq:PropertyBridge;
 .
 map:ControlledVocabulary a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ControlledVocabulary.DB_ID@@";
+	d2rq:uriPattern "i@@ControlledVocabulary.DB_ID@@";
 	d2rq:class vocab:ControlledVocabulary;
 
 .
@@ -294,7 +294,7 @@ map:ControlledVocabulary_property_name a d2rq:PropertyBridge;
 .
 map:CrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@CrosslinkedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@CrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:CrosslinkedResidue;
 
 .
@@ -348,7 +348,7 @@ map:DataModel_property_property_value_type a d2rq:PropertyBridge;
 .
 map:DatabaseIdentifier a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@DatabaseIdentifier.DB_ID@@";
+	d2rq:uriPattern "i@@DatabaseIdentifier.DB_ID@@";
 	d2rq:class vocab:DatabaseIdentifier;
 
 .
@@ -374,7 +374,7 @@ map:DatabaseIdentifier_property_crossReference a d2rq:PropertyBridge;
 .
 map:DatabaseObject a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@DatabaseObject.DB_ID@@";
+	d2rq:uriPattern "i@@DatabaseObject.DB_ID@@";
 	d2rq:class vocab:DatabaseObject;
 
 .
@@ -419,31 +419,31 @@ map:DatabaseObject_property_modified a d2rq:PropertyBridge;
 .
 map:DefinedSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@DefinedSet.DB_ID@@";
+	d2rq:uriPattern "i@@DefinedSet.DB_ID@@";
 	d2rq:class vocab:DefinedSet;
 
 .
 map:DeletedControlledVocabulary a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@DeletedControlledVocabulary.DB_ID@@";
+	d2rq:uriPattern "i@@DeletedControlledVocabulary.DB_ID@@";
 	d2rq:class vocab:DeletedControlledVocabulary;
 
 .
 map:Depolymerisation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Depolymerisation.DB_ID@@";
+	d2rq:uriPattern "i@@Depolymerisation.DB_ID@@";
 	d2rq:class vocab:Depolymerisation;
 
 .
 map:Disease a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Disease.DB_ID@@";
+	d2rq:uriPattern "i@@Disease.DB_ID@@";
 	d2rq:class vocab:Disease;
 
 .
 map:Domain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Domain.DB_ID@@";
+	d2rq:uriPattern "i@@Domain.DB_ID@@";
 	d2rq:class vocab:Domain;
 
 .
@@ -457,7 +457,7 @@ map:Domain_property_name a d2rq:PropertyBridge;
 .
 map:Edge a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Edge.DB_ID@@";
+	d2rq:uriPattern "i@@Edge.DB_ID@@";
 	d2rq:class vocab:Edge;
 
 .
@@ -496,13 +496,13 @@ map:Edge_property_targetVertex a d2rq:PropertyBridge;
 .
 map:EntityCompartment a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EntityCompartment.DB_ID@@";
+	d2rq:uriPattern "i@@EntityCompartment.DB_ID@@";
 	d2rq:class vocab:EntityCompartment;
 
 .
 map:EntityFunctionalStatus a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EntityFunctionalStatus.DB_ID@@";
+	d2rq:uriPattern "i@@EntityFunctionalStatus.DB_ID@@";
 	d2rq:class vocab:EntityFunctionalStatus;
 
 .
@@ -522,7 +522,7 @@ map:EntityFunctionalStatus_property_functionalStatus a d2rq:PropertyBridge;
 .
 map:EntitySet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EntitySet.DB_ID@@";
+	d2rq:uriPattern "i@@EntitySet.DB_ID@@";
 	d2rq:class vocab:EntitySet;
 
 .
@@ -562,7 +562,7 @@ map:EntitySet_property_species a d2rq:PropertyBridge;
 .
 map:EntityVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EntityVertex.DB_ID@@";
+	d2rq:uriPattern "i@@EntityVertex.DB_ID@@";
 	d2rq:class vocab:EntityVertex;
 
 .
@@ -575,7 +575,7 @@ map:EntityVertex_property_containedInEntityVertex a d2rq:PropertyBridge;
 .
 map:EntityWithAccessionedSequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EntityWithAccessionedSequence.DB_ID@@";
+	d2rq:uriPattern "i@@EntityWithAccessionedSequence.DB_ID@@";
 	d2rq:class vocab:EntityWithAccessionedSequence;
 
 .
@@ -609,7 +609,7 @@ map:EntityWithAccessionedSequence_property_hasModifiedResidue a d2rq:PropertyBri
 .
 map:Event a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Event.DB_ID@@";
+	d2rq:uriPattern "i@@Event.DB_ID@@";
 	d2rq:class vocab:Event;
 
 .
@@ -772,7 +772,7 @@ map:Event_property_summation a d2rq:PropertyBridge;
 .
 map:EvidenceType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@EvidenceType.DB_ID@@";
+	d2rq:uriPattern "i@@EvidenceType.DB_ID@@";
 	d2rq:class vocab:EvidenceType;
 
 .
@@ -800,7 +800,7 @@ map:EvidenceType_property_name a d2rq:PropertyBridge;
 .
 map:ExternalOntology a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ExternalOntology.DB_ID@@";
+	d2rq:uriPattern "i@@ExternalOntology.DB_ID@@";
 	d2rq:class vocab:ExternalOntology;
 
 .
@@ -848,7 +848,7 @@ map:ExternalOntology_property_synonym a d2rq:PropertyBridge;
 .
 map:Figure a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Figure.DB_ID@@";
+	d2rq:uriPattern "i@@Figure.DB_ID@@";
 	d2rq:class vocab:Figure;
 
 .
@@ -860,13 +860,13 @@ map:Figure_property_url a d2rq:PropertyBridge;
 .
 map:FragmentDeletionModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FragmentDeletionModification.DB_ID@@";
+	d2rq:uriPattern "i@@FragmentDeletionModification.DB_ID@@";
 	d2rq:class vocab:FragmentDeletionModification;
 
 .
 map:FragmentInsertionModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FragmentInsertionModification.DB_ID@@";
+	d2rq:uriPattern "i@@FragmentInsertionModification.DB_ID@@";
 	d2rq:class vocab:FragmentInsertionModification;
 
 .
@@ -879,7 +879,7 @@ map:FragmentInsertionModification_property_coordinate a d2rq:PropertyBridge;
 .
 map:FragmentModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FragmentModification.DB_ID@@";
+	d2rq:uriPattern "i@@FragmentModification.DB_ID@@";
 	d2rq:class vocab:FragmentModification;
 
 .
@@ -899,7 +899,7 @@ map:FragmentModification_property_startPositionInReferenceSequence a d2rq:Proper
 .
 map:FrontPage a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FrontPage.DB_ID@@";
+	d2rq:uriPattern "i@@FrontPage.DB_ID@@";
 	d2rq:class vocab:FrontPage;
 
 .
@@ -913,7 +913,7 @@ map:FrontPage_property_frontPageItem a d2rq:PropertyBridge;
 .
 map:FunctionalStatus a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FunctionalStatus.DB_ID@@";
+	d2rq:uriPattern "i@@FunctionalStatus.DB_ID@@";
 	d2rq:class vocab:FunctionalStatus;
 
 .
@@ -932,7 +932,7 @@ map:FunctionalStatus_property_structuralVariant a d2rq:PropertyBridge;
 .
 map:FunctionalStatusType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@FunctionalStatusType.DB_ID@@";
+	d2rq:uriPattern "i@@FunctionalStatusType.DB_ID@@";
 	d2rq:class vocab:FunctionalStatusType;
 
 .
@@ -952,7 +952,7 @@ map:FunctionalStatusType_property_name a d2rq:PropertyBridge;
 .
 map:GO_BiologicalProcess a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GO_BiologicalProcess.DB_ID@@";
+	d2rq:uriPattern "i@@GO_BiologicalProcess.DB_ID@@";
 	d2rq:class vocab:GO_BiologicalProcess;
 
 .
@@ -1032,7 +1032,7 @@ map:GO_BiologicalProcess_property_regulate a d2rq:PropertyBridge;
 .
 map:GO_CellularComponent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GO_CellularComponent.DB_ID@@";
+	d2rq:uriPattern "i@@GO_CellularComponent.DB_ID@@";
 	d2rq:class vocab:GO_CellularComponent;
 
 .
@@ -1088,7 +1088,7 @@ map:GO_CellularComponent_property_name a d2rq:PropertyBridge;
 .
 map:GO_MolecularFunction a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GO_MolecularFunction.DB_ID@@";
+	d2rq:uriPattern "i@@GO_MolecularFunction.DB_ID@@";
 	d2rq:class vocab:GO_MolecularFunction;
 
 .
@@ -1176,7 +1176,7 @@ map:GO_MolecularFunction_property_regulate a d2rq:PropertyBridge;
 .
 map:GenericDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GenericDomain.DB_ID@@";
+	d2rq:uriPattern "i@@GenericDomain.DB_ID@@";
 	d2rq:class vocab:GenericDomain;
 
 .
@@ -1190,13 +1190,13 @@ map:GenericDomain_property_hasInstance a d2rq:PropertyBridge;
 .
 map:GeneticallyModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GeneticallyModifiedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@GeneticallyModifiedResidue.DB_ID@@";
 	d2rq:class vocab:GeneticallyModifiedResidue;
 
 .
 map:GenomeEncodedEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GenomeEncodedEntity.DB_ID@@";
+	d2rq:uriPattern "i@@GenomeEncodedEntity.DB_ID@@";
 	d2rq:class vocab:GenomeEncodedEntity;
 
 .
@@ -1208,7 +1208,7 @@ map:GenomeEncodedEntity_property_species a d2rq:PropertyBridge;
 .
 map:GroupModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@GroupModifiedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@GroupModifiedResidue.DB_ID@@";
 	d2rq:class vocab:GroupModifiedResidue;
 
 .
@@ -1221,7 +1221,7 @@ map:GroupModifiedResidue_property_modification a d2rq:PropertyBridge;
 .
 map:InstanceEdit a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@InstanceEdit.DB_ID@@";
+	d2rq:uriPattern "i@@InstanceEdit.DB_ID@@";
 	d2rq:class vocab:InstanceEdit;
 
 .
@@ -1254,7 +1254,7 @@ map:InstanceEdit_property_author a d2rq:PropertyBridge;
 .
 map:InterChainCrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@InterChainCrosslinkedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@InterChainCrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:InterChainCrosslinkedResidue;
 
 .
@@ -1276,13 +1276,13 @@ map:InterChainCrosslinkedResidue_property_secondReferenceSequence a d2rq:Propert
 .
 map:IntraChainCrosslinkedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@IntraChainCrosslinkedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@IntraChainCrosslinkedResidue.DB_ID@@";
 	d2rq:class vocab:IntraChainCrosslinkedResidue;
 
 .
 map:LiteratureReference a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@LiteratureReference.DB_ID@@";
+	d2rq:uriPattern "i@@LiteratureReference.DB_ID@@";
 	d2rq:class vocab:LiteratureReference;
 
 .
@@ -1321,13 +1321,13 @@ map:LiteratureReference_property_year a d2rq:PropertyBridge;
 .
 map:ModifiedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ModifiedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@ModifiedResidue.DB_ID@@";
 	d2rq:class vocab:ModifiedResidue;
 
 .
 map:NegativeRegulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@NegativeRegulation.DB_ID@@";
+	d2rq:uriPattern "i@@NegativeRegulation.DB_ID@@";
 	d2rq:class vocab:NegativeRegulation;
 
 .
@@ -1349,7 +1349,7 @@ map:Ontology_property_ontology a d2rq:PropertyBridge;
 .
 map:OpenSet a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@OpenSet.DB_ID@@";
+	d2rq:uriPattern "i@@OpenSet.DB_ID@@";
 	d2rq:class vocab:OpenSet;
 
 .
@@ -1361,13 +1361,13 @@ map:OpenSet_property_referenceEntity a d2rq:PropertyBridge;
 .
 map:OtherEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@OtherEntity.DB_ID@@";
+	d2rq:uriPattern "i@@OtherEntity.DB_ID@@";
 	d2rq:class vocab:OtherEntity;
 
 .
 map:Parameters a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Parameters.parameter|urlify@@";
+	d2rq:uriPattern "i@@Parameters.parameter|urlify@@";
 	d2rq:class vocab:Parameters;
 
 .
@@ -1386,7 +1386,7 @@ map:Parameters_property_value a d2rq:PropertyBridge;
 .
 map:Pathway a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Pathway.DB_ID@@";
+	d2rq:uriPattern "i@@Pathway.DB_ID@@";
 	d2rq:class vocab:Pathway;
 
 .
@@ -1404,7 +1404,7 @@ map:Pathway_property_isCanonical a d2rq:PropertyBridge;
 .
 map:PathwayCoordinates a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PathwayCoordinates.DB_ID@@";
+	d2rq:uriPattern "i@@PathwayCoordinates.DB_ID@@";
 	d2rq:class vocab:PathwayCoordinates;
 
 .
@@ -1445,7 +1445,7 @@ map:PathwayCoordinates_property_minY a d2rq:PropertyBridge;
 .
 map:PathwayDiagram a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PathwayDiagram.DB_ID@@";
+	d2rq:uriPattern "i@@PathwayDiagram.DB_ID@@";
 	d2rq:class vocab:PathwayDiagram;
 
 .
@@ -1472,7 +1472,7 @@ map:PathwayDiagram_property_width a d2rq:PropertyBridge;
 .
 map:PathwayDiagramItem a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PathwayDiagramItem.DB_ID@@";
+	d2rq:uriPattern "i@@PathwayDiagramItem.DB_ID@@";
 	d2rq:class vocab:PathwayDiagramItem;
 
 .
@@ -1486,7 +1486,7 @@ map:PathwayDiagram_property_representedPathway a d2rq:PropertyBridge;
 .
 map:PathwayVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PathwayVertex.DB_ID@@";
+	d2rq:uriPattern "i@@PathwayVertex.DB_ID@@";
 	d2rq:class vocab:PathwayVertex;
 
 .
@@ -1500,7 +1500,7 @@ map:Pathway_property_hasEvent a d2rq:PropertyBridge;
 .
 map:Person a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Person.DB_ID@@";
+	d2rq:uriPattern "i@@Person.DB_ID@@";
 	d2rq:class vocab:Person;
 
 .
@@ -1552,7 +1552,7 @@ map:Person_property_figure a d2rq:PropertyBridge;
 .
 map:PhysicalEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PhysicalEntity.DB_ID@@";
+	d2rq:uriPattern "i@@PhysicalEntity.DB_ID@@";
 	d2rq:class vocab:PhysicalEntity;
 
 .
@@ -1686,7 +1686,7 @@ map:PhysicalEntity_property_summation a d2rq:PropertyBridge;
 .
 map:Polymer a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Polymer.DB_ID@@";
+	d2rq:uriPattern "i@@Polymer.DB_ID@@";
 	d2rq:class vocab:Polymer;
 
 .
@@ -1740,25 +1740,25 @@ map:Polymer_property_species a d2rq:PropertyBridge;
 .
 map:Polymerisation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Polymerisation.DB_ID@@";
+	d2rq:uriPattern "i@@Polymerisation.DB_ID@@";
 	d2rq:class vocab:Polymerisation;
 
 .
 map:PositiveRegulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PositiveRegulation.DB_ID@@";
+	d2rq:uriPattern "i@@PositiveRegulation.DB_ID@@";
 	d2rq:class vocab:PositiveRegulation;
 
 .
 map:PsiMod a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@PsiMod.DB_ID@@";
+	d2rq:uriPattern "i@@PsiMod.DB_ID@@";
 	d2rq:class vocab:PsiMod;
 
 .
 map:Publication a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Publication.DB_ID@@";
+	d2rq:uriPattern "i@@Publication.DB_ID@@";
 	d2rq:class vocab:Publication;
 
 .
@@ -1778,7 +1778,7 @@ map:Publication_property_author a d2rq:PropertyBridge;
 .
 map:Reaction a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Reaction.DB_ID@@";
+	d2rq:uriPattern "i@@Reaction.DB_ID@@";
 	d2rq:class vocab:Reaction;
 
 .
@@ -1809,7 +1809,7 @@ map:Reaction_property_inferredProt a d2rq:PropertyBridge;
 .
 map:ReactionCoordinates a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReactionCoordinates.DB_ID@@";
+	d2rq:uriPattern "i@@ReactionCoordinates.DB_ID@@";
 	d2rq:class vocab:ReactionCoordinates;
 
 .
@@ -1857,7 +1857,7 @@ map:ReactionCoordinates_property_targetY a d2rq:PropertyBridge;
 .
 map:ReactionVertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReactionVertex.DB_ID@@";
+	d2rq:uriPattern "i@@ReactionVertex.DB_ID@@";
 	d2rq:class vocab:ReactionVertex;
 
 .
@@ -1869,7 +1869,7 @@ map:ReactionVertex_property_pointCoordinates a d2rq:PropertyBridge;
 .
 map:ReactionlikeEvent a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReactionlikeEvent.DB_ID@@";
+	d2rq:uriPattern "i@@ReactionlikeEvent.DB_ID@@";
 	d2rq:class vocab:ReactionlikeEvent;
 
 .
@@ -1937,13 +1937,13 @@ map:ReactionlikeEvent_property_requiredInputComponent a d2rq:PropertyBridge;
 .
 map:ReferenceDNASequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceDNASequence.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceDNASequence.DB_ID@@";
 	d2rq:class vocab:ReferenceDNASequence;
 
 .
 map:ReferenceDatabase a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceDatabase.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceDatabase.DB_ID@@";
 	d2rq:class vocab:ReferenceDatabase;
 
 .
@@ -1969,7 +1969,7 @@ map:ReferenceDatabase_property_name a d2rq:PropertyBridge;
 .
 map:ReferenceEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceEntity.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceEntity.DB_ID@@";
 	d2rq:class vocab:ReferenceEntity;
 
 .
@@ -2011,7 +2011,7 @@ map:ReferenceEntity_property_otherIdentifier a d2rq:PropertyBridge;
 .
 map:ReferenceGeneProduct a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceGeneProduct.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceGeneProduct.DB_ID@@";
 	d2rq:class vocab:ReferenceGeneProduct;
 
 .
@@ -2033,7 +2033,7 @@ map:ReferenceGeneProduct_property_referenceTranscript a d2rq:PropertyBridge;
 .
 map:ReferenceGroup a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceGroup.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceGroup.DB_ID@@";
 	d2rq:class vocab:ReferenceGroup;
 
 .
@@ -2051,7 +2051,7 @@ map:ReferenceGroup_property_formula a d2rq:PropertyBridge;
 .
 map:ReferenceIsoform a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceIsoform.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceIsoform.DB_ID@@";
 	d2rq:class vocab:ReferenceIsoform;
 
 .
@@ -2071,7 +2071,7 @@ map:ReferenceIsoform_property_isoformParent a d2rq:PropertyBridge;
 .
 map:ReferenceMolecule a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceMolecule.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceMolecule.DB_ID@@";
 	d2rq:class vocab:ReferenceMolecule;
 
 .
@@ -2089,7 +2089,7 @@ map:ReferenceMolecule_property_formula a d2rq:PropertyBridge;
 .
 map:ReferenceRNASequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceRNASequence.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceRNASequence.DB_ID@@";
 	d2rq:class vocab:ReferenceRNASequence;
 
 .
@@ -2103,7 +2103,7 @@ map:ReferenceRNASequence_property_referenceGene a d2rq:PropertyBridge;
 .
 map:ReferenceSequence a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReferenceSequence.DB_ID@@";
+	d2rq:uriPattern "i@@ReferenceSequence.DB_ID@@";
 	d2rq:class vocab:ReferenceSequence;
 
 .
@@ -2174,7 +2174,7 @@ map:ReferenceSequence_property_secondaryIdentifier a d2rq:PropertyBridge;
 .
 map:Regulation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Regulation.DB_ID@@";
+	d2rq:uriPattern "i@@Regulation.DB_ID@@";
 	d2rq:class vocab:Regulation;
 
 .
@@ -2213,7 +2213,7 @@ map:Regulation_property_releaseDate a d2rq:PropertyBridge;
 .
 map:RegulationType a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@RegulationType.DB_ID@@";
+	d2rq:uriPattern "i@@RegulationType.DB_ID@@";
 	d2rq:class vocab:RegulationType;
 
 .
@@ -2291,7 +2291,7 @@ map:Regulation_property_summation a d2rq:PropertyBridge;
 .
 map:ReplacedResidue a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@ReplacedResidue.DB_ID@@";
+	d2rq:uriPattern "i@@ReplacedResidue.DB_ID@@";
 	d2rq:class vocab:ReplacedResidue;
 
 .
@@ -2312,13 +2312,13 @@ map:ReplacedResidue_property_psiMod a d2rq:PropertyBridge;
 .
 map:Requirement a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Requirement.DB_ID@@";
+	d2rq:uriPattern "i@@Requirement.DB_ID@@";
 	d2rq:class vocab:Requirement;
 
 .
 map:SequenceDomain a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@SequenceDomain.DB_ID@@";
+	d2rq:uriPattern "i@@SequenceDomain.DB_ID@@";
 	d2rq:class vocab:SequenceDomain;
 
 .
@@ -2344,13 +2344,13 @@ map:SequenceDomain_property_startCoordinate a d2rq:PropertyBridge;
 .
 map:SequenceOntology a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@SequenceOntology.DB_ID@@";
+	d2rq:uriPattern "i@@SequenceOntology.DB_ID@@";
 	d2rq:class vocab:SequenceOntology;
 
 .
 map:SimpleEntity a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@SimpleEntity.DB_ID@@";
+	d2rq:uriPattern "i@@SimpleEntity.DB_ID@@";
 	d2rq:class vocab:SimpleEntity;
 
 .
@@ -2370,7 +2370,7 @@ map:SimpleEntity_property_referenceEntity a d2rq:PropertyBridge;
 .
 map:Species a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Species.DB_ID@@";
+	d2rq:uriPattern "i@@Species.DB_ID@@";
 	d2rq:class vocab:Species;
 
 .
@@ -2384,7 +2384,7 @@ map:Species_property_figure a d2rq:PropertyBridge;
 .
 map:StableIdentifier a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@StableIdentifier.DB_ID@@";
+	d2rq:uriPattern "i@@StableIdentifier.DB_ID@@";
 	d2rq:class vocab:StableIdentifier;
 
 .
@@ -2408,7 +2408,7 @@ map:StableIdentifier_property_referenceDatabase a d2rq:PropertyBridge;
 .
 map:Summation a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Summation.DB_ID@@";
+	d2rq:uriPattern "i@@Summation.DB_ID@@";
 	d2rq:class vocab:Summation;
 
 .
@@ -2428,7 +2428,7 @@ map:Summation_property_literatureReference a d2rq:PropertyBridge;
 .
 map:Taxon a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Taxon.DB_ID@@";
+	d2rq:uriPattern "i@@Taxon.DB_ID@@";
 	d2rq:class vocab:Taxon;
 
 .
@@ -2457,7 +2457,7 @@ map:Taxon_property_name a d2rq:PropertyBridge;
 .
 map:TranslationalModification a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@TranslationalModification.DB_ID@@";
+	d2rq:uriPattern "i@@TranslationalModification.DB_ID@@";
 	d2rq:class vocab:TranslationalModification;
 
 .
@@ -2476,7 +2476,7 @@ map:TranslationalModification_property_psiMod a d2rq:PropertyBridge;
 .
 map:URL a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@URL.DB_ID@@";
+	d2rq:uriPattern "i@@URL.DB_ID@@";
 	d2rq:class vocab:URL;
 
 .
@@ -2488,7 +2488,7 @@ map:URL_property_uniformResourceLocator a d2rq:PropertyBridge;
 .
 map:Vertex a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@Vertex.DB_ID@@";
+	d2rq:uriPattern "i@@Vertex.DB_ID@@";
 	d2rq:class vocab:Vertex;
 
 .
@@ -2535,7 +2535,7 @@ map:Vertex_property_y a d2rq:PropertyBridge;
 .
 map:VertexSearchableTerm a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@VertexSearchableTerm.DB_ID@@";
+	d2rq:uriPattern "i@@VertexSearchableTerm.DB_ID@@";
 	d2rq:class vocab:VertexSearchableTerm;
 
 .
@@ -2583,7 +2583,7 @@ map:VertexSearchableTerm_property_vertex a d2rq:PropertyBridge;
 .
 map:_AttributeValueBeforeChange a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@_AttributeValueBeforeChange.DB_ID@@";
+	d2rq:uriPattern "i@@_AttributeValueBeforeChange.DB_ID@@";
 	d2rq:class vocab:_AttributeValueBeforeChange;
 
 .
@@ -2603,7 +2603,7 @@ map:_AttributeValueBeforeChange_property_previousValue a d2rq:PropertyBridge;
 .
 map:_Deleted a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@_Deleted.DB_ID@@";
+	d2rq:uriPattern "i@@_Deleted.DB_ID@@";
 	d2rq:class vocab:_Deleted;
 
 .
@@ -2638,7 +2638,7 @@ map:_Deleted_property_replacementInstances a d2rq:PropertyBridge;
 .
 map:_InstanceBeforeChange a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@_InstanceBeforeChange.DB_ID@@";
+	d2rq:uriPattern "i@@_InstanceBeforeChange.DB_ID@@";
 	d2rq:class vocab:_InstanceBeforeChange;
 
 .
@@ -2665,7 +2665,7 @@ map:_InstanceBeforeChange_property_attributeValuesBeforeChange a d2rq:PropertyBr
 .
 map:_Release a d2rq:ClassMap;
 	d2rq:dataStorage map:database;
-	d2rq:uriPattern "@@_Release.DB_ID@@";
+	d2rq:uriPattern "i@@_Release.DB_ID@@";
 	d2rq:class vocab:_Release;
 
 .

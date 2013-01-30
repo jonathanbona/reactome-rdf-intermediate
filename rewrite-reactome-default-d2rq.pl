@@ -142,7 +142,7 @@ while (<$mapping>)
 	if ($desc =~ /map:(\S+)_class a d2rq:PropertyBridge;/s)	# remove the class name from the property name
 	  { $desc =~ s/(d2rq:property vocab:)$map\_(.*;)/$1.$2/es; }
 	if ($desc =~ /a d2rq:ClassMap/s) # Make all the instances us just the id in their URI
-	  { $desc =~ s/d2rq:uriPattern "[^\/]*\/(@@..*?@@)"/d2rq:uriPattern "$1"/s;}
+	  { $desc =~ s/d2rq:uriPattern "[^\/]*\/(@@..*?@@)"/d2rq:uriPattern "i$1"/s;}
 	if (($desc =~ /^map:(_{0,1}(GO_){0,1}[^_]*?)_(_*\S*?) a d2rq:PropertyBridge;/) && !($desc =~ /_2_/)) # a single-valued property
 	  { my $table=$1; my $field=$3; my $fieldClass = ucfirst($3);
 	    if ((grep(/^$fieldClass$/ , @classes) || $field=~/^(created|go|author|activity)/) && !($field=~/^ontology/))  # a single-valued object property

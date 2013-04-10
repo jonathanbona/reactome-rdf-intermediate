@@ -1400,6 +1400,14 @@
     <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity">
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#FunctionalProperty"/>
         <rdfs:label>regulated entity</rdfs:label>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CatalystActivity"/>
+                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
         <rdfs:domain>
             <owl:Class>
                 <owl:unionOf rdf:parseType="Collection">
@@ -1410,14 +1418,6 @@
                 </owl:unionOf>
             </owl:Class>
         </rdfs:domain>
-        <rdfs:range>
-            <owl:Class>
-                <owl:unionOf rdf:parseType="Collection">
-                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CatalystActivity"/>
-                    <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Event"/>
-                </owl:unionOf>
-            </owl:Class>
-        </rdfs:range>
     </owl:ObjectProperty>
     
 
@@ -3153,14 +3153,14 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ReactionlikeEvent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -3184,12 +3184,6 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntitySet"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasDomain"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Domain"/>
             </owl:Restriction>
@@ -3202,13 +3196,19 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasMember"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -3248,13 +3248,13 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -3269,14 +3269,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasDomain"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Domain"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3287,14 +3281,20 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasDomain"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Domain"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Entities consisting of multiple independant subunits.</rdfs:comment>
@@ -3352,8 +3352,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/referenceDatabase"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/identifier"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3370,8 +3370,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/identifier"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/referenceDatabase"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Placeholder for database identifiers. Name is something human readable, e.g. a GO term itself while identifier is the numeric id. (In the instances created I&#39;ve added the &quot;GO:&quot; prefix just for convenience really. When finally sticking the things in db these should be removed.</rdfs:comment>
@@ -3400,14 +3400,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3418,8 +3412,14 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -3443,8 +3443,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ReactionlikeEvent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/catalystActivity"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3455,8 +3455,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/catalystActivity"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -3503,13 +3503,13 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Compartment"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -3533,13 +3533,13 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasMember"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasMember"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -3575,14 +3575,26 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GenomeEncodedEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/endCoordinate"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/endCoordinate"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/startCoordinate"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3593,14 +3605,20 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/referenceEntity"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -3617,26 +3635,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/referenceEntity"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/startCoordinate"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/endCoordinate"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -3650,14 +3650,14 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Presents some sort of event, be it chemical reaction or some complex multistep process.nThe identity of direct instances of this class is defined by the values of name and txon attributes.nUse this class to create a placeholder for a Reaction or Pathway to be fully defined later.</rdfs:comment>
@@ -3704,13 +3704,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/url"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/url"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -3786,6 +3786,19 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/negativelyRegulate"/>
                 <owl:allValuesFrom>
                     <owl:Class>
@@ -3800,19 +3813,6 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/positivelyRegulate"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
                 <owl:allValuesFrom>
                     <owl:Class>
                         <owl:unionOf rdf:parseType="Collection">
@@ -3860,6 +3860,12 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasPart"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
@@ -3867,12 +3873,6 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_CellularComponent"/>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -3885,6 +3885,44 @@
     <owl:Class rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction">
         <rdfs:label>GO_Molecular function</rdfs:label>
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulate"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/name_"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/negativelyRegulate"/>
+                <owl:allValuesFrom>
+                    <owl:Class>
+                        <owl:unionOf rdf:parseType="Collection">
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
+                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
+                        </owl:unionOf>
+                    </owl:Class>
+                </owl:allValuesFrom>
+            </owl:Restriction>
+        </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/componentOf"/>
@@ -3914,44 +3952,6 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasPart"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/negativelyRegulate"/>
-                <owl:allValuesFrom>
-                    <owl:Class>
-                        <owl:unionOf rdf:parseType="Collection">
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_BiologicalProcess"/>
-                            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
-                        </owl:unionOf>
-                    </owl:Class>
-                </owl:allValuesFrom>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/name_"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/GO_MolecularFunction"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulate"/>
                 <owl:allValuesFrom>
                     <owl:Class>
                         <owl:unionOf rdf:parseType="Collection">
@@ -4008,6 +4008,12 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -4019,20 +4025,14 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4096,13 +4096,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/pubMedIdentifier"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/pubMedIdentifier"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4137,12 +4137,6 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
@@ -4151,6 +4145,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4171,14 +4171,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntitySet"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4189,20 +4183,26 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasMember"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasDomain"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Domain"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/hasMember"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4216,14 +4216,14 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4243,14 +4243,14 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <owl:disjointWith rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ReactionlikeEvent"/>
@@ -4318,12 +4318,6 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
@@ -4332,6 +4326,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Thing which participates in Events as input, output or catalyst. Can be recursive,i.e. contain other PhysicalEntities. This allows easier creation of cascading complexes.</rdfs:comment>
@@ -4346,8 +4346,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4358,14 +4358,14 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4379,8 +4379,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ReactionlikeEvent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/catalystActivity"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4391,8 +4391,8 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/catalystActivity"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4406,24 +4406,18 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Regulation"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
@@ -4431,6 +4425,12 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -4445,14 +4445,14 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ExternalOntology"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PsiMod"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/name_"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/name_"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/instanceOf"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PsiMod"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>to store PSI-MOD terms (ontology for protein modifications: http://www.ebi.ac.uk/ontology-lookup/browse.do?ontName=MOD)</rdfs:comment>
@@ -4476,12 +4476,6 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/ReactionlikeEvent"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/catalystActivity"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
@@ -4490,6 +4484,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
                 <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/Event"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Single-step Event.nUse sub-classes for creating appropriate instances.n(Identity of a Reaction is defined by its input, output and catalystActivity.)</rdfs:comment>
@@ -4617,13 +4617,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4637,6 +4637,12 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/DatabaseObject"/>
         <rdfs:subClassOf>
             <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
@@ -4645,12 +4651,6 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4700,25 +4700,19 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PositiveRegulation"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulator"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -4726,6 +4720,12 @@
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/regulatedEntity"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Extreme positive regulation, i.e. regulated entity absolutely requires regulator.</rdfs:comment>
@@ -4747,12 +4747,6 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/startCoordinate"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/startCoordinate"/>
                 <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
@@ -4765,13 +4759,19 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/endCoordinate"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/endCoordinate"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/startCoordinate"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4806,20 +4806,8 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4830,14 +4818,26 @@
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/inferredFrom"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PhysicalEntity"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
+                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/compartment"/>
-                <owl:allValuesFrom rdf:resource="http://purl.obolibrary.org/obo/reactome/record/EntityCompartment"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/authored"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:comment>Indivisible entities, i.e. entities which do not have sub-units. Opposite to Complex</rdfs:comment>
@@ -4871,13 +4871,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/text"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/text"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -4940,20 +4940,20 @@
         <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/reactome/record/PathwayDiagramItem"/>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/searchableTerm"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
-            </owl:Restriction>
-        </rdfs:subClassOf>
-        <rdfs:subClassOf>
-            <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/termProvider"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/vertex"/>
                 <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/searchableTerm"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
@@ -4965,13 +4965,13 @@
         <rdfs:subClassOf>
             <owl:Restriction>
                 <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
-                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
+                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
         <rdfs:subClassOf>
             <owl:Restriction>
-                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/vertex"/>
-                <owl:minCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:minCardinality>
+                <owl:onProperty rdf:resource="http://purl.obolibrary.org/obo/reactome/record/species"/>
+                <owl:maxCardinality rdf:datatype="http://www.w3.org/2001/XMLSchema#nonNegativeInteger">1</owl:maxCardinality>
             </owl:Restriction>
         </rdfs:subClassOf>
     </owl:Class>
@@ -5040,14 +5040,6 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceDNASequence"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceGeneProduct"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceRNASequence"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/EntityVertex"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/PathwayVertex"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReactionVertex"/>
@@ -5056,21 +5048,18 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Complex"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/EntitySet"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GenomeEncodedEntity"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/OtherEntity"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Polymer"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/SimpleEntity"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/BlackBoxEvent"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Depolymerisation"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Polymerisation"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Reaction"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CellType"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Disease"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/PsiMod"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/SequenceOntology"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CandidateSet"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/DefinedSet"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/OpenSet"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
@@ -5125,17 +5114,45 @@
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CandidateSet"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/DefinedSet"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/OpenSet"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CrosslinkedResidue"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GroupModifiedResidue"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ModifiedResidue"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
         <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
         <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CrosslinkedResidue"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GroupModifiedResidue"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ModifiedResidue"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceDNASequence"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceGeneProduct"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/ReferenceRNASequence"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/CellType"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Disease"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/PsiMod"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/SequenceOntology"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Complex"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/EntitySet"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/GenomeEncodedEntity"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/OtherEntity"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Polymer"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/SimpleEntity"/>
+        </owl:members>
+    </rdf:Description>
+    <rdf:Description>
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
+        <owl:members rdf:parseType="Collection">
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Book"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/LiteratureReference"/>
+            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/URL"/>
         </owl:members>
     </rdf:Description>
     <rdf:Description>
@@ -5145,23 +5162,6 @@
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/PathwayDiagram"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Vertex"/>
             <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/VertexSearchableTerm"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/BlackBoxEvent"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Depolymerisation"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Polymerisation"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Reaction"/>
-        </owl:members>
-    </rdf:Description>
-    <rdf:Description>
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#AllDisjointClasses"/>
-        <owl:members rdf:parseType="Collection">
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/Book"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/LiteratureReference"/>
-            <rdf:Description rdf:about="http://purl.obolibrary.org/obo/reactome/record/URL"/>
         </owl:members>
     </rdf:Description>
 </rdf:RDF>
